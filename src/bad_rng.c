@@ -91,19 +91,19 @@ int main (int argc, char **argv)
 
     //<x> = 1/2
     sigma_x=sqrt(1./3. - 1./4.)/sqrt(maxiter);
-    printf("#x test: %lf %lf\n", x-1./2., (x-1./2.)/sigma_x);
+    printf("#x test: %lf %lf %lf\n", x-1./2., sigma_x, (x-1./2.)/sigma_x);
 
     //<x^2> = 1/3
     sigma_x2=sqrt(1./5. - 1./9.)/sqrt(maxiter);
-    printf("#x2 test: %lf %lf\n", x2-1./3., (x2-1./3.)/sigma_x2);
+    printf("#x2 test: %lf %lf %lf\n", x2-1./3., sigma_x2, (x2-1./3.)/sigma_x2);
 
     //<xy> = 1/4
     sigma_xy=sqrt(1./9. - 1./16.)/sqrt(maxiter);
-    printf("#xy test: %lf %lf\n", xy-1./4., (xy-1./4.)/sigma_xy);
+    printf("#xy test: %lf %lf %lf\n", xy-1./4., sigma_xy, (xy-1./4.)/sigma_xy);
 
     //<xyz> = 1/8
     sigma_xyz=sqrt(1./27. - 1./64.)/sqrt(maxiter);
-    printf("#xyz test: %lf %lf\n", xyz - 1./8., (xyz-1./8.)/sigma_xyz);
+    printf("#xyz test: %lf %lf %lf\n", xyz - 1./8., sigma_xyz, (xyz-1./8.)/sigma_xyz);
 
 
     return EXIT_SUCCESS;

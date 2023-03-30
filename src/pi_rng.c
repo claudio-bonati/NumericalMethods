@@ -1,6 +1,7 @@
 #include<math.h>
 #include<stdio.h>
 #include<stdlib.h>
+#include<time.h>
 
 #include"../include/random.h"
 
@@ -9,13 +10,15 @@ int main (int argc, char **argv)
     {
     long int i, sample, counter;
     double x, y, ris, sigma;
+    const unsigned long int seed1=time(NULL);
+    const unsigned long int seed2=seed1+127;
 
     if(argc != 2)
       {
       fprintf(stdout, "How to use this program:\n");
       fprintf(stdout, "  %s sample\n", argv[0]);
       fprintf(stdout, "Output:\n");
-      fprintf(stdout, "  pi estimated my simple sampling MC using 'sample' trials\n");
+      fprintf(stdout, "  pi estimated my simple sampling MC using 'sample' draws\n");
 
       return EXIT_SUCCESS;
       }
@@ -31,7 +34,7 @@ int main (int argc, char **argv)
       }
 
     // initialize random number generator
-    myrand_init(2302342, 2312311);
+    myrand_init(seed1, seed2);
 
     counter=0;
     for(i=0; i<sample; i++)
@@ -46,15 +49,16 @@ int main (int argc, char **argv)
          }
        }
    
-    // the probability of falling inside the circle is pi/4 
     ris=(double)counter/(double) sample;
-    ris*=4;
 
-    // standard deviation of a sequence of 0, 1
-    sigma=sqrt((double)counter/(double) sample - ((double)counter/(double) sample)*((double)counter/(double) sample))/sqrt(sample);
+    // standard deviation of the mean a sequence of 0, 1
+    sigma=sqrt(ris - ris*ris)/sqrt(sample-1);
+
+    // the probability of falling inside the circle is pi/4 
+    ris*=4;
     sigma*=4;
 
-    printf("%lf %lf (accuracy: %lf)\n", ris, sigma, sigma/ris);
+    printf("%lf %lf (accuracy: %lf, (pi-esimate)/sigma=%lf)\n", ris, sigma, sigma/ris, (M_PI-ris)/sigma);
 
     return EXIT_SUCCESS;
     }
