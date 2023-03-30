@@ -1,0 +1,11 @@
+*************************************************************
+***** SOME C CODES TO BE USED AS EXAMPLES WHEN TEACHING *****
+***********  MCMC, PATH-INTEGRAL, QUANTUM FIELDS  ***********
+*************************************************************
+
+bad_rng : an example of a terrible random number generator 
+          (look at the result in 3d...)
+
+pi_no_rng: non stochastic determination of pi
+
+pi_rng: pi determined by simple sampling
