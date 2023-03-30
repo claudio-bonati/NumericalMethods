@@ -46,8 +46,7 @@ int main (int argc, char **argv)
       fprintf(stdout, "  seed = seed for the random number generator (0 = machine time)\n");
       fprintf(stdout, "  nop = number of points to be generated\n\n");
       fprintf(stdout, "Output:\n");
-      fprintf(stdout, "  three columns of nop random numbers\n");
-      fprintf(stdout, "  and some statistical test in the last few lines\n");
+      fprintf(stdout, "  three columns of nop random numbers and some statistical test in the last few lines\n");
 
       return EXIT_SUCCESS;
       }
