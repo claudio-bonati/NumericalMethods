@@ -1,6 +1,7 @@
 *************************************************************
 ***** SOME C CODES TO BE USED AS EXAMPLES WHEN TEACHING *****
-***********  MCMC, PATH-INTEGRAL, QUANTUM FIELDS  ***********
+***********    "METODI NUMERICI PER LA FISICA"    ***********
+***********  MCMC, PATH INTEGRAL and QFT MODULES  ***********
 *************************************************************
 
 bad_rng : an example of a terrible random number generator 
