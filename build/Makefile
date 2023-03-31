@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-O2
+CFLAGS=-O2 -Wall -Wextra -Werror -pedantic -Wconversion -std=c99
 
 all: bad_rng pi_no_rng pi_ss gauss_distr
 

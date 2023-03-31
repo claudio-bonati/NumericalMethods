@@ -5,12 +5,16 @@
 
 #include"../include/random.h"
 
+#ifndef M_PI
+#define M_PI 3.141592653589793238462643383279502884
+#endif
+
 // main
 int main (int argc, char **argv)
     {
     long int i, sample, counter;
     double x, y, ris, sigma;
-    const unsigned long int seed1=time(NULL);
+    const unsigned long int seed1=(unsigned long int) time(NULL);
     const unsigned long int seed2=seed1+127;
 
     if(argc != 2)
@@ -53,15 +57,15 @@ int main (int argc, char **argv)
     ris=(double)counter/(double) sample;
 
     // standard deviation of the mean a sequence of 0, 1
-    sigma=sqrt(ris - ris*ris)/sqrt(sample-1);
+    sigma=sqrt(ris - ris*ris)/sqrt((double)sample-1.0);
 
     // the probability of falling inside the circle is pi/4 
     ris*=4;
     sigma*=4;
 
-    printf("estimate-pi=%lf ; ", ris-M_PI);
-    printf("sigma=%lf ; ", sigma);
-    printf("(estimate-pi)/sigma=%lf\n", (ris-M_PI)/sigma);
+    printf("estimate-pi=%f ; ", ris-M_PI);
+    printf("sigma=%f ; ", sigma);
+    printf("(estimate-pi)/sigma=%f\n", (ris-M_PI)/sigma);
 
     return EXIT_SUCCESS;
     }

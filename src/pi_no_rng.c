@@ -48,7 +48,7 @@ int main (int argc, char **argv)
      ris_u*=delta;
      ris_l*=delta;
 
-    printf("%.12lf %.12lf (accuracy=%g)\n", 4*ris_u, 4*ris_l, (ris_u-ris_l)/(ris_u+ris_l)*2.0);
+    printf("%.12f %.12f (accuracy=%g)\n", 4*ris_u, 4*ris_l, (ris_u-ris_l)/(ris_u+ris_l)*2.0);
 
     return EXIT_SUCCESS;
     }
