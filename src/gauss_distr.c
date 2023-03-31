@@ -18,7 +18,8 @@ int main (int argc, char **argv)
     if(argc != 2)
       {
       fprintf(stdout, "How to use this program:\n");
-      fprintf(stdout, "  %s sample\n", argv[0]);
+      fprintf(stdout, "  %s sample\n\n", argv[0]);
+      fprintf(stdout, "  sample = number of draws\n\n");
       fprintf(stdout, "Output:\n");
       fprintf(stdout, "  test for <x> estimated by using 'sample' Box-Muller draws\n");
       fprintf(stdout, "  test for <x^2> estimated by using 'sample' Box-Muller draws\n");
@@ -62,13 +63,19 @@ int main (int argc, char **argv)
     x4/=(double) sample;
  
     sigma=1/sqrt(sample);
-    printf("test <x>: %lf %lf %lf\n", x, sigma, x/sigma);
+    printf("<x>-exact=%lf ; ", x);
+    printf("sigma_th=%lf ; ", sigma);
+    printf("(<x>-exact)/sigma_th=%lf\n", x/sigma);
 
     sigma=sqrt(3-1)/sqrt(sample);
-    printf("test <x^2>: %lf %lf %lf\n", x2-1, sigma, (x2-1)/sigma);
+    printf("<x^2>-exact=%lf ; ", x2-1);
+    printf("sigma_th=%lf ; ", sigma);
+    printf("(<x^2)-exact)/sigma_th=%lf\n", (x2-1)/sigma);
 
     sigma=sqrt(105-9)/sqrt(sample);
-    printf("test <x^4>: %lf %lf %lf\n", x4-3, sigma, (x4-3)/sigma);
+    printf("<x^4>-exact=%lf ; ", x4-3);
+    printf("sigma_th=%lf ; ", sigma);
+    printf("(<x^4>-exact)/sigma_th=%lf\n", (x4-3)/sigma);
 
     return EXIT_SUCCESS;
     }

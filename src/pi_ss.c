@@ -16,7 +16,8 @@ int main (int argc, char **argv)
     if(argc != 2)
       {
       fprintf(stdout, "How to use this program:\n");
-      fprintf(stdout, "  %s sample\n", argv[0]);
+      fprintf(stdout, "  %s sample\n\n", argv[0]);
+      fprintf(stdout, "  sample = number of draws to be used\n\n");
       fprintf(stdout, "Output:\n");
       fprintf(stdout, "  pi estimated my simple sampling MC using 'sample' draws\n");
 
@@ -58,7 +59,9 @@ int main (int argc, char **argv)
     ris*=4;
     sigma*=4;
 
-    printf("%lf %lf (accuracy: %lf, (pi-esimate)/sigma=%lf)\n", ris, sigma, sigma/ris, (M_PI-ris)/sigma);
+    printf("estimate-pi=%lf ; ", ris-M_PI);
+    printf("sigma=%lf ; ", sigma);
+    printf("(estimate-pi)/sigma=%lf\n", (ris-M_PI)/sigma);
 
     return EXIT_SUCCESS;
     }

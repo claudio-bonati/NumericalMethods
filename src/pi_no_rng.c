@@ -12,7 +12,8 @@ int main (int argc, char **argv)
     if(argc != 2)
       {
       fprintf(stdout, "How to use this program:\n");
-      fprintf(stdout, "  %s nop\n", argv[0]);
+      fprintf(stdout, "  %s nop\n\n", argv[0]);
+      fprintf(stdout, "  nop = number of points to be used in the discretization of the [0,1] interval\n\n");
       fprintf(stdout, "Output:\n");
       fprintf(stdout, "  pi estimated by the rectangle method using n points, upper and lower bound\n");
 

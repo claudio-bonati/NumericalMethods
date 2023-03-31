@@ -47,10 +47,10 @@ int main (int argc, char **argv)
     if(argc != 4)
       {
       fprintf(stdout, "How to use this program:\n");
-      fprintf(stdout, "  %s seed nop datafile\n\n", argv[0]);
+      fprintf(stdout, "  %s seed sample datafile\n\n", argv[0]);
       fprintf(stdout, "  seed = seed for the random number generator (0 = machine time)\n");
-      fprintf(stdout, "  nop = number of points to be generated\n");
-      fprintf(stdout, "  datafile = name of the file in which to print three columns of 'nop' random data\n\n");
+      fprintf(stdout, "  sample = number of points to be generated\n");
+      fprintf(stdout, "  datafile = name of the file in which to print three columns of 'sample' random data\n\n");
       fprintf(stdout, "Output:\n");
       fprintf(stdout, "  some statistical test\n");
 
@@ -124,24 +124,24 @@ int main (int argc, char **argv)
     //<x> = 1/2
     sigma_x=sqrt(1./3. - 1./4.)/sqrt(maxiter);
     printf("<x>-exact=%lf ; ", x-1./2);
-    printf("th_sigma=%lf ; ", sigma_x);
+    printf("th_sigma=%.6lf ; ", sigma_x);
     printf("(<x>-exact)/th_sigma=%lf\n", (x-1./2.)/sigma_x);
 
     //<x^2> = 1/3
     sigma_x2=sqrt(1./5. - 1./9.)/sqrt(maxiter);
-    printf("<x2>-exact=%lf ; ", x2-1./3.);
+    printf("<x2>-exact=%.6lf ; ", x2-1./3.);
     printf("th_sigma=%lf ; ", sigma_x2);
-    printf("(<x2>-exact)/th_sigma%lf\n", (x2-1./3.)/sigma_x2);
+    printf("(<x2>-exact)/th_sigma=%lf\n", (x2-1./3.)/sigma_x2);
 
     //<xy> = 1/4
     sigma_xy=sqrt(1./9. - 1./16.)/sqrt(maxiter);
-    printf("<xy>-exact= %lf ; ", xy-1./4.);
+    printf("<xy>-exact=%.6lf ; ", xy-1./4.);
     printf("th_sigma=%lf ; ", sigma_xy);
     printf("(<xy>-exact)/th_sigma=%lf\n", (xy-1./4.)/sigma_xy);
 
     //<xyz> = 1/8
     sigma_xyz=sqrt(1./27. - 1./64.)/sqrt(maxiter);
-    printf("<xyz>-exact=%lf ; ", xyz - 1./8.);
+    printf("<xyz>-exact=%.6lf ; ", xyz - 1./8.);
     printf("th_sigma=%lf ; ", sigma_xyz);
     printf("(<xyz>-exact)/th_sigma=%lf\n", (xyz-1./8.)/sigma_xyz);
 
