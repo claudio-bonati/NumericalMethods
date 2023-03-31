@@ -8,7 +8,7 @@ bad_rng : an example of a terrible random number generator
 
 pi_no_rng: non stochastic determination of pi
 
-pi_rng: pi determined by simple sampling
+pi_ss: pi determined by simple sampling
 
-gauss_rng: test of the Box-Muller polar method to generate
-           random number with Gaussian distribution
+gauss_distr: test of the Box-Muller polar method to generate
+             random number with Gaussian distribution
