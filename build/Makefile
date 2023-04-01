@@ -1,7 +1,7 @@
 CC=gcc
 CFLAGS=-O2 -Wall -Wextra -Werror -pedantic -Wconversion -std=c99
 
-all: bad_rng pi_no_rng pi_ss gauss_distr gauss_mcmc mcmc_analysis1 mcmc_analysis2 mcmc_analysis3
+all: bad_rng pi_no_rng pi_ss gauss_distr rew_problem gauss_mcmc mcmc_analysis1 mcmc_analysis2 mcmc_analysis3
 
 bad_rng: ../src/bad_rng.c
 	$(CC) $(CFLAGS) ../src/bad_rng.c -o $@ -lm
@@ -26,6 +26,10 @@ gauss_distr: ../src/gauss_distr.c random.o pcg32min.o boxmuller.o
 	$(CC) $(CFLAGS) -c ../src/gauss_distr.c  
 	$(CC) $(CFLAGS) boxmuller.o gauss_distr.o pcg32min.o random.o -o $@ -lm
 
+rew_problem: ../src/rew_problem.c random.o pcg32min.o boxmuller.o
+	$(CC) $(CFLAGS) -c ../src/rew_problem.c  
+	$(CC) $(CFLAGS) boxmuller.o rew_problem.o pcg32min.o random.o -o $@ -lm
+
 gauss_mcmc: ../src/gauss_mcmc.c random.o pcg32min.o
 	$(CC) $(CFLAGS) -c ../src/gauss_mcmc.c  
 	$(CC) $(CFLAGS) gauss_mcmc.o pcg32min.o random.o -o $@ -lm
@@ -42,7 +46,7 @@ mcmc_analysis3: ../src/mcmc_analysis3.c random.o pcg32min.o
 	$(CC) $(CFLAGS) mcmc_analysis3.o pcg32min.o random.o -o $@ -lm
 
 clean:
-	rm -f bad_rng pi_no_rng pi_ss gauss_distr gauss_mcmc mcmc_analysis1 mcmc_analysis2 mcmc_analysis3 *.o
+	rm -f bad_rng pi_no_rng pi_ss gauss_distr rew_problem gauss_mcmc mcmc_analysis1 mcmc_analysis2 mcmc_analysis3 *.o
 
 cleanobj:
 	rm -f *.o
