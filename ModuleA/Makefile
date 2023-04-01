@@ -9,7 +9,7 @@ cleanobj:
 
 dist: 
 	make clean
-	mkdir MNcodes
-	cp -r Makefile README build include lib src MNcodes
-	tar -czvf MNcodes.tar.gz MNcodes
-	rm -rf MNcodes
+	mkdir MNcodesA
+	cp -r Makefile README build include lib src MNcodesA
+	tar -czvf MNcodesA.tar.gz MNcodesA
+	rm -rf MNcodesA
