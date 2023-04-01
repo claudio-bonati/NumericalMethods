@@ -73,8 +73,8 @@ int main(int argc, char **argv)
       return EXIT_FAILURE;
       }
     
-    // intial value = 0
-    state=0;
+    // intial value = 1
+    state=1;
 
     // initialize the acceptance and the averages
     acc=0;
