@@ -34,7 +34,7 @@ int main (int argc, char **argv)
 
     if(sample<0)
       {
-      fprintf(stderr, "'sample' mast be positive\n");
+      fprintf(stderr, "'sample' must be positive\n");
       return EXIT_FAILURE;
       }
 

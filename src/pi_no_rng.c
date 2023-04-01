@@ -26,7 +26,7 @@ int main (int argc, char **argv)
 
     if(nop<0)
       {
-      fprintf(stderr, "'nop' mast be positive\n");
+      fprintf(stderr, "'nop' must be positive\n");
       return EXIT_FAILURE;
       }
 

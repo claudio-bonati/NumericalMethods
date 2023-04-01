@@ -4,6 +4,18 @@
 ***********  MCMC, PATH INTEGRAL and QFT MODULES  ***********
 *************************************************************
 
+To compile using gcc use 
+
+make
+
+while to use another compiler use
+
+make CC=your_compiler
+
+Executable are produced in the build directory
+
+*************************************************************
+
 bad_rng : an example of a terrible random number generator 
           (look at the result in 3d...)
 
