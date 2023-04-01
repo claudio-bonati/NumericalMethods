@@ -12,12 +12,12 @@
 int main(int argc, char **argv)
     {
     long int i, sample, acc;
-    const unsigned long int seed1=(unsigned long int) time(NULL);
-    const unsigned long int seed2=seed1+127;
     double step, state, trial, deltaenergy;
     double x, x2, x4;
     char datafile[STRING_LENGTH];
     FILE *fp;
+    const unsigned long int seed1=(unsigned long int) time(NULL);
+    const unsigned long int seed2=seed1+127;
 
     if(argc != 4)
       {

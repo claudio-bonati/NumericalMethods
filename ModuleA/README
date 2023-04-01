@@ -44,3 +44,7 @@ mcmc_analysis2: analysis of the secondary observable <x^4>/<x^2>^2
 
 mcmc_analysis3: analysis of the secondary observable <x^4>/<x^2>^2
                 with binning and jackknife
+
+saw_ss: simple sampling for self-avoiding random walk
+
+
