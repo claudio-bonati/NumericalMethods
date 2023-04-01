@@ -29,6 +29,8 @@ int main (int argc, char **argv)
       }
     else
       {
+      // read input
+
       sample=atol(argv[1]);
       }
 
@@ -41,6 +43,7 @@ int main (int argc, char **argv)
     // initialize random number generator
     myrand_init(seed1, seed2);
 
+    // count how many points fall inside the circle of radius 1
     counter=0;
     for(i=0; i<sample; i++)
        {

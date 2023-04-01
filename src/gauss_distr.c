@@ -28,6 +28,8 @@ int main (int argc, char **argv)
       }
     else
       {
+      // read input
+
       sample=atol(argv[1]);
       }
 
@@ -40,6 +42,7 @@ int main (int argc, char **argv)
     // initialize random number generator
     myrand_init(seed1, seed2);
 
+    // initialize average values
     x=0.0;
     x2=0.0;
     x4=0.0;
@@ -67,17 +70,17 @@ int main (int argc, char **argv)
  
     sigma=1.0/sqrt((double)sample);
     printf("<x>-exact=%f ; ", x);
-    printf("sigma_th=%f ; ", sigma);
+    printf("sigma_th=%f ; ", sigma); // theoretical std
     printf("(<x>-exact)/sigma_th=%f\n", x/sigma);
 
     sigma=sqrt(3.0-1.0)/sqrt((double) sample);
     printf("<x^2>-exact=%f ; ", x2-1);
-    printf("sigma_th=%f ; ", sigma);
+    printf("sigma_th=%f ; ", sigma); // theoretical std
     printf("(<x^2)-exact)/sigma_th=%f\n", (x2-1)/sigma);
 
     sigma=sqrt(105.0-9.0)/sqrt((double) sample);
     printf("<x^4>-exact=%f ; ", x4-3);
-    printf("sigma_th=%f ; ", sigma);
+    printf("sigma_th=%f ; ", sigma); // theoretical std
     printf("(<x^4>-exact)/sigma_th=%f\n", (x4-3)/sigma);
 
     return EXIT_SUCCESS;

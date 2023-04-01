@@ -80,7 +80,7 @@ int main (int argc, char **argv)
       seed=(unsigned long int) time(NULL);
       }
 
-    // initialize te random number generator 
+    // initialize the random number generator 
     rng_state=seed;
 
     // open data file
@@ -122,25 +122,25 @@ int main (int argc, char **argv)
     xyz/=(double) (maxiter);
 
     //<x> = 1/2
-    sigma_x=sqrt(1./3. - 1./4.)/sqrt(maxiter);
+    sigma_x=sqrt(1./3. - 1./4.)/sqrt(maxiter); // theoretica std
     printf("<x>-exact=%f ; ", x-1./2);
     printf("th_sigma=%.6f ; ", sigma_x);
     printf("(<x>-exact)/th_sigma=%f\n", (x-1./2.)/sigma_x);
 
     //<x^2> = 1/3
-    sigma_x2=sqrt(1./5. - 1./9.)/sqrt(maxiter);
+    sigma_x2=sqrt(1./5. - 1./9.)/sqrt(maxiter); // theoretical std
     printf("<x2>-exact=%.6f ; ", x2-1./3.);
     printf("th_sigma=%f ; ", sigma_x2);
     printf("(<x2>-exact)/th_sigma=%f\n", (x2-1./3.)/sigma_x2);
 
     //<xy> = 1/4
-    sigma_xy=sqrt(1./9. - 1./16.)/sqrt(maxiter);
+    sigma_xy=sqrt(1./9. - 1./16.)/sqrt(maxiter);  // theoretical std
     printf("<xy>-exact=%.6f ; ", xy-1./4.);
     printf("th_sigma=%f ; ", sigma_xy);
     printf("(<xy>-exact)/th_sigma=%f\n", (xy-1./4.)/sigma_xy);
 
     //<xyz> = 1/8
-    sigma_xyz=sqrt(1./27. - 1./64.)/sqrt(maxiter);
+    sigma_xyz=sqrt(1./27. - 1./64.)/sqrt(maxiter); // theoretical std
     printf("<xyz>-exact=%.6f ; ", xyz - 1./8.);
     printf("th_sigma=%f ; ", sigma_xyz);
     printf("(<xyz>-exact)/th_sigma=%f\n", (xyz-1./8.)/sigma_xyz);

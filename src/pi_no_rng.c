@@ -21,6 +21,8 @@ int main (int argc, char **argv)
       }
     else
       {
+      // read input
+      //
       nop=atoi(argv[1]);
       }
 
@@ -30,19 +32,21 @@ int main (int argc, char **argv)
       return EXIT_FAILURE;
       }
 
+    // initialize to zero the results
     ris_u=0.0;
     ris_l=0.0; 
 
+    // integration step
     delta=1./(double)nop;
 
-    // compute the integral of sqrt(1-x^2)
+    // compute the integral of sqrt(1-x^2) between 0 and 1
     for(i=0; i<nop; i++)
        {
        x=(double)i*delta;
-       ris_u+=sqrt(1-x*x);
+       ris_u+=sqrt(1-x*x);    // this gives an upper bound since sqrt(1-x^2) is decreasing
 
        x=(double)(i+1)*delta;
-       ris_l+=sqrt(1-x*x);
+       ris_l+=sqrt(1-x*x);    // this gives a lower bound since sqrt(1-x^2) is decreasing
        }
   
      ris_u*=delta;
