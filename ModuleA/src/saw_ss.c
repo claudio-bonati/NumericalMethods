@@ -18,7 +18,7 @@ void saw_generate(int **lattice,
   int x0, y0, x, y;
   int step;
 
-  // initialize the lattice with zero (unoccupied points)
+  // initialize the lattice with zeros (unoccupied points)
   for(i=0; i<2*length+2; i++)
      {
      for(j=0; j<2*length+2; j++)
@@ -162,10 +162,13 @@ int main(int argc, char **argv)
     myrand_init(seed1, seed2);
 
     // allocate the lattice 
-    // (this is not strictly needed, but makes the code faster
-    // at the expence of a larger used memory)
     //
     // lattice=0 free site, lattice=1 occupied site
+    //
+    // This lattice is not really needed but makes the code faster, since 
+    // it avoids the need of following the whole path after every move
+    // to check for self-intersection
+    //
     lattice=(int **)malloc((long unsigned int)(2*length+2)*sizeof(int*));
     if(lattice == NULL)
       {
