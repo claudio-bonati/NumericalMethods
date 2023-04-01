@@ -28,8 +28,11 @@ gauss_distr: test of the Box-Muller polar method to generate
 
 gauss_mcmc: gaussian number generator using Markov Chain MC
 
-mcmc_analysis1: analysis of primary observables <x> and i
+mcmc_analysis1: analysis of primary observables <x> and 
                 <x^2> with binning
 
-mcmc_analysis2: analysis of secondary observable <x^4>/<x^2>^2
+mcmc_analysis2: analysis of the secondary observable <x^4>/<x^2>^2
                 with binning and bootstrap
+
+mcmc_analysis3: analysis of the secondary observable <x^4>/<x^2>^2
+                with binning and jackknife
