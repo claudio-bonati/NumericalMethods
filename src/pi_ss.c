@@ -10,7 +10,7 @@
 #endif
 
 // main
-int main (int argc, char **argv)
+int main(int argc, char **argv)
     {
     long int i, sample, counter;
     double x, y, ris, sigma;
@@ -34,7 +34,7 @@ int main (int argc, char **argv)
       sample=atol(argv[1]);
       }
 
-    if(sample<0)
+    if(sample<=0)
       {
       fprintf(stderr, "'sample' must be positive\n");
       return EXIT_FAILURE;

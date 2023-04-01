@@ -3,7 +3,7 @@
 #include<stdlib.h>
 
 // main
-int main (int argc, char **argv)
+int main(int argc, char **argv)
     {
     int i, nop;
     double delta, x;
@@ -26,7 +26,7 @@ int main (int argc, char **argv)
       nop=atoi(argv[1]);
       }
 
-    if(nop<0)
+    if(nop<=0)
       {
       fprintf(stderr, "'nop' must be positive\n");
       return EXIT_FAILURE;

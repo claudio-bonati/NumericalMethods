@@ -34,7 +34,7 @@ double randu()
 #define STRING_LENGTH 50
 
 // main 
-int main (int argc, char **argv)
+int main(int argc, char **argv)
     {
     unsigned long int seed;
     int i, maxiter;
