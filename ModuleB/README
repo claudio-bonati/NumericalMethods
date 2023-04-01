@@ -1,0 +1,22 @@
+*************************************************************
+******     SOME C CODES TO BE USED AS EXAMPLES IN      ****** 
+******         "METODI NUMERICI PER LA FISICA"         ******
+*************************************************************
+
+To compile using gcc use 
+
+make
+
+while to use another compiler use
+
+make CC=your_compiler
+
+Executable are produced in the build directory
+
+*************************************************************
+
+Module B: applications in quantum mechanics
+
+*************************************************************
+
+

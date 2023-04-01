@@ -18,6 +18,8 @@ Executable are produced in the build directory
 Module A: introduction to Markov Chain Monte Carlo and 
           applications in statistical physics
 
+*************************************************************
+
 bad_rng : an example of a terrible random number generator 
           (look at the result in 3d...)
 
