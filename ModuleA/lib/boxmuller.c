@@ -3,7 +3,7 @@
 #include"../include/random.h"
 
 // normal gaussian random number generator 
-double gauss1()
+double gauss1(void)
    {
    double v1, v2, s, ris;
 
