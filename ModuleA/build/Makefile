@@ -1,7 +1,7 @@
 CC=gcc
 CFLAGS=-O2 -Wall -Wextra -Werror -pedantic -Wconversion -std=c99
 
-all: bad_rng pi_no_rng pi_ss gauss_distr rew_problem gauss_mcmc mcmc_analysis1 mcmc_analysis2 mcmc_analysis3 saw_ss
+all: bad_rng pi_no_rng pi_ss gauss_distr rew_problem gauss_mcmc mcmc_analysis1 mcmc_analysis2 mcmc_analysis3 saw_ss saw_mcmc
 
 bad_rng: ../src/bad_rng.c
 	$(CC) $(CFLAGS) ../src/bad_rng.c -o $@ -lm
@@ -53,8 +53,12 @@ saw_ss: ../src/saw_ss.c random.o pcg32min.o
 	$(CC) $(CFLAGS) -c ../src/saw_ss.c  
 	$(CC) $(CFLAGS) pcg32min.o random.o saw_ss.o -o $@ -lm
 
+saw_mcmc: ../src/saw_mcmc.c random.o pcg32min.o
+	$(CC) $(CFLAGS) -c ../src/saw_mcmc.c  
+	$(CC) $(CFLAGS) pcg32min.o random.o saw_mcmc.o -o $@ -lm
+
 clean:
-	rm -f bad_rng pi_no_rng pi_ss gauss_distr rew_problem gauss_mcmc mcmc_analysis1 mcmc_analysis2 mcmc_analysis3 saw_ss *.o
+	rm -f bad_rng pi_no_rng pi_ss gauss_distr rew_problem gauss_mcmc mcmc_analysis1 mcmc_analysis2 mcmc_analysis3 saw_ss saw_mcmc *.o
 
 cleanobj:
 	rm -f *.o

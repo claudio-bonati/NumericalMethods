@@ -131,8 +131,8 @@ int main(int argc, char **argv)
       {
       fprintf(stdout, "How to use this program:\n");
       fprintf(stdout, "  %s length sample\n\n", argv[0]);
-      fprintf(stdout, "  length = length of the self-avoiding random walk\n");
-      fprintf(stdout, "  sample = number of walk to be generate\n\n");
+      fprintf(stdout, "  length = length of the 2d self-avoiding random walk\n");
+      fprintf(stdout, "  sample = number of walk to be generated\n\n");
       fprintf(stdout, "Output:\n");
       fprintf(stdout, "  length, <r^2>, its error, and the success rate in the generation\n");
 
