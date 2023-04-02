@@ -34,16 +34,20 @@ gauss_mcmc: ../src/gauss_mcmc.c random.o pcg32min.o
 	$(CC) $(CFLAGS) -c ../src/gauss_mcmc.c  
 	$(CC) $(CFLAGS) gauss_mcmc.o pcg32min.o random.o -o $@ -lm
 
-mcmc_analysis1: ../src/mcmc_analysis1.c
-	$(CC) $(CFLAGS) ../src/mcmc_analysis1.c -o $@ -lm
+read_data.o: ../lib/read_data.c ../include/read_data.h
+	$(CC) $(CFLAGS) -c ../lib/read_data.c
 
-mcmc_analysis2: ../src/mcmc_analysis2.c random.o pcg32min.o
+mcmc_analysis1: ../src/mcmc_analysis1.c read_data.o
+	$(CC) $(CFLAGS) -c ../src/mcmc_analysis1.c 
+	$(CC) $(CFLAGS) mcmc_analysis1.o pcg32min.o random.o read_data.o -o $@ -lm
+
+mcmc_analysis2: ../src/mcmc_analysis2.c pcg32min.o random.o read_data.o
 	$(CC) $(CFLAGS) -c ../src/mcmc_analysis2.c  
-	$(CC) $(CFLAGS) mcmc_analysis2.o pcg32min.o random.o -o $@ -lm
+	$(CC) $(CFLAGS) mcmc_analysis2.o pcg32min.o random.o read_data.o -o $@ -lm
 
-mcmc_analysis3: ../src/mcmc_analysis3.c random.o pcg32min.o
+mcmc_analysis3: ../src/mcmc_analysis3.c pcg32min.o random.o read_data.o
 	$(CC) $(CFLAGS) -c ../src/mcmc_analysis3.c  
-	$(CC) $(CFLAGS) mcmc_analysis3.o pcg32min.o random.o -o $@ -lm
+	$(CC) $(CFLAGS) mcmc_analysis3.o pcg32min.o random.o read_data.o -o $@ -lm
 
 saw_ss: ../src/saw_ss.c random.o pcg32min.o
 	$(CC) $(CFLAGS) -c ../src/saw_ss.c  

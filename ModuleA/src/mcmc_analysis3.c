@@ -4,85 +4,9 @@
 #include<string.h>
 
 #include"../include/random.h"
+#include"../include/read_data.h"
 
 #define STRING_LENGTH 50
-
-// determine the length of the file
-long int linecounter(char filename[STRING_LENGTH])
-  {
-  int err;
-  long int sample;
-  double tmp;
-  FILE *fp;
-
-  // open data file
-  fp=fopen(filename, "r");
-  if(fp==NULL)
-    {
-    fprintf(stderr, "Error in opening the file %s (%s, %d)\n", filename, __FILE__, __LINE__);
-    exit(EXIT_FAILURE);
-    }
-  
-  // count lines of datafile
-  err=1;
-  sample=0;
-  while(err==1)
-    {
-    sample++;
-    err=fscanf(fp, "%lf", &tmp);
-    } 
-  sample--; // the last one has to be removed since err!=1
-
-  // close datafile
-  fclose(fp);
-
-  return sample;
-  }
-
-
-// initialize data
-void readdata(char filename[STRING_LENGTH], int therm, long int sampleeff, double *data)
-  {
-  int err;
-  long int i;
-  double tmp;
-  FILE *fp;
-
-  // open data file
-  fp=fopen(filename, "r");
-  if(fp==NULL)
-    {
-    fprintf(stderr, "Error in opening the file %s (%s, %d)\n", filename, __FILE__, __LINE__);
-    exit(EXIT_FAILURE);
-    }
-
-  // read thermalization
-  for(i=0; i<therm; i++)
-     {
-     err=fscanf(fp, "%lf", &tmp);
-     if(err!=1)
-       {
-       fprintf(stderr, "Error in scanf (%s, %d)\n", __FILE__, __LINE__);
-       exit(EXIT_FAILURE);
-       }
-     }
-
-  // intialize data array
-  for(i=0; i<sampleeff; i++)
-     {
-     err=fscanf(fp, "%lf", &tmp);
-     if(err!=1)
-       {
-       fprintf(stderr, "Error in scanf (%s, %d)\n", __FILE__, __LINE__);
-       exit(EXIT_FAILURE);
-       }
-
-     data[i]=tmp;
-     }
-
-  fclose(fp);
-  }
-
 
 // compute the jacknife samples of the Binder cumulant U
 void binderUjack(double *datajack, double const * const data, long int numberofbins, int binsize)
@@ -163,7 +87,7 @@ int main(int argc, char **argv)
       }
 
     // determine the length of the file
-    sample=linecounter(datafile);
+    sample=linecounter_sc(datafile);
 
     // initialize numberofbins and sampleeff
     numberofbins=(sample-therm)/binsize;
@@ -184,7 +108,7 @@ int main(int argc, char **argv)
       }
 
     // initialize data
-    readdata(datafile, therm, sampleeff, data);
+    readdata_sc(datafile, therm, sampleeff, data);
 
     // compute jackknife resamplings
     binderUjack(datajack, data, numberofbins, binsize);

@@ -4,41 +4,9 @@
 #include<string.h>
 
 #include"../include/random.h"
+#include"../include/read_data.h"
 
 #define STRING_LENGTH 50
-
-// determine the length of the file
-long int linecounter(char filename[STRING_LENGTH])
-  {
-  int err;
-  long int sample;
-  double tmp;
-  FILE *fp;
-
-  // open data file
-  fp=fopen(filename, "r");
-  if(fp==NULL)
-    {
-    fprintf(stderr, "Error in opening the file %s (%s, %d)\n", filename, __FILE__, __LINE__);
-    return EXIT_FAILURE;
-    }
-  
-  // count lines of datafile
-  err=1;
-  sample=0;
-  while(err==1)
-    {
-    sample++;
-    err=fscanf(fp, "%lf", &tmp);
-    } 
-  sample--; // the last one has to be removed since err!=1
-
-  // close datafile
-  fclose(fp);
-
-  return sample;
-  }
-
 
 // main
 int main(int argc, char **argv)
@@ -85,7 +53,7 @@ int main(int argc, char **argv)
       }
 
     // determine the length of the file
-    sample=linecounter(datafile);
+    sample=linecounter_sc(datafile);
 
     // initialize numberofbins
     numberofbins=(sample-therm)/binsize;
