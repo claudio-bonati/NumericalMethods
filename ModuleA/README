@@ -47,7 +47,7 @@ mcmc_analysis3: analysis of the secondary observable <x^4>/<x^2>^2
 
 saw_ss: simple sampling for 2d self-avoiding random walk
 
-saw_ss: MCMC for 2d self-avoiding random walk (pivot algorithm)
+saw_mcmc: MCMC for 2d self-avoiding random walk (pivot algorithm)
 
 ising: exact solution of the Ising mode by enumeration 
        (pay attention to overflow!)
