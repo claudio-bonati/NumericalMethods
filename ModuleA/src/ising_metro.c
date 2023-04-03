@@ -193,6 +193,8 @@ int main(int argc, char **argv)
     // close datafile
     fclose(fp);
 
+    printf("Acceptance rate %f\n", (double)acc / (double)sample / (double) volume);
+
     free(lattice);
     free(nnp);
     free(nnm);
