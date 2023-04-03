@@ -6,13 +6,19 @@
 
 #include"../include/random.h"
 
+int p(int x, int y, int size)
+     {
+     return x+y*size;
+     }
+
 // try to generate a sald-avoiding walk of given length
 // acc=1 if success, else =0
 // d2=|start-end|^2 
-void saw_generate(int **lattice, 
+void saw_generate(int *lattice, 
                  int length,
                  int *d2, 
-                 int *acc)
+                 int *acc,
+                 int size)
   {
   int i, j, tmp, fail;
   int x0, y0, x, y;
@@ -23,7 +29,7 @@ void saw_generate(int **lattice,
      {
      for(j=0; j<2*length+2; j++)
         {
-        lattice[i][j]=0;
+        lattice[p(i, j, size)]=0;
         }
      }
 
@@ -35,7 +41,7 @@ void saw_generate(int **lattice,
    x=x0;
    y=y0;
    step=0;
-   lattice[x][y]=1;
+   lattice[p(x, y, size)]=1;
 
    // first step
    tmp=(int) (4*myrand());
@@ -55,7 +61,7 @@ void saw_generate(int **lattice,
          }
    
    // set as occupied
-   lattice[x][y]=1;
+   lattice[p(x, y, size)]=1;
    step++;
 
    fail=0;
@@ -83,25 +89,25 @@ void saw_generate(int **lattice,
         switch(tmp)
               {
               case 0:
-                 if(lattice[x+1][y]==0){x++;}
+                 if(lattice[p(x+1, y, size)]==0){x++;}
                  else {fail=1;}
                  break;
                case 1:
-                 if(lattice[x-1][y]==0){x--;}
+                 if(lattice[p(x-1, y, size)]==0){x--;}
                  else {fail=1;}
                  break;
                case 2:
-                 if(lattice[x][y+1]==0){y++;}
+                 if(lattice[p(x, y+1, size)]==0){y++;}
                  else {fail=1;}
                  break;
                default:
-                 if(lattice[x][y-1]==0){y--;}
+                 if(lattice[p(x, y-1, size)]==0){y--;}
                  else {fail=1;}
                }
 
         // set as occupied
         step++;
-        lattice[x][y]=1;
+        lattice[p(x, y, size)]=1;
         }
 
    if(fail==0) // i.e. not aborted
@@ -120,8 +126,8 @@ void saw_generate(int **lattice,
 // main
 int main(int argc, char **argv)
     {
-    int **lattice;
-    int length, d2_loc, acc, i;
+    int *lattice;
+    int length, d2_loc, acc, size;
     double d2f, d4f;
     long int sample, counter, accepted;
     const unsigned long int seed1=(unsigned long int) time(NULL);
@@ -169,21 +175,14 @@ int main(int argc, char **argv)
     // it avoids the need of following the whole path after every move
     // to check for self-intersection
     //
-    lattice=(int **)malloc((long unsigned int)(2*length+2)*sizeof(int*));
+    // use the function "p" to access lattice sites   
+    size=2*length+2; // just to avoid spurious boundary effects 
+    lattice=(int *)malloc((long unsigned int)(size*size)*sizeof(int));
     if(lattice == NULL)
       {
       fprintf(stderr, "allocation problem at (%s, %d)\n", __FILE__, __LINE__);
       return EXIT_FAILURE;
       }
-    for(i=0; i<2*length+2; i++)
-       {
-       lattice[i]=(int *)malloc((long unsigned int)(2*length+2)*sizeof(int));
-       if(lattice[i] == NULL)
-         {
-         fprintf(stderr, "allocation problem at (%s, %d)\n", __FILE__, __LINE__);
-         return EXIT_FAILURE;
-         }
-       }
 
     // initialize averages and counters
     d2f=0.0;
@@ -194,7 +193,7 @@ int main(int argc, char **argv)
     // loop over the saw sample
     while(accepted<sample)
          {
-         saw_generate(lattice, length, &d2_loc, &acc);
+         saw_generate(lattice, length, &d2_loc, &acc, size);
    
          accepted+=acc;
          counter++;
@@ -210,10 +209,6 @@ int main(int argc, char **argv)
     d4f/=(double) sample;
 
     // free the lattice
-    for(i=0; i<2*length+2; i++)
-       {
-       free(lattice[i]);
-       }
     free(lattice);
 
     //print results

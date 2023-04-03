@@ -124,8 +124,8 @@ long int linecounter_mc(char const * const filename, int col)
 
 
 // initialize data from file with 'col' columns
-// **data has indices ordered as data[raw][col]
-void readdata_mc(char const * const filename, int therm, long int sampleeff, double **data, int col)
+// *data is structured as data[i*col+j]= j-th column of the i-th raw 
+void readdata_mc(char const * const filename, int therm, long int sampleeff, double *data, int col)
   {
   int err, j;
   long int i;
@@ -166,7 +166,7 @@ void readdata_mc(char const * const filename, int therm, long int sampleeff, dou
           exit(EXIT_FAILURE);
           }
 
-        data[i][j]=tmp;
+        data[i*col+j]=tmp;
         }
      }
 

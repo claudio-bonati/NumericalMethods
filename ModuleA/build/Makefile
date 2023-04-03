@@ -57,6 +57,9 @@ saw_mcmc: ../src/saw_mcmc.c random.o pcg32min.o
 	$(CC) $(CFLAGS) -c ../src/saw_mcmc.c  
 	$(CC) $(CFLAGS) pcg32min.o random.o saw_mcmc.o -o $@ -lm
 
+geometry.o: ../lib/geometry.c ../include/geometry.h 
+	$(CC) $(CFLAGS) -c ../lib/geometry.c  
+
 clean:
 	rm -f bad_rng pi_no_rng pi_ss gauss_distr rew_problem gauss_mcmc mcmc_analysis1 mcmc_analysis2 mcmc_analysis3 saw_ss saw_mcmc *.o
 
