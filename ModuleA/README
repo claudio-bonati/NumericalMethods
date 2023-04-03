@@ -52,4 +52,4 @@ saw_ss: MCMC for 2d self-avoiding random walk (pivot algorithm)
 ising: exact solution of the Ising mode by enumeration 
        (pay attention to overflow!)
 
-ising_metro: Ising sampled by Metropolis algorithm
+ising_metro: Ising model sampled by the Metropolis algorithm
