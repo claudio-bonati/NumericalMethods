@@ -10,7 +10,7 @@
 
 // a trial is generate by selecting a pivot point
 // and rotating/reflecting the path starting from the pivot point
-void generate_trial(int **path_trial, int * const * const path, int L)
+void generate_trial(int **path_trial,  int * const * const path, int L)
   {
   int i, tmp;
   const int pivot=(int)(L*myrand());
