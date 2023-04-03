@@ -54,8 +54,8 @@ void lex_to_cart(int *cartcoord, long int lex, int L, int dim)
 
 
 // initialize geometry
-// nnp[volume*r+i]= next neighbor in positive "i" direction of site r 
-// nnm[volume*r+i]= next neighbor in negative "i" direction of site r 
+// nnp[volume*i+r]= next neighbor in positive "i" direction of site r 
+// nnm[volume*i+r]= next neighbor in negative "i" direction of site r 
 void init_neighbors(long int *nnp, long int *nnm, int L, int dim)
   {
   int i, value, valuep, valuem;
@@ -93,7 +93,7 @@ void init_neighbors(long int *nnp, long int *nnm, int L, int dim)
           }
         cartcoord[i]=valuep;
         cart_to_lex(&rp, cartcoord, L, dim);
-        nnp[r*volume+i]=rp;
+        nnp[i*volume+r]=rp;
 
         valuem=value-1;
         if(valuem<0)
@@ -102,7 +102,7 @@ void init_neighbors(long int *nnp, long int *nnm, int L, int dim)
           }
         cartcoord[i]=valuem;
         cart_to_lex(&rm, cartcoord, L, dim);
-        nnm[r*volume+i]=rm;
+        nnm[i*volume+r]=rm;
 
         cartcoord[i]=value;
         }
@@ -119,8 +119,8 @@ void init_neighbors(long int *nnp, long int *nnm, int L, int dim)
 
 void test_geometry(long int const * const nnp, long int const * const nnm, int L, int dim)
   {
-  int i, dir, *cartcoord;
-  long r, volume, r_test;
+  int i, dir, dir1, *cartcoord;
+  long r, volume, r_test, r_test1, r_test2;
 
   // allocate caresian coordinate vector
   cartcoord=(int *)malloc((unsigned long int)dim*sizeof(int));
@@ -155,14 +155,37 @@ void test_geometry(long int const * const nnp, long int const * const nnm, int L
      {
      for(dir=0; dir<dim; dir++)
         {
-        r_test=nnp[r*volume+dir];
-        r_test=nnm[r_test*volume+dir];
+        r_test=nnp[dir*volume+r];
+        r_test1=nnm[dir*volume+r_test];
 
-        if(r != r_test)
+        if(r != r_test1)
           {
           fprintf(stderr, "Problems while testing geometry! (%s, %d)\n", __FILE__, __LINE__);
           exit(EXIT_FAILURE);
           }
+        }
+     }
+
+  // test of nnp <-> nnm
+  for(r=0; r < volume; r++)
+     {
+     for(dir=0; dir<dim; dir++)
+        {
+        r_test1=nnp[dir*volume + r];
+
+        for(dir1=0; dir1<dim; dir1++)
+           {
+           r_test2=nnp[dir1*volume + r_test1];
+
+           r_test=nnm[dir*volume + r_test2];
+           r_test2=nnm[dir1*volume + r_test];
+
+           if(r != r_test2)
+             {
+             fprintf(stderr, "Problems while testing geometry! (%s, %d)\n", __FILE__, __LINE__);
+             exit(EXIT_FAILURE);
+             }
+           }
         }
      }
 
