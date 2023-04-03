@@ -7,8 +7,8 @@
 #include"../include/geometry.h"
 #include"../include/random.h"
 
-#define DIM 2
-#define NSTATES 8
+#define DIM 2     // dimensionality
+#define NSTATES 8 // number of states
 #define STRING_LENGTH 50
 
 // magnetization per site (check state 0, since b.c. do not favor any state) 

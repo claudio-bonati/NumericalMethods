@@ -7,7 +7,7 @@
 #include"../include/geometry.h"
 #include"../include/random.h"
 
-#define DIM 2
+#define DIM 2 // dimensionality
 #define STRING_LENGTH 50
 
 // magnetization per site

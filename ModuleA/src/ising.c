@@ -6,7 +6,7 @@
 
 #include"../include/geometry.h"
 
-#define DIM 2
+#define DIM 2  // dimensionality
 
 // magnetization per site
 double magn(int *lattice, long int volume)

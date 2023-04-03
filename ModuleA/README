@@ -53,3 +53,6 @@ ising: exact solution of the Ising mode by enumeration
        (pay attention to overflow!)
 
 ising_metro: Ising model sampled by the Metropolis algorithm
+
+potts_metro: Potts model sampled by the Metropolis algorithm
+             
