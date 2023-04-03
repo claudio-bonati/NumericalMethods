@@ -1,7 +1,7 @@
 CC=gcc
 CFLAGS=-O2 -Wall -Wextra -Werror -pedantic -Wconversion -std=c99  
 
-all: bad_rng pi_no_rng pi_ss gauss_distr rew_problem gauss_mcmc mcmc_analysis1 mcmc_analysis2 mcmc_analysis3 saw_ss saw_mcmc ising
+all: bad_rng pi_no_rng pi_ss gauss_distr rew_problem gauss_mcmc mcmc_analysis1 mcmc_analysis2 mcmc_analysis3 saw_ss saw_mcmc ising ising_metro ising_analysis
 
 bad_rng: ../src/bad_rng.c
 	$(CC) $(CFLAGS) ../src/bad_rng.c -o $@ -lm
@@ -45,9 +45,9 @@ mcmc_analysis2: ../src/mcmc_analysis2.c pcg32min.o random.o read_data.o
 	$(CC) $(CFLAGS) -c ../src/mcmc_analysis2.c  
 	$(CC) $(CFLAGS) mcmc_analysis2.o pcg32min.o random.o read_data.o -o $@ -lm
 
-mcmc_analysis3: ../src/mcmc_analysis3.c pcg32min.o random.o read_data.o
+mcmc_analysis3: ../src/mcmc_analysis3.c read_data.o
 	$(CC) $(CFLAGS) -c ../src/mcmc_analysis3.c  
-	$(CC) $(CFLAGS) mcmc_analysis3.o pcg32min.o random.o read_data.o -o $@ -lm
+	$(CC) $(CFLAGS) mcmc_analysis3.o read_data.o -o $@ -lm
 
 saw_ss: ../src/saw_ss.c random.o pcg32min.o
 	$(CC) $(CFLAGS) -c ../src/saw_ss.c  
@@ -64,8 +64,16 @@ ising: ../src/ising.c geometry.o
 	$(CC) $(CFLAGS) -c ../src/ising.c  
 	$(CC) $(CFLAGS) geometry.o ising.o -o $@ -lm
 
+ising_metro: ../src/ising_metro.c geometry.o random.o pcg32min.o
+	$(CC) $(CFLAGS) -c ../src/ising_metro.c  
+	$(CC) $(CFLAGS) geometry.o ising_metro.o random.o pcg32min.o -o $@ -lm
+
+ising_analysis: ../src/ising_analysis.c read_data.o
+	$(CC) $(CFLAGS) -c ../src/ising_analysis.c  
+	$(CC) $(CFLAGS) ising_analysis.o read_data.o -o $@ -lm
+
 clean:
-	rm -f bad_rng pi_no_rng pi_ss gauss_distr rew_problem gauss_mcmc mcmc_analysis1 mcmc_analysis2 mcmc_analysis3 saw_ss saw_mcmc ising *.o
+	rm -f bad_rng pi_no_rng pi_ss gauss_distr rew_problem gauss_mcmc mcmc_analysis1 mcmc_analysis2 mcmc_analysis3 saw_ss saw_mcmc ising ising_metro ising_analysis *.o
 
 cleanobj:
 	rm -f *.o
