@@ -80,6 +80,10 @@ ising_wolff: ../src/ising_wolff.c geometry.o random.o pcg32min.o
 	$(CC) $(CFLAGS) -c ../src/ising_wolff.c  
 	$(CC) $(CFLAGS) geometry.o ising_wolff.o random.o pcg32min.o -o $@ -lm
 
+nvec.o: ../lib/nvec.c ../include/nvec.h 
+	$(CC) $(CFLAGS) -c ../lib/nvec.c  
+
+
 clean:
 	rm -f bad_rng pi_no_rng pi_ss gauss_distr rew_problem gauss_mcmc mcmc_analysis1 mcmc_analysis2 mcmc_analysis3 saw_ss saw_mcmc ising ising_metro ising_analysis potts_metro ising_wolff *.o
 
