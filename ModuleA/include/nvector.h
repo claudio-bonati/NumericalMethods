@@ -1,6 +1,6 @@
 #ifndef NVECTOR_H
 
-#define NCOMP 3
+#define NCOMP 2
 
 typedef struct NVec {
      double comp[NCOMP];
@@ -21,8 +21,11 @@ void equal(NVec *a, NVec const * const b);
 //times equal
 void timesequal(NVec *a, double d);
 
-//sumequal
-void sumequal(NVec *a, NVec const * const b);
+//plusequal
+void plusequal(NVec *a, NVec const * const b);
+
+//minusequal
+void minusequal(NVec *a, NVec const * const b);
 
 //sum
 void sum(NVec *a, NVec const * const b, NVec const * const c);
@@ -36,5 +39,7 @@ void rotate2(NVec *a, int i, int j, double phi);
 //normalize
 void normalize(NVec *a);
 
+// norm
+double norm(NVec *a);
 
 #endif

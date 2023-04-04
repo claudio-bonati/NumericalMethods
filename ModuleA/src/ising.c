@@ -59,7 +59,8 @@ int main(int argc, char **argv)
       fprintf(stdout, "Compiled for:\n");
       fprintf(stdout, "  dimensionality = %d\n\n", DIM);
       fprintf(stdout, "Output:\n");
-      fprintf(stdout, "  beta, <E>, <E^2>-<E>^2, <M>, <|M|>, <M^2>-<|M|>^2, <M^4>/<M^2>^2, Z (E=energy per site, M=magnetization per site)\n");
+      fprintf(stdout, "  beta, <E>, <E^2>-<E>^2, <M>, <|M|>, <M^2>-<|M|>^2,");
+      fprintf(stdout, " <M^2>, <M^4>/<M^2>^2, Z (E=energy per site, M=magnetization per site)\n");
 
       return EXIT_SUCCESS;
       }
@@ -160,7 +161,7 @@ int main(int argc, char **argv)
     M2/=Z;
     M4/=Z;
 
-    printf("%f %f %f %f %f %f %f %f\n", beta, E, E2-E*E, M, Mabs, M2-Mabs*Mabs, M4/(M2*M2), Z);
+    printf("%f %f %f %f %f %f %f %f %f\n", beta, E, E2-E*E, M, Mabs, M2-Mabs*Mabs, M2, M4/(M2*M2), Z);
 
     free(lattice);
     free(nnp);

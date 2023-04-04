@@ -7,8 +7,7 @@
 
 #define STRING_LENGTH 50
 
-
-// compute the jacknife samples of <E>, <E^2>-<E>^2, <M>, <|M|>, <M^2>-<|M|^2>, <M^4>/<M^2>^2
+// compute the jacknife samples of <E>, <E^2>-<E>^2, <M>, <|M|>, <M^2>-<|M|^2>, <M2>, <M^4>/<M^2>^2
 void computejack(double *datajack, double const * const data, long int numberofbins, int binsize)
   {
   long int i, r;
@@ -62,12 +61,13 @@ void computejack(double *datajack, double const * const data, long int numberofb
      M2/=(double)((numberofbins-1)*binsize);
      M4/=(double)((numberofbins-1)*binsize);
   
-     datajack[6*i+0]=E;
-     datajack[6*i+1]=E2-E*E;
-     datajack[6*i+2]=M;
-     datajack[6*i+3]=Mabs;
-     datajack[6*i+4]=M2-Mabs*Mabs;
-     datajack[6*i+5]=M4/(M2*M2);
+     datajack[7*i+0]=E;
+     datajack[7*i+1]=E2-E*E;
+     datajack[7*i+2]=M;
+     datajack[7*i+3]=Mabs;
+     datajack[7*i+4]=M2-Mabs*Mabs;
+     datajack[7*i+5]=M2;
+     datajack[7*i+6]=M4/(M2*M2);
      }
   }
 
@@ -77,7 +77,7 @@ int main(int argc, char **argv)
     {
     int therm, binsize, j;
     long int sample, numberofbins, sampleeff, i;
-    double *data, *datajack, ris[6], err[6];   // 6 becuse there are 6 observables
+    double *data, *datajack, ris[7], err[7];   // 7 becuse there are 7 observables
     char datafile[STRING_LENGTH];
 
     if(argc != 4)
@@ -88,7 +88,8 @@ int main(int argc, char **argv)
       fprintf(stdout, "  binsize = size of the bin to be used in binning/blocking\n");
       fprintf(stdout, "  datafile = name of the data file to be analyzed (2 columns: energy and magnetization per site)\n\n");
       fprintf(stdout, "Output:\n");
-      fprintf(stdout, "  <E>, err, <E^2>-<E>^2, err, <M>, err, <|M|>, err, <M^2>-<|M|>^2, err, <M^4>/<M^2>^2, err\n");
+      fprintf(stdout, "  <E>, err, <E^2>-<E>^2, err, <M>, err, <|M|>, err,");
+      fprintf(stdout, " <M^2>-<|M|>^2, err, <M^2>, err, <M^4>/<M^2>^2, err\n");
       fprintf(stdout, "  computed using binning and jackknife\n");
 
       return EXIT_SUCCESS;
@@ -132,7 +133,7 @@ int main(int argc, char **argv)
       }
 
     // allocate jackknife samples
-    datajack=(double *)malloc((unsigned long int)(6*numberofbins)*sizeof(double)); // 6 because there are 6 observables
+    datajack=(double *)malloc((unsigned long int)(7*numberofbins)*sizeof(double)); // 7 because there are 7 observables
     if(datajack==NULL)
       {
       fprintf(stderr, "Allocation problem at (%s, %d)\n", __FILE__, __LINE__);
@@ -146,23 +147,23 @@ int main(int argc, char **argv)
     computejack(datajack, data, numberofbins, binsize);
 
     // compute average
-    for(j=0; j<6; j++)
+    for(j=0; j<7; j++)
        {
        ris[j]=0.0;
        for(i=0; i<numberofbins; i++)
           {
-          ris[j]+=datajack[6*i+j];
+          ris[j]+=datajack[7*i+j];
           }
        ris[j]/=(double)numberofbins;
        }
 
     // compute error
-    for(j=0; j<6; j++)
+    for(j=0; j<7; j++)
        {
        err[j]=0.0;
        for(i=0; i<numberofbins; i++)
           {
-          err[j]+=pow(ris[j]-datajack[6*i+j], 2.0);
+          err[j]+=pow(ris[j]-datajack[7*i+j], 2.0);
           }
        // this corrects for a factor that is irrelevant but we leave it just for clarity
        err[j]*=(double)(numberofbins-1);
@@ -174,7 +175,7 @@ int main(int argc, char **argv)
     free(data);
     free(datajack);
 
-    for(j=0; j<6; j++)
+    for(j=0; j<7; j++)
        {
        printf("%f %f ", ris[j], err[j]);
        }

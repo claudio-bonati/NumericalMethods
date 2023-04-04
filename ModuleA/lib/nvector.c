@@ -33,7 +33,7 @@ void one(NVec *a)
   {
   int i;
 
-  a->comp[0]=0.0;
+  a->comp[0]=1.0;
   for(i=1; i<NCOMP; i++)
      {
      a->comp[i]=0.0;
@@ -65,14 +65,26 @@ void timesequal(NVec *a, double d)
   }
 
 
-//sumequal
-void sumequal(NVec *a, NVec const * const b)
+//plusequal
+void plusequal(NVec *a, NVec const * const b)
   {
   int i;
 
   for(i=0; i<NCOMP; i++)
      {
      a->comp[i]+=b->comp[i];
+     }
+  }
+
+
+//minusequal
+void minusequal(NVec *a, NVec const * const b)
+  {
+  int i;
+
+  for(i=0; i<NCOMP; i++)
+     {
+     a->comp[i]-=b->comp[i];
      }
   }
 
@@ -106,6 +118,13 @@ double scalprod(NVec const * const a, NVec const * const b)
 //rotate two components by angle
 void rotate2(NVec *a, int i, int j, double phi)
   {
+  #ifdef DEBUG
+  if(i==j)
+    {
+    fprintf(stderr, "error in rotate2 (%s, %d)\n", __FILE__, __LINE__);
+    exit(EXIT_FAILURE);
+    }
+  #endif 
   double v1, v2;
 
   v1=a->comp[i];
@@ -132,6 +151,20 @@ void normalize(NVec *a)
      {
      (a->comp[i])*=norm;
      }
+  }
+
+
+//norm
+double norm(NVec *a)
+  {
+  int i;
+  double norm=0.0;
+  
+  for(i=0; i<NCOMP; i++)
+     {
+     norm+=(a->comp[i])*(a->comp[i]);
+     }
+  return sqrt(norm);
   }
 
 

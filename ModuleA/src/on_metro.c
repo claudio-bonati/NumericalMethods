@@ -5,38 +5,43 @@
 #include<time.h>
 
 #include"../include/geometry.h"
+#include"../include/nvector.h"
 #include"../include/random.h"
 
 #define DIM 2 // dimensionality
 #define STRING_LENGTH 50
 
-// magnetization per site
-double magn(int const * const lattice, long int volume)
-  {
-  long int r, sum;
 
-  sum=0;
+// magnetization per site
+double magn(NVec const * const lattice, long int volume)
+  {
+  long int r;
+  NVec S;
+
+  zeros(&S);
   for(r=0; r<volume; r++)
      {
-     sum+=lattice[r];
+     plusequal(&S, &(lattice[r]) );
      }
+  timesequal(&S, 1./(double)volume);
 
-  return (double) sum / (double) volume;
+  return  norm(&S);
   }
 
 
 // energy per site
-double energy(int const * const lattice, long int const * const nnp, long int volume)
+double energy(NVec const * const lattice, long int const * const nnp, long int volume)
   {
-  long int r, sum;
+  long int r;
   int i;
+  double sum;
 
   sum=0;
   for(r=0; r<volume; r++)
      {
      for(i=0; i<DIM; i++)
         {
-        sum+=-lattice[r]*lattice[nnp[i*volume + r]];
+        sum+=-scalprod(&(lattice[r]), &(lattice[nnp[i*volume + r]]));
         }
      }
 
@@ -46,36 +51,48 @@ double energy(int const * const lattice, long int const * const nnp, long int vo
 
 // metropolis update at site r
 // return 1 if accepted, else 0
-int metropolis(int *lattice, 
+int metropolis(NVec *lattice, 
                long int r, 
                long int const * const nnp, 
                long int const * const nnm, 
                long int volume, 
-               double const * const acc_prob)
+               double beta,
+               double phimax) 
   {
-  int i, acc=0;
-  int sumnn;
+  NVec sumnn, trial;
+  int i, j, acc=0;
+  double phi, deltaE;
 
-  // the relevant part of the energy will be -lattice[r]*sumnn
-  sumnn=0;
+  zeros(&sumnn);
   for(i=0; i<DIM; i++)
      {
-     sumnn+=lattice[nnp[i*volume+r]];
-     sumnn+=lattice[nnm[i*volume+r]];
+     plusequal(&sumnn, &(lattice[nnp[i*volume+r]]) );
+     plusequal(&sumnn, &(lattice[nnm[i*volume+r]]) );
      }
-  sumnn*=lattice[r];
+
+  // generate the trial vector
+  equal(&trial, &(lattice[r]));
+  phi=phimax*(1.0-2.0*myrand());
+  i=(int)(NCOMP * myrand());
+  j=i+1+(int)((NCOMP-1) * myrand()); // this is to ensure j!=i
+  j=j % NCOMP; 
+  rotate2(&trial, i, j, phi);  
+  
+  // deltaE = E(trial)-E(initial)
+  deltaE=-scalprod(&trial, &sumnn);
+  deltaE-=-scalprod(&(lattice[r]), &sumnn);
 
   // metropolis step
-  if(sumnn<0)
+  if(deltaE<0)
     {
-    lattice[r]=-lattice[r];
+    equal(&(lattice[r]), &trial);
     acc=1;
     }
   else
     {
-    if(myrand()<acc_prob[sumnn])
+    if(myrand()<exp(-deltaE*beta))
       {
-      lattice[r]=-lattice[r];
+      equal(&(lattice[r]), &trial);
       acc=1;
       }
     }
@@ -84,18 +101,53 @@ int metropolis(int *lattice,
   }
 
 
+// microcanonic update at site r
+void microcan(NVec *lattice, 
+              long int r, 
+              long int const * const nnp, 
+              long int const * const nnm, 
+              long int volume) 
+  {
+  int i;
+  NVec sumnn, trial;
+  double norma;
+
+  zeros(&sumnn);
+  for(i=0; i<DIM; i++)
+     {
+     plusequal(&sumnn, &(lattice[nnp[i*volume+r]]) );
+     plusequal(&sumnn, &(lattice[nnm[i*volume+r]]) );
+     }
+  norma=norm(&sumnn);
+
+  if(norma>1.0e-15)
+    {
+    // generate the trial vector
+    // trial = 2(sumnn,lattice)*sumnn/norm(sumnn)^2-lattice
+     
+    timesequal(&sumnn, 1.0/norma);
+    equal(&trial, &sumnn);
+    timesequal(&trial, 2.0*scalprod(&(lattice[r]), &sumnn) );
+    minusequal(&trial, &(lattice[r]) );
+
+    equal(&(lattice[r]), &trial);
+    }
+  }
+
+
 // main
 int main(int argc, char **argv)
     {
-    int i, L, *lattice;
+    NVec *lattice;
+    int i, L;
     long int r, volume, sample, iter, acc; 
     long int *nnp, *nnm;
     double beta, locE, locM;
-    double acc_prob[2*DIM+1];
-  
     char datafile[STRING_LENGTH];
     FILE *fp;
 
+    const int microupdates=5;
+    const double phimax=3;
     const unsigned long int seed1=(unsigned long int) time(NULL);
     const unsigned long int seed2=seed1+127;
 
@@ -108,7 +160,8 @@ int main(int argc, char **argv)
       fprintf(stdout, "  sample = number of drawn to be extracted\n");
       fprintf(stdout, "  datafile = name of the file on which to write the data\n\n");
       fprintf(stdout, "Compiled for:\n");
-      fprintf(stdout, "  dimensionality = %d\n\n", DIM);
+      fprintf(stdout, "  dimensionality = %d\n", DIM);
+      fprintf(stdout, "  number of components = %d\n\n", NCOMP);
       fprintf(stdout, "Output:\n");
       fprintf(stdout, "  E, M (E=energy per site, M=magnetization per site), one line for each draw\n");
 
@@ -156,7 +209,7 @@ int main(int argc, char **argv)
 
     // allocate the lattice (lexicographic order)
     // and next neighbors: nnp[i*volume+r]= next neighbor in positive "i" direction of site r 
-    lattice=(int *)malloc((unsigned long int)(volume)*sizeof(int));
+    lattice=(NVec *)malloc((unsigned long int)(volume)*sizeof(NVec));
     if(lattice == NULL)
       {
       fprintf(stderr, "allocation problem at (%s, %d)\n", __FILE__, __LINE__);
@@ -179,7 +232,7 @@ int main(int argc, char **argv)
     // initialize lattice to ordered start
     for(r=0; r<volume; r++)
        {
-       lattice[r]=1;
+       one(&(lattice[r]));
        }
 
     // open data file
@@ -190,18 +243,28 @@ int main(int argc, char **argv)
       return EXIT_FAILURE;
       }
 
-    // initialize acceptance probability
-    for(i=0; i<2*DIM+1; i++)
-       {
-       acc_prob[i]=exp(-2.0*beta*((double)i));
-       }
-
     acc=0;
     for(iter=0; iter<sample; iter++)
        {
+       // metropolis
        for(r=0; r<volume; r++)
           {
-          acc+=metropolis(lattice, r, nnp, nnm, volume, acc_prob);
+          acc+=metropolis(lattice, r, nnp, nnm, volume, beta, phimax);
+          }
+
+       // microcanonical updates
+       for(i=0; i<microupdates; i++) 
+          {
+          for(r=0; r<volume; r++)
+             {
+             microcan(lattice, r, nnp, nnm, volume);
+             }
+          }
+
+       // normalize the lattice
+       for(r=0; r<volume; r++)
+          {
+          normalize(&(lattice[r]));
           }
 
        locE=energy(lattice, nnp, volume);

@@ -60,3 +60,9 @@ potts_metro: Potts model sampled by the Metropolis algorithm
 ising_wolff: Ising model sampled by the Wolff single 
              cluster algorithm
 
+ising_analysis: analyze data produced by the ising_* codes
+                (as well as by on_metro)
+
+on_metro: O(N) nonlinear sigma model sampled by metropolis and 
+          microcanonical updates
+
