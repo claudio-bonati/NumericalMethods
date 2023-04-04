@@ -31,23 +31,24 @@ gauss_distr: test of the Box-Muller polar method to generate
              random number with Gaussian distribution
 
 rew_problem: example to illustrate the problem of reweighting
-             distributions. Two Gaussian with different averages
-             are used for the purpose
+             distributions. Two Gaussian with different 
+             averages are used for the purpose
 
 gauss_mcmc: gaussian number generator using Markov Chain MC
 
 mcmc_analysis1: analysis of primary observables <x> and 
                 <x^2> with binning
 
-mcmc_analysis2: analysis of the secondary observable <x^4>/<x^2>^2
-                with binning and bootstrap
+mcmc_analysis2: analysis of the secondary observable
+                <x^4>/<x^2>^2 with binning and bootstrap
 
-mcmc_analysis3: analysis of the secondary observable <x^4>/<x^2>^2
-                with binning and jackknife
+mcmc_analysis3: analysis of the secondary observable 
+                <x^4>/<x^2>^2 with binning and jackknife
 
 saw_ss: simple sampling for 2d self-avoiding random walk
 
-saw_mcmc: MCMC for 2d self-avoiding random walk (pivot algorithm)
+saw_mcmc: MCMC for 2d self-avoiding random walk 
+          (pivot algorithm)
 
 ising: exact solution of the Ising mode by enumeration 
        (pay attention to overflow!)
@@ -56,3 +57,6 @@ ising_metro: Ising model sampled by the Metropolis algorithm
 
 potts_metro: Potts model sampled by the Metropolis algorithm
              
+ising_wolff: Ising model sampled by the Wolff single 
+             cluster algorithm
+

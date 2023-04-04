@@ -1,7 +1,7 @@
 CC=gcc
 CFLAGS=-O2 -Wall -Wextra -Werror -pedantic -Wconversion -std=c99  
 
-all: bad_rng pi_no_rng pi_ss gauss_distr rew_problem gauss_mcmc mcmc_analysis1 mcmc_analysis2 mcmc_analysis3 saw_ss saw_mcmc ising ising_metro ising_analysis potts_metro
+all: bad_rng pi_no_rng pi_ss gauss_distr rew_problem gauss_mcmc mcmc_analysis1 mcmc_analysis2 mcmc_analysis3 saw_ss saw_mcmc ising ising_metro ising_analysis potts_metro ising_wolff
 
 bad_rng: ../src/bad_rng.c
 	$(CC) $(CFLAGS) ../src/bad_rng.c -o $@ -lm
@@ -76,9 +76,12 @@ potts_metro: ../src/potts_metro.c geometry.o random.o pcg32min.o
 	$(CC) $(CFLAGS) -c ../src/potts_metro.c  
 	$(CC) $(CFLAGS) geometry.o potts_metro.o random.o pcg32min.o -o $@ -lm
 
+ising_wolff: ../src/ising_wolff.c geometry.o random.o pcg32min.o
+	$(CC) $(CFLAGS) -c ../src/ising_wolff.c  
+	$(CC) $(CFLAGS) geometry.o ising_wolff.o random.o pcg32min.o -o $@ -lm
 
 clean:
-	rm -f bad_rng pi_no_rng pi_ss gauss_distr rew_problem gauss_mcmc mcmc_analysis1 mcmc_analysis2 mcmc_analysis3 saw_ss saw_mcmc ising ising_metro ising_analysis potts_metro *.o
+	rm -f bad_rng pi_no_rng pi_ss gauss_distr rew_problem gauss_mcmc mcmc_analysis1 mcmc_analysis2 mcmc_analysis3 saw_ss saw_mcmc ising ising_metro ising_analysis potts_metro ising_wolff *.o
 
 cleanobj:
 	rm -f *.o
