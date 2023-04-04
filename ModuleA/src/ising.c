@@ -9,7 +9,7 @@
 #define DIM 2  // dimensionality
 
 // magnetization per site
-double magn(int *lattice, long int volume)
+double magn(int const * const lattice, long int volume)
   {
   int r, sum;
 
@@ -24,7 +24,7 @@ double magn(int *lattice, long int volume)
 
 
 // energy per site
-double energy(int *lattice, long int *nnp, long int volume)
+double energy(int const * const lattice, long int const * const nnp, long int volume)
   {
   long int r, sum;
   int i;
@@ -56,6 +56,8 @@ int main(int argc, char **argv)
       fprintf(stdout, "  %s L beta\n\n", argv[0]);
       fprintf(stdout, "  L = linear size of the lattice (dimension defined by macro)\n");
       fprintf(stdout, "  beta = inverse temperature\n\n");
+      fprintf(stdout, "Compiled for:\n");
+      fprintf(stdout, "  dimensionality = %d\n\n", DIM);
       fprintf(stdout, "Output:\n");
       fprintf(stdout, "  beta, <E>, <E^2>-<E>^2, <M>, <|M|>, <M^2>-<|M|>^2, <M^4>/<M^2>^2, Z (E=energy per site, M=magnetization per site)\n");
 

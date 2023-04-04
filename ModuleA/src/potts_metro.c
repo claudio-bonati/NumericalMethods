@@ -9,10 +9,12 @@
 
 #define DIM 2     // dimensionality
 #define NSTATES 8 // number of states
+//#define METROPOLIS // if this macro is defined Metropolis is used, otherwise heatbath
+
 #define STRING_LENGTH 50
 
 // magnetization per site (check state 0, since b.c. do not favor any state) 
-double magn(int *lattice, long int volume)
+double magn(int const * const lattice, long int volume)
   {
   long int r, sum;
 
@@ -30,7 +32,7 @@ double magn(int *lattice, long int volume)
 
 
 // energy per site
-double energy(int *lattice, long int *nnp, long int volume)
+double energy(int const * const lattice, long int const * const nnp, long int volume)
   {
   long int r, sum;
   int i;
@@ -50,15 +52,109 @@ double energy(int *lattice, long int *nnp, long int volume)
   return (double) sum / (double) volume;
   }
 
+// heatbath update at site r
+// return 1 if accepted, else 0
+//
+// remember that aux_prob[i]=exp(-beta*((double)i));
+int heatbath(int *lattice, 
+            long int r, 
+            long int const * const nnp, 
+            long int const * const nnm, 
+            long int volume, 
+            double const * const aux_prob)
+   {
+   int i, nn[NSTATES];
+   double tmp, prob[NSTATES];
+
+   //nn[i] = numbers of sites with state "i"
+   //the energy will be -nn[lattice[r]]
+   for(i=0; i<NSTATES; i++)
+      {
+      nn[i]=0;
+      }
+   for(i=0; i<DIM; i++)
+      {
+      nn[lattice[nnp[i*volume+r]]]+=1;
+      nn[lattice[nnm[i*volume+r]]]+=1;
+      }
+
+   tmp=0.0;
+   for(i=0; i<NSTATES; i++)
+      { 
+      tmp+=1.0/aux_prob[nn[i]];
+      prob[i]=tmp;
+      }
+   for(i=0; i<NSTATES; i++)
+      { 
+      prob[i]/=tmp;
+      }
+
+   tmp=myrand();
+   for(i=0; i<NSTATES; i++)
+      {
+      if(tmp<prob[i])
+        {
+        lattice[r]=i;
+        i=NSTATES;
+        }
+      }
+
+   return 1;
+   }
+
+
+// metropolis update at site r
+// return 1 if accepted, else 0
+//
+// remember that aux_prob[i]=exp(-beta*((double)i));
+int metropolis(int *lattice, 
+               long int r, 
+               long int const * const nnp, 
+               long int const * const nnm, 
+               long int volume, 
+               double const * const aux_prob)
+   {
+   int i, trial, nn[NSTATES];
+   double acc_prob;
+
+   //nn[i] = numbers of sites with state "i"
+   //the energy will be -nn[lattice[r]]
+   for(i=0; i<NSTATES; i++)
+      {
+      nn[i]=0;
+      }
+   for(i=0; i<DIM; i++)
+      {
+      nn[lattice[nnp[i*volume+r]]]+=1;
+      nn[lattice[nnm[i*volume+r]]]+=1;
+      }
+
+   trial=(int) (NSTATES*myrand());
+   acc_prob=aux_prob[nn[lattice[r]]]/aux_prob[nn[trial]];
+
+   if(acc_prob>1)
+     {
+     lattice[r]=trial;
+     return 1;
+     }
+   else if(myrand()<acc_prob)
+          {
+          lattice[r]=trial;
+          return 1;
+          }
+
+   return 0;
+   }
+
 
 // main
 int main(int argc, char **argv)
     {
-    int i, L, *lattice, nn[NSTATES], trial;
+    int i, L, *lattice;
     long int r, volume, sample, iter, acc; 
     long int *nnp, *nnm;
     double beta, locE, locM;
-    double aux_prob[2*DIM+1], acc_prob;
+    double aux_prob[2*DIM+1];
   
     char datafile[STRING_LENGTH];
     FILE *fp;
@@ -74,6 +170,14 @@ int main(int argc, char **argv)
       fprintf(stdout, "  beta = inverse temperature\n");
       fprintf(stdout, "  sample = number of drawn to be extracted\n");
       fprintf(stdout, "  datafile = name of the file on which to write the data\n\n");
+      fprintf(stdout, "Compiled for:\n");
+      fprintf(stdout, "  dimensionality = %d\n", DIM);
+      fprintf(stdout, "  number of states = %d\n", NSTATES);
+      #ifdef METROPOLIS
+        fprintf(stdout, "  update with Metropolis\n\n");
+      #else
+        fprintf(stdout, "  update with heatbath\n\n");
+      #endif
       fprintf(stdout, "Output:\n");
       fprintf(stdout, "  E, M (E=energy per site, M=magnetization per site), one line for each draw\n");
 
@@ -155,7 +259,7 @@ int main(int argc, char **argv)
       return EXIT_FAILURE;
       }
 
-    // initialize acceptance probability
+    // initialize auxilliary vector for acceptance probability
     for(i=0; i<2*DIM+1; i++)
        {
        aux_prob[i]=exp(-beta*((double)i));
@@ -166,26 +270,13 @@ int main(int argc, char **argv)
        {
        for(r=0; r<volume; r++)
           {
-          //the energy will come out to be -nn[lattice[r]]
-          for(i=0; i<NSTATES; i++)
-             {
-             nn[i]=0;
-             }
-          for(i=0; i<DIM; i++)
-             {
-             nn[lattice[nnp[i*volume+r]]]+=1;
-             nn[lattice[nnm[i*volume+r]]]+=1;
-             }
-          trial=(int) (NSTATES*myrand());
-
-          acc_prob=aux_prob[nn[lattice[r]]]/aux_prob[nn[trial]];
-
-          // metropolis step
-          if(myrand()<acc_prob)
-            {
-            lattice[r]=trial;
-            acc++;
-            }
+          #ifdef METROPOLIS
+            // metropolis
+            acc+=metropolis(lattice, r, nnp, nnm, volume, aux_prob);
+          #else
+            //heatbath
+            acc+=heatbath(lattice, r, nnp, nnm, volume, aux_prob);
+          #endif
           }
 
        locE=energy(lattice, nnp, volume);

@@ -11,7 +11,7 @@
 #define STRING_LENGTH 50
 
 // magnetization per site
-double magn(int *lattice, long int volume)
+double magn(int const * const lattice, long int volume)
   {
   long int r, sum;
 
@@ -26,7 +26,7 @@ double magn(int *lattice, long int volume)
 
 
 // energy per site
-double energy(int *lattice, long int *nnp, long int volume)
+double energy(int const * const lattice, long int const * const nnp, long int volume)
   {
   long int r, sum;
   int i;
@@ -44,10 +44,50 @@ double energy(int *lattice, long int *nnp, long int volume)
   }
 
 
+// metropolis update at site r
+// return 1 if accepted, else 0
+int metropolis(int *lattice, 
+               long int r, 
+               long int const * const nnp, 
+               long int const * const nnm, 
+               long int volume, 
+               double const * const acc_prob)
+  {
+  int i, acc=0;
+  int sumnn;
+
+  // the relevant part of the energy will be -lattice[r]*sum
+  sumnn=0;
+  for(i=0; i<DIM; i++)
+     {
+     sumnn+=lattice[nnp[i*volume+r]];
+     sumnn+=lattice[nnm[i*volume+r]];
+     }
+  sumnn*=lattice[r];
+
+  // metropolis step
+  if(sumnn<0)
+    {
+    lattice[r]=-lattice[r];
+    acc=1;
+    }
+  else
+    {
+    if(myrand()<acc_prob[sumnn])
+      {
+      lattice[r]=-lattice[r];
+      acc=1;
+      }
+    }
+
+  return acc;
+  }
+
+
 // main
 int main(int argc, char **argv)
     {
-    int i, L, *lattice, sumnn;
+    int i, L, *lattice;
     long int r, volume, sample, iter, acc; 
     long int *nnp, *nnm;
     double beta, locE, locM;
@@ -67,6 +107,8 @@ int main(int argc, char **argv)
       fprintf(stdout, "  beta = inverse temperature\n");
       fprintf(stdout, "  sample = number of drawn to be extracted\n");
       fprintf(stdout, "  datafile = name of the file on which to write the data\n\n");
+      fprintf(stdout, "Compiled for:\n");
+      fprintf(stdout, "  dimensionality = %d\n\n", DIM);
       fprintf(stdout, "Output:\n");
       fprintf(stdout, "  E, M (E=energy per site, M=magnetization per site), one line for each draw\n");
 
@@ -159,29 +201,7 @@ int main(int argc, char **argv)
        {
        for(r=0; r<volume; r++)
           {
-          // the relevant part of the energy will be -lattice[r]*sum
-          sumnn=0;
-          for(i=0; i<DIM; i++)
-             {
-             sumnn+=lattice[nnp[i*volume+r]];
-             sumnn+=lattice[nnm[i*volume+r]];
-             }
-          sumnn*=lattice[r];
-
-          // metropolis step
-          if(sumnn<0)
-            {
-            lattice[r]=-lattice[r];
-            acc++;
-            }
-          else
-            {
-            if(myrand()<acc_prob[sumnn])
-              {
-              lattice[r]=-lattice[r];
-              acc++;
-              }
-            }
+          acc+=metropolis(lattice, r, nnp, nnm, volume, acc_prob);
           }
 
        locE=energy(lattice, nnp, volume);
