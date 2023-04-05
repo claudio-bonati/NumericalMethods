@@ -3,6 +3,7 @@
 #include<stdlib.h>
 
 #include"../include/nvector.h"
+#include"../include/random.h"
 
 //initialize
 void init(NVec *a, double b[NCOMP])
@@ -165,6 +166,27 @@ double norm(NVec *a)
      norm+=(a->comp[i])*(a->comp[i]);
      }
   return sqrt(norm);
+  }
+
+
+// random vector
+void randvec(NVec *a)
+  {
+  int i;
+  double norma;
+
+  do{
+    for(i=0; i<NCOMP; i++)
+       {
+       a->comp[i]=1.0-2.0*myrand();
+       }
+
+    norma=norm(a);
+    }
+  while(norma>1);
+
+  norma=1./norma;
+  timesequal(a, norma);
   }
 
 

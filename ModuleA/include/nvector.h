@@ -42,4 +42,7 @@ void normalize(NVec *a);
 // norm
 double norm(NVec *a);
 
+// random vector
+void randvec(NVec *a);
+
 #endif
