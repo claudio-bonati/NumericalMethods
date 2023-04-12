@@ -11,13 +11,15 @@
 unsigned long int rng_state;
 
 
-/* RANDU: random number generator in [0,1)
-*  x_{i+1}=65539*x_i mod 2^{31}
-*
-*  "its very name RANDU is enough to bring dismay into the
-*  eyes and stomachs of many computer scientists!" 
-*  D. Knuth "The art of computer programming" vol 2, third edition, page.107
-*/
+// RANDU: random number generator in [0,1)
+// x_{i+1}=65539*x_i mod 2^{31}
+// seed must be an odd number
+//
+//
+// "its very name RANDU is enough to bring dismay into the
+// eyes and stomachs of many computer scientists!" 
+// D. Knuth "The art of computer programming" vol 2, third edition, page.107
+//
 double randu()
   {
   const unsigned long int const1=65539; 
@@ -78,6 +80,12 @@ int main(int argc, char **argv)
     if(seed==0)
       {
       seed=(unsigned long int) time(NULL);
+      }
+
+    // seed must be an odd number
+    if(seed%2==0)
+      {
+      seed+=1;
       }
 
     // initialize the random number generator 
