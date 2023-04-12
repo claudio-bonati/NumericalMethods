@@ -11,9 +11,9 @@ while to use another compiler use
 
 make CC=your_compiler
 
-Executable are produced in the build directory and when 
-executed without input (or with wrong input) print on screen 
-some informations on their use.
+Executables are produced in the build directory and when 
+executed without input (or with wrong input) they print on 
+screen some informations on their use.
 
 *************************************************************
 
@@ -22,8 +22,8 @@ Module A: introduction to Markov Chain Monte Carlo and
 
 *************************************************************
 
-bad_rng : an example of a terrible random number generator 
-          (look at the result in 3d...)
+bad_rng: an example of a terrible random number generator 
+         (look at the result in 3d...)
 
 pi_no_rng: non stochastic determination of pi
 
@@ -39,13 +39,15 @@ rew_problem: example to illustrate the problem of reweighting
 gauss_mcmc: gaussian number generator using Markov Chain MC
 
 mcmc_analysis1: analysis of primary observables <x> and 
-                <x^2> with binning
+                <x^2> with binning (single column data)
 
 mcmc_analysis2: analysis of the secondary observable
                 <x^4>/<x^2>^2 with binning and bootstrap
+                (single column data)
 
 mcmc_analysis3: analysis of the secondary observable 
                 <x^4>/<x^2>^2 with binning and jackknife
+                (single column data)
 
 saw_ss: simple sampling for 2d self-avoiding random walk
 
@@ -53,19 +55,20 @@ saw_mcmc: MCMC for 2d self-avoiding random walk
           (pivot algorithm)
 
 ising: exact solution of the Ising mode by enumeration 
-       (pay attention to overflow!)
 
 ising_metro: Ising model sampled by the Metropolis algorithm
 
-potts_metro: Potts model sampled by the Metropolis algorithm
+potts_metro: Potts model sampled by the Metropolis or
+             Heatbath algorithm (which algorithm is used 
+             depends on a macro in potts_model.c)
              
 ising_wolff: Ising model sampled by the Wolff single 
              cluster algorithm
 
 ising_analysis: analyze data produced by the ising_* codes
-                (as well as by on_* )
+                (as well as by on_* and potts_metro)
 
-on_metro: O(N) nonlinear sigma model sampled by metropolis and 
+on_metro: O(N) nonlinear sigma model sampled by Metropolis and 
           microcanonical updates
 
 on_wolff: O(N) nonlinear sigma model sampled by the Wolff single
