@@ -134,16 +134,8 @@ void sum(NVec * restrict a, NVec const * const restrict b, NVec const * const re
   }
 
 //scalar product
-double scalprod(NVec const * const restrict a, NVec const * const restrict b)
+double scalprod(NVec const * const a, NVec const * const b)
   {
-  #ifdef DEBUG
-  if(a==b)
-    {
-    fprintf(stderr, "The same pointer is used twice in (%s, %d)\n", __FILE__, __LINE__);
-    exit(EXIT_FAILURE);
-    }
-  #endif
-
   int i;
   double ris=0.0;
 

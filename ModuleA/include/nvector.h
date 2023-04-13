@@ -31,7 +31,7 @@ void minusequal(NVec * restrict a, NVec const * const restrict b);
 void sum(NVec * restrict a, NVec const * const restrict b, NVec const * const restrict c);
 
 //scalar product
-double scalprod(NVec const * const restrict a, NVec const * const restrict b);
+double scalprod(NVec const * const a, NVec const * const b);
 
 //rotate two components by angle
 void rotate2(NVec * restrict a, int i, int j, double phi);
