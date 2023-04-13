@@ -58,7 +58,7 @@ int main(int argc, char **argv)
     // initialize numberofbins
     numberofbins=(sample-therm)/binsize;
 
-    // open data file [this is just a simple way to go back to the beginning of the file]
+    // open data file 
     fp=fopen(datafile, "r");
     if(fp==NULL)
       {

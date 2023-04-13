@@ -38,6 +38,9 @@ rew_problem: example to illustrate the problem of reweighting
 
 gauss_mcmc: gaussian number generator using Markov Chain MC
 
+mcmc_analysis0: compute (without errors) the autocorrelation 
+                function of the data (single column data)
+
 mcmc_analysis1: analysis of primary observables <x> and 
                 <x^2> with binning (single column data)
 

@@ -1,7 +1,7 @@
 CC=gcc
 CFLAGS=-O2 -Wall -Wextra -Werror -pedantic -Wconversion -std=c99
 
-all: bad_rng pi_no_rng pi_ss gauss_distr rew_problem gauss_mcmc mcmc_analysis1 mcmc_analysis2 mcmc_analysis3 saw_ss saw_mcmc ising ising_metro ising_analysis potts_metro ising_wolff on_metro on_wolff
+all: bad_rng pi_no_rng pi_ss gauss_distr rew_problem gauss_mcmc mcmc_analysis0 mcmc_analysis1 mcmc_analysis2 mcmc_analysis3 saw_ss saw_mcmc ising ising_metro ising_analysis potts_metro ising_wolff on_metro on_wolff
 
 bad_rng: ../src/bad_rng.c
 	$(CC) $(CFLAGS) ../src/bad_rng.c -o $@ -lm
@@ -37,9 +37,13 @@ gauss_mcmc: ../src/gauss_mcmc.c random.o pcg32min.o
 read_data.o: ../lib/read_data.c ../include/read_data.h
 	$(CC) $(CFLAGS) -c ../lib/read_data.c
 
+mcmc_analysis0: ../src/mcmc_analysis0.c read_data.o
+	$(CC) $(CFLAGS) -c ../src/mcmc_analysis0.c 
+	$(CC) $(CFLAGS) mcmc_analysis0.o read_data.o -o $@ -lm
+
 mcmc_analysis1: ../src/mcmc_analysis1.c read_data.o
 	$(CC) $(CFLAGS) -c ../src/mcmc_analysis1.c 
-	$(CC) $(CFLAGS) mcmc_analysis1.o pcg32min.o random.o read_data.o -o $@ -lm
+	$(CC) $(CFLAGS) mcmc_analysis1.o read_data.o -o $@ -lm
 
 mcmc_analysis2: ../src/mcmc_analysis2.c pcg32min.o random.o read_data.o
 	$(CC) $(CFLAGS) -c ../src/mcmc_analysis2.c  
@@ -92,7 +96,8 @@ on_wolff: ../src/on_wolff.c geometry.o nvector.o random.o pcg32min.o
 	$(CC) $(CFLAGS) geometry.o nvector.o on_wolff.o random.o pcg32min.o -o $@ -lm
 
 clean:
-	rm -f bad_rng pi_no_rng pi_ss gauss_distr rew_problem gauss_mcmc mcmc_analysis1 mcmc_analysis2 mcmc_analysis3 saw_ss saw_mcmc ising ising_metro ising_analysis potts_metro ising_wolff on_metro on_wolff *.o
+	rm -f bad_rng pi_no_rng pi_ss gauss_distr rew_problem gauss_mcmc mcmc_analysis0 mcmc_analysis1 mcmc_analysis2 mcmc_analysis3
+	rm -f saw_ss saw_mcmc ising ising_metro ising_analysis potts_metro ising_wolff on_metro on_wolff *.o
 
 cleanobj:
 	rm -f *.o
