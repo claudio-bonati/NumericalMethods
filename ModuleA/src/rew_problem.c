@@ -50,9 +50,15 @@ int main(int argc, char **argv)
     Z2=0.0;
 
     // average values are computed by using
-    // \int x e^{-(x-mu)^2/2} = \int x e^{-(x-mu)^2/2}e^{x^2/2}e^{-x^2/2} = (\int e^{-x^2/2}) * <x e^{-(x-mu)^2/2}e^{x^2/2}>_{N(0,1)}
-    // \int e^{-(x-mu)^2/2} = \int e^{-(x-mu)^2/2}e^{x^2/2}e^{-x^2/2} = (\int e^{-x^2/2}) * <e^{-(x-mu)^2/2}e^{x^2/2}>_{N(0,1)}
-  
+    // \int x e^{-(x-mu)^2/2} = \int x e^{-(x-mu)^2/2}e^{x^2/2}e^{-x^2/2} 
+    // = (\int e^{-x^2/2}) * <x e^{-(x-mu)^2/2}e^{x^2/2}>_{N(0,1)}
+    //
+    // \int e^{-(x-mu)^2/2} = \int e^{-(x-mu)^2/2}e^{x^2/2}e^{-x^2/2} 
+    // = (\int e^{-x^2/2}) * <e^{-(x-mu)^2/2}e^{x^2/2}>_{N(0,1)}
+    //
+    // hence <x>_{N(mu,1)}=
+    // <x e^{-(x-mu)^2/2}e^{x^2/2}>_{N(0,1)} / <e^{-(x-mu)^2/2}e^{x^2/2}>_{N(0,1)}
+
     // numerator 
     for(i=0; i<sample/2; i++)
        {
