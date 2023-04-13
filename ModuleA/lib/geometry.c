@@ -56,7 +56,10 @@ void lex_to_cart(int * restrict cartcoord, long int lex, int L, int dim)
 // initialize geometry
 // nnp[volume*i+r]= next neighbor in positive "i" direction of site r 
 // nnm[volume*i+r]= next neighbor in negative "i" direction of site r 
-void init_neighbors(long int * restrict nnp, long int * restrict nnm, int L, int dim)
+void init_neighbors(long int * restrict restrict nnp, 
+                    long int * restrict restrict nnm, 
+                    int L, 
+                    int dim)
   {
   int i, value, valuep, valuem;
   long r, rm, rp, volume;
@@ -117,7 +120,10 @@ void init_neighbors(long int * restrict nnp, long int * restrict nnm, int L, int
   }  
 
 
-void test_geometry(long int const * const nnp, long int const * const nnm, int L, int dim)
+void test_geometry(long int const * const restrict nnp, 
+                   long int const * const restrict nnm, 
+                   int L, 
+                   int dim)
   {
   int i, dir, dir1, *cartcoord;
   long r, volume, r_test, r_test1, r_test2;

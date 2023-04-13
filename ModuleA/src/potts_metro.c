@@ -63,7 +63,7 @@ int heatbath(int * restrict lattice,
             long int const * const restrict nnp, 
             long int const * const restrict nnm, 
             long int volume, 
-            double const * const aux_prob)
+            double const * const restrict aux_prob)
    {
    int i, nn[NSTATES];
    double tmp, prob[NSTATES];
@@ -114,7 +114,7 @@ int metropolis(int * restrict lattice,
                long int const * const restrict nnp, 
                long int const * const restrict nnm, 
                long int volume, 
-               double const * const aux_prob)
+               double const * const restrict aux_prob)
    {
    int i, trial, nn[NSTATES];
    double acc_prob;

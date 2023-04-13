@@ -53,7 +53,7 @@ int metropolis(int * restrict lattice,
                long int const * const restrict nnp, 
                long int const * const restrict nnm, 
                long int volume, 
-               double const * const acc_prob)
+               double const * const restrict acc_prob)
   {
   int i, acc=0;
   int sumnn;

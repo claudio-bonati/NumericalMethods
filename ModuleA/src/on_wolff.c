@@ -60,7 +60,7 @@ void build_cluster_norec(NVec const * const restrict lattice,
                          long int const * const restrict nnm,
                          long int volume,
                          double beta,
-                         NVec const * const randv)
+                         NVec const * const restrict randv)
   {
   (void) r; // just to avoid warnings
   int i;

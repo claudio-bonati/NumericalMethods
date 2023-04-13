@@ -16,8 +16,8 @@ int p(int x, int y, int size)
 // d2=|start-end|^2 
 void saw_generate(int * restrict lattice, 
                  int length,
-                 int *d2, 
-                 int *acc,
+                 int * restrict d2, 
+                 int * restrict acc,
                  int size)
   {
   int i, j, tmp, fail;
