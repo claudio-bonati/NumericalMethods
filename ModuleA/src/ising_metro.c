@@ -11,7 +11,7 @@
 #define STRING_LENGTH 50
 
 // magnetization per site
-double magn(int const * const lattice, long int volume)
+double magn(int const * const restrict lattice, long int volume)
   {
   long int r, sum;
 
@@ -26,7 +26,9 @@ double magn(int const * const lattice, long int volume)
 
 
 // energy per site
-double energy(int const * const lattice, long int const * const nnp, long int volume)
+double energy(int const * const restrict lattice, 
+              long int const * const restrict nnp, 
+              long int volume)
   {
   long int r, sum;
   int i;
@@ -46,10 +48,10 @@ double energy(int const * const lattice, long int const * const nnp, long int vo
 
 // metropolis update at site r
 // return 1 if accepted, else 0
-int metropolis(int *lattice, 
+int metropolis(int * restrict lattice, 
                long int r, 
-               long int const * const nnp, 
-               long int const * const nnm, 
+               long int const * const restrict nnp, 
+               long int const * const restrict nnm, 
                long int volume, 
                double const * const acc_prob)
   {

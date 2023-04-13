@@ -11,7 +11,7 @@
 #define STRING_LENGTH 50
 
 // magnetization per site
-double magn(int const * const lattice, long int volume)
+double magn(int const * const restrict lattice, long int volume)
   {
   long int r, sum;
 
@@ -26,7 +26,9 @@ double magn(int const * const lattice, long int volume)
 
 
 // energy per site
-double energy(int const * const lattice, long int const * const nnp, long int volume)
+double energy(int const * const restrict lattice, 
+              long int const * const restrict nnp, 
+              long int volume)
   {
   long int r, sum;
   int i;
@@ -46,13 +48,13 @@ double energy(int const * const lattice, long int const * const nnp, long int vo
 
 // recursive construction of the culter
 // (stack overflow for large lattices at critical point due to too much recursions)
-void build_cluster_rec(int const * const lattice, 
+void build_cluster_rec(int const * const restrict lattice, 
                        long int r, 
-                       int *occup, 
-                       long int *pointtoocc, 
-                       long int *clustersize,
-                       long int const * const nnp, 
-                       long int const * const nnm,
+                       int * restrict occup, 
+                       long int * restrict pointtoocc, 
+                       long int * restrict clustersize,
+                       long int const * const restrict nnp, 
+                       long int const * const restrict nnm,
                        long int volume,
                        double prob)
   {
@@ -110,13 +112,13 @@ void build_cluster_rec(int const * const lattice,
 
 
 // non-recursive construction of the culter
-void build_cluster_norec(int const * const lattice, 
+void build_cluster_norec(int const * const restrict lattice, 
                          long int r, 
-                         int *occup, 
-                         long int *pointtoocc, 
-                         long int *clustersize,
-                         long int const * const nnp, 
-                         long int const * const nnm,
+                         int * restrict occup, 
+                         long int * restrict pointtoocc, 
+                         long int * restrict clustersize,
+                         long int const * const restrict nnp, 
+                         long int const * const restrict nnm,
                          long int volume,
                          double prob)
   {

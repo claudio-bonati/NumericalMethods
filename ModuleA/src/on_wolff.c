@@ -12,7 +12,7 @@
 #define STRING_LENGTH 50
 
 // magnetization per site
-double magn(NVec const * const lattice, long int volume)
+double magn(NVec const * const restrict lattice, long int volume)
   {
   long int r;
   NVec S;
@@ -29,7 +29,9 @@ double magn(NVec const * const lattice, long int volume)
 
 
 // energy per site
-double energy(NVec const * const lattice, long int const * const nnp, long int volume)
+double energy(NVec const * const restrict lattice, 
+              long int const * const restrict nnp, 
+              long int volume)
   {
   long int r;
   int i;
@@ -49,13 +51,13 @@ double energy(NVec const * const lattice, long int const * const nnp, long int v
 
 
 // non-recursive construction of the culter
-void build_cluster_norec(NVec const * const lattice, 
+void build_cluster_norec(NVec const * const restrict lattice, 
                          long int r, 
-                         int *occup, 
-                         long int *pointtoocc, 
-                         long int *clustersize,
-                         long int const * const nnp, 
-                         long int const * const nnm,
+                         int * restrict occup, 
+                         long int * restrict pointtoocc, 
+                         long int * restrict clustersize,
+                         long int const * const restrict nnp, 
+                         long int const * const restrict nnm,
                          long int volume,
                          double beta,
                          NVec const * const randv)

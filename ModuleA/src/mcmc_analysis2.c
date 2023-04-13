@@ -10,7 +10,10 @@
 #define MAXBOOT 100 // number of bootstrap samples
 
 // resample
-void resample(double *boot, const double * const data, long int numberofbins, int binsize)
+void resample(double * restrict boot, 
+              const double * const restrict data, 
+              long int numberofbins, 
+              int binsize)
   {
   long int i, ib;
   double tmp;
@@ -34,7 +37,7 @@ void resample(double *boot, const double * const data, long int numberofbins, in
 
 
 // compute the Binder cumulant U
-double binderU(double const * const boot, long int sampleeff)
+double binderU(double const * const restrict boot, long int sampleeff)
   {
   long int i;
   double x2, x4;

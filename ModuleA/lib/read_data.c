@@ -39,7 +39,7 @@ long int linecounter_sc(char const * const filename)
 
 
 // initialize data (single column!)
-void readdata_sc(char const * const filename, int therm, long int sampleeff, double *data)
+void readdata_sc(char const * const filename, int therm, long int sampleeff, double * restrict data)
   {
   int err;
   long int i;
@@ -125,7 +125,7 @@ long int linecounter_mc(char const * const filename, int col)
 
 // initialize data from file with 'col' columns
 // *data is structured as data[i*col+j]= j-th column of the i-th raw 
-void readdata_mc(char const * const filename, int therm, long int sampleeff, double *data, int col)
+void readdata_mc(char const * const filename, int therm, long int sampleeff, double * restrict data, int col)
   {
   int err, j;
   long int i;

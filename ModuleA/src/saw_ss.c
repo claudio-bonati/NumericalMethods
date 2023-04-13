@@ -14,7 +14,7 @@ int p(int x, int y, int size)
 // try to generate a sald-avoiding walk of given length
 // acc=1 if success, else =0
 // d2=|start-end|^2 
-void saw_generate(int *lattice, 
+void saw_generate(int * restrict lattice, 
                  int length,
                  int *d2, 
                  int *acc,

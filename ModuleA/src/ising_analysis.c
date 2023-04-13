@@ -8,7 +8,10 @@
 #define STRING_LENGTH 50
 
 // compute the jacknife samples of <E>, <E^2>-<E>^2, <M>, <|M|>, <M^2>-<|M|^2>, <M2>, <M^4>/<M^2>^2
-void computejack(double *datajack, double const * const data, long int numberofbins, int binsize)
+void computejack(double * restrict datajack, 
+                 double const * const restrict data, 
+                 long int numberofbins, 
+                 int binsize)
   {
   long int i, r;
   int j;

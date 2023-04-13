@@ -6,7 +6,7 @@
 #include"../include/random.h"
 
 //initialize
-void init(NVec *a, double b[NCOMP])
+void init(NVec * restrict a, double b[NCOMP])
   {
   int i;
 
@@ -18,7 +18,7 @@ void init(NVec *a, double b[NCOMP])
 
 
 //initialize to zeros
-void zeros(NVec *a)
+void zeros(NVec * restrict a)
   {
   int i;
 
@@ -30,7 +30,7 @@ void zeros(NVec *a)
 
 
 //initialize to one
-void one(NVec *a)
+void one(NVec * restrict a)
   {
   int i;
 
@@ -43,8 +43,16 @@ void one(NVec *a)
 
 
 //assignement
-void equal(NVec *a, NVec const * const b)
+void equal(NVec * restrict a, NVec const * const restrict b)
   {
+  #ifdef DEBUG
+  if(a==b)
+    {
+    fprintf(stderr, "The same pointer is used twice in (%s, %d)\n", __FILE__, __LINE__);
+    exit(EXIT_FAILURE);
+    }
+  #endif
+
   int i;
 
   for(i=0; i<NCOMP; i++)
@@ -55,7 +63,7 @@ void equal(NVec *a, NVec const * const b)
 
 
 //times equal
-void timesequal(NVec *a, double d)
+void timesequal(NVec * restrict a, double d)
   {
   int i;
 
@@ -67,8 +75,16 @@ void timesequal(NVec *a, double d)
 
 
 //plusequal
-void plusequal(NVec *a, NVec const * const b)
+void plusequal(NVec * restrict a, NVec const * const restrict b)
   {
+  #ifdef DEBUG
+  if(a==b)
+    {
+    fprintf(stderr, "The same pointer is used twice in (%s, %d)\n", __FILE__, __LINE__);
+    exit(EXIT_FAILURE);
+    }
+  #endif
+
   int i;
 
   for(i=0; i<NCOMP; i++)
@@ -79,8 +95,16 @@ void plusequal(NVec *a, NVec const * const b)
 
 
 //minusequal
-void minusequal(NVec *a, NVec const * const b)
+void minusequal(NVec * restrict a, NVec const * const restrict b)
   {
+  #ifdef DEBUG
+  if(a==b)
+    {
+    fprintf(stderr, "The same pointer is used twice in (%s, %d)\n", __FILE__, __LINE__);
+    exit(EXIT_FAILURE);
+    }
+  #endif
+
   int i;
 
   for(i=0; i<NCOMP; i++)
@@ -91,8 +115,16 @@ void minusequal(NVec *a, NVec const * const b)
 
 
 //sum
-void sum(NVec *a, NVec const * const b, NVec const * const c)
+void sum(NVec * restrict a, NVec const * const restrict b, NVec const * const restrict c)
   {
+  #ifdef DEBUG
+  if(a==b || a==c || b==c)
+    {
+    fprintf(stderr, "The same pointer is used twice in (%s, %d)\n", __FILE__, __LINE__);
+    exit(EXIT_FAILURE);
+    }
+  #endif
+
   int i;
 
   for(i=0; i<NCOMP; i++)
@@ -102,8 +134,16 @@ void sum(NVec *a, NVec const * const b, NVec const * const c)
   }
 
 //scalar product
-double scalprod(NVec const * const a, NVec const * const b)
+double scalprod(NVec const * const restrict a, NVec const * const restrict b)
   {
+  #ifdef DEBUG
+  if(a==b)
+    {
+    fprintf(stderr, "The same pointer is used twice in (%s, %d)\n", __FILE__, __LINE__);
+    exit(EXIT_FAILURE);
+    }
+  #endif
+
   int i;
   double ris=0.0;
 
@@ -117,7 +157,7 @@ double scalprod(NVec const * const a, NVec const * const b)
 
 
 //rotate two components by angle
-void rotate2(NVec *a, int i, int j, double phi)
+void rotate2(NVec * restrict a, int i, int j, double phi)
   {
   #ifdef DEBUG
   if(i==j)
@@ -126,6 +166,7 @@ void rotate2(NVec *a, int i, int j, double phi)
     exit(EXIT_FAILURE);
     }
   #endif 
+
   double v1, v2;
 
   v1=a->comp[i];
@@ -137,7 +178,7 @@ void rotate2(NVec *a, int i, int j, double phi)
 
 
 //normalize
-void normalize(NVec *a)
+void normalize(NVec * restrict a)
   {
   int i;
   double norm=0.0;
@@ -156,7 +197,7 @@ void normalize(NVec *a)
 
 
 //norm
-double norm(NVec *a)
+double norm(NVec * restrict a)
   {
   int i;
   double norm=0.0;
@@ -170,7 +211,7 @@ double norm(NVec *a)
 
 
 // random vector
-void randvec(NVec *a)
+void randvec(NVec * restrict a)
   {
   int i;
   double norma;

@@ -6,7 +6,7 @@
 
 // cartesian coordinates -> lexicographic index
 // lattice L^{dim}
-void cart_to_lex(long int *lex, int const * const cartcoord, int L, int dim)
+void cart_to_lex(long int * restrict lex, int const * const restrict cartcoord, int L, int dim)
   {
   int i;
   long ris, aux;
@@ -31,7 +31,7 @@ void cart_to_lex(long int *lex, int const * const cartcoord, int L, int dim)
 
 // lexicographic index -> cartesian coordinates
 // lattice L^{dim}
-void lex_to_cart(int *cartcoord, long int lex, int L, int dim)
+void lex_to_cart(int * restrict cartcoord, long int lex, int L, int dim)
   {
   int i;
   long aux;
@@ -56,7 +56,7 @@ void lex_to_cart(int *cartcoord, long int lex, int L, int dim)
 // initialize geometry
 // nnp[volume*i+r]= next neighbor in positive "i" direction of site r 
 // nnm[volume*i+r]= next neighbor in negative "i" direction of site r 
-void init_neighbors(long int *nnp, long int *nnm, int L, int dim)
+void init_neighbors(long int * restrict nnp, long int * restrict nnm, int L, int dim)
   {
   int i, value, valuep, valuem;
   long r, rm, rp, volume;

@@ -14,7 +14,7 @@
 #define STRING_LENGTH 50
 
 // magnetization per site (check state 0, since b.c. do not favor any state) 
-double magn(int const * const lattice, long int volume)
+double magn(int const * const restrict lattice, long int volume)
   {
   long int r, sum;
 
@@ -32,7 +32,9 @@ double magn(int const * const lattice, long int volume)
 
 
 // energy per site
-double energy(int const * const lattice, long int const * const nnp, long int volume)
+double energy(int const * const restrict lattice, 
+              long int const * const restrict nnp, 
+              long int volume)
   {
   long int r, sum;
   int i;
@@ -56,10 +58,10 @@ double energy(int const * const lattice, long int const * const nnp, long int vo
 // return 1 if accepted, else 0
 //
 // remember that aux_prob[i]=exp(-beta*((double)i));
-int heatbath(int *lattice, 
+int heatbath(int * restrict lattice, 
             long int r, 
-            long int const * const nnp, 
-            long int const * const nnm, 
+            long int const * const restrict nnp, 
+            long int const * const restrict nnm, 
             long int volume, 
             double const * const aux_prob)
    {
@@ -107,10 +109,10 @@ int heatbath(int *lattice,
 // return 1 if accepted, else 0
 //
 // remember that aux_prob[i]=exp(-beta*((double)i));
-int metropolis(int *lattice, 
+int metropolis(int * restrict lattice, 
                long int r, 
-               long int const * const nnp, 
-               long int const * const nnm, 
+               long int const * const restrict nnp, 
+               long int const * const restrict nnm, 
                long int volume, 
                double const * const aux_prob)
    {

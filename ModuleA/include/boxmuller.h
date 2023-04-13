@@ -4,6 +4,6 @@
 double gauss1(void);
 
 // couple of independent normal random numbers
-void gauss2(double *ris1, double *ris2);
+void gauss2(double * restrict ris1, double * restrict ris2);
 
 #endif

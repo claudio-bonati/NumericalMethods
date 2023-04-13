@@ -9,7 +9,10 @@
 #define STRING_LENGTH 50
 
 // compute the jacknife samples of the Binder cumulant U
-void binderUjack(double *datajack, double const * const data, long int numberofbins, int binsize)
+void binderUjack(double * restrict datajack, 
+                 double const * const restrict data, 
+                 long int numberofbins, 
+                 int binsize)
   {
   long int i;
   int j;

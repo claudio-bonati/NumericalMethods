@@ -9,7 +9,7 @@
 #define DIM 2  // dimensionality
 
 // magnetization per site
-double magn(int const * const lattice, long int volume)
+double magn(int const * const restrict lattice, long int volume)
   {
   int r, sum;
 
@@ -24,7 +24,9 @@ double magn(int const * const lattice, long int volume)
 
 
 // energy per site
-double energy(int const * const lattice, long int const * const nnp, long int volume)
+double energy(int const * const restrict lattice, 
+              long int const * const restrict nnp, 
+              long int volume)
   {
   long int r, sum;
   int i;

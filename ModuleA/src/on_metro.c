@@ -13,7 +13,7 @@
 
 
 // magnetization per site
-double magn(NVec const * const lattice, long int volume)
+double magn(NVec const * const restrict lattice, long int volume)
   {
   long int r;
   NVec S;
@@ -30,7 +30,9 @@ double magn(NVec const * const lattice, long int volume)
 
 
 // energy per site
-double energy(NVec const * const lattice, long int const * const nnp, long int volume)
+double energy(NVec const * const restrict lattice, 
+              long int const * const restrict nnp, 
+              long int volume)
   {
   long int r;
   int i;
@@ -51,10 +53,10 @@ double energy(NVec const * const lattice, long int const * const nnp, long int v
 
 // metropolis update at site r
 // return 1 if accepted, else 0
-int metropolis(NVec *lattice, 
+int metropolis(NVec * restrict lattice, 
                long int r, 
-               long int const * const nnp, 
-               long int const * const nnm, 
+               long int const * const restrict nnp, 
+               long int const * const restrict nnm, 
                long int volume, 
                double beta,
                double phimax) 
@@ -102,10 +104,10 @@ int metropolis(NVec *lattice,
 
 
 // microcanonic update at site r
-void microcan(NVec *lattice, 
+void microcan(NVec * restrict lattice, 
               long int r, 
-              long int const * const nnp, 
-              long int const * const nnm, 
+              long int const * const restrict nnp, 
+              long int const * const restrict nnm, 
               long int volume) 
   {
   int i;
