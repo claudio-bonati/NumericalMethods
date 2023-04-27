@@ -41,8 +41,8 @@ gauss_mcmc: gaussian number generator using Markov Chain MC
 mcmc_analysis0: compute (without errors) the autocorrelation 
                 function of the data (single column data)
 
-mcmc_analysis1: analysis of primary observables <x> and 
-                <x^2> with binning (single column data)
+mcmc_analysis1: analysis of primary observables <x>, <x^2> 
+                and <x^4> with binning (single column data)
 
 mcmc_analysis2: analysis of the secondary observable
                 <x^4>/<x^2>^2 with binning and bootstrap
@@ -64,7 +64,7 @@ ising_metro: Ising model sampled by the Metropolis algorithm
 potts_metro: Potts model sampled by the Metropolis or
              Heatbath algorithm (which algorithm is used 
              depends on a macro in potts_model.c)
-             
+ 
 ising_wolff: Ising model sampled by the Wolff single 
              cluster algorithm
 
@@ -72,8 +72,10 @@ ising_analysis: analyze data produced by the ising_* codes
                 (as well as by on_* and potts_metro)
 
 on_metro: O(N) nonlinear sigma model sampled by Metropolis and 
-          microcanonical updates
+          microcanonical updates (N set by a macro in nvector.h)
 
 on_wolff: O(N) nonlinear sigma model sampled by the Wolff single
-          cluster algorithm
+          cluster algorithm (N set by a macro in nvector.h)
+
+
 
