@@ -269,9 +269,7 @@ int main(int argc, char **argv)
       return EXIT_FAILURE;
       }
 
-    // this structure will be used to keep trak of the occ 
-    // while building the cluster
-    // 0 = free, 1=occupied
+    // the first "clustesize" entries will point to the cluster sites
     pointtoocc=(long int *)malloc((unsigned long int)(volume)*sizeof(long int));
     if(pointtoocc== NULL)
       {
@@ -312,6 +310,7 @@ int main(int argc, char **argv)
        pointtoocc[clustersize]=r; // a pointer to "r" is added in position "clustersize"
        clustersize++;
 
+       //build_cluster_rec(lattice, r, occup, pointtoocc, &clustersize, nnp, nnm, volume, prob);
        build_cluster_norec(lattice, r, occup, pointtoocc, &clustersize, nnp, nnm, volume, prob);
 
        // flip the cluster
