@@ -1,7 +1,11 @@
 CC=gcc
 CFLAGS=-O2 -Wall -Wextra -Werror -pedantic -Wconversion -std=c99
 
-all: bad_rng pi_no_rng pi_ss gauss_distr rew_problem gauss_mcmc mcmc_analysis0 mcmc_analysis1 mcmc_analysis2 mcmc_analysis3 saw_ss saw_mcmc ising ising_metro ising_analysis potts_metro ising_wolff on_metro on_wolff
+binaries=bad_rng pi_no_rng pi_ss gauss_distr rew_problem gauss_mcmc mcmc_analysis0 \
+	mcmc_analysis1 mcmc_analysis2 mcmc_analysis3 saw_ss saw_mcmc ising ising_metro \
+	ising_analysis potts_metro ising_wolff on_metro on_wolff
+
+all: $(binaries)
 
 bad_rng: ../src/bad_rng.c
 	$(CC) $(CFLAGS) ../src/bad_rng.c -o $@ -lm
@@ -95,9 +99,9 @@ on_wolff: ../src/on_wolff.c geometry.o nvector.o random.o pcg32min.o
 	$(CC) $(CFLAGS) -c ../src/on_wolff.c  
 	$(CC) $(CFLAGS) geometry.o nvector.o on_wolff.o random.o pcg32min.o -o $@ -lm
 
+.PHONY: clean
 clean:
-	rm -f bad_rng pi_no_rng pi_ss gauss_distr rew_problem gauss_mcmc mcmc_analysis0 mcmc_analysis1 mcmc_analysis2 mcmc_analysis3
-	rm -f saw_ss saw_mcmc ising ising_metro ising_analysis potts_metro ising_wolff on_metro on_wolff *.o
+	rm -f $(binaries) *.o
 
 cleanobj:
 	rm -f *.o
