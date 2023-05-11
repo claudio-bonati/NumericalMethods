@@ -53,9 +53,13 @@ void lex_to_cart(int * restrict cartcoord, long int lex, int L, int dim)
   }
 
 
+// to go from point "lex" in direction "i" in a lattice of volume "volume"
+// see init_neighbors for examples of use
+long int dirgeo(long int lex, int i, long int volume);
+
 // initialize geometry
-// nnp[volume*i+r]= next neighbor in positive "i" direction of site r 
-// nnm[volume*i+r]= next neighbor in negative "i" direction of site r 
+// nnp[dirgeo(r,i,volume)]= next neighbor in positive "i" direction of site r 
+// nnm[dirgeo(r,i,volume)]= next neighbor in negative "i" direction of site r 
 void init_neighbors(long int * restrict nnp, 
                     long int * restrict nnm, 
                     int L, 
@@ -96,7 +100,7 @@ void init_neighbors(long int * restrict nnp,
           }
         cartcoord[i]=valuep;
         cart_to_lex(&rp, cartcoord, L, dim);
-        nnp[i*volume+r]=rp;
+        nnp[dirgeo(r, i, volume)]=rp;
 
         valuem=value-1;
         if(valuem<0)
@@ -105,7 +109,7 @@ void init_neighbors(long int * restrict nnp,
           }
         cartcoord[i]=valuem;
         cart_to_lex(&rm, cartcoord, L, dim);
-        nnm[i*volume+r]=rm;
+        nnm[dirgeo(r, i, volume)]=rm;
 
         cartcoord[i]=value;
         }
@@ -161,8 +165,8 @@ void test_geometry(long int const * const restrict nnp,
      {
      for(dir=0; dir<dim; dir++)
         {
-        r_test=nnp[dir*volume+r];
-        r_test1=nnm[dir*volume+r_test];
+        r_test=nnp[dirgeo(r, dir, volume)];
+        r_test1=nnm[dirgeo(r_test, dir, volume)];
 
         if(r != r_test1)
           {
@@ -177,14 +181,14 @@ void test_geometry(long int const * const restrict nnp,
      {
      for(dir=0; dir<dim; dir++)
         {
-        r_test1=nnp[dir*volume + r];
+        r_test1=nnp[dirgeo(r, dir, volume)];
 
         for(dir1=0; dir1<dim; dir1++)
            {
-           r_test2=nnp[dir1*volume + r_test1];
+           r_test2=nnp[dirgeo(r_test1, dir1, volume)];
 
-           r_test=nnm[dir*volume + r_test2];
-           r_test2=nnm[dir1*volume + r_test];
+           r_test=nnm[dirgeo(r_test2, dir, volume)];
+           r_test2=nnm[dirgeo(r_test, dir1, volume)];
 
            if(r != r_test2)
              {

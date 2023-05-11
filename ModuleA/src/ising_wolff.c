@@ -38,7 +38,7 @@ double energy(int const * const restrict lattice,
      {
      for(i=0; i<DIM; i++)
         {
-        sum+=-lattice[r]*lattice[nnp[i*volume + r]];
+        sum+=-lattice[r]*lattice[nnp[dirgeo(r, i, volume)]];
         }
      }
 
@@ -67,16 +67,16 @@ void build_cluster_rec(int const * const restrict lattice,
   for(i=0; i<DIM; i++)
      {
      // forward
-     if(occup[nnp[i*volume+r]]==0 && lattice[r]*lattice[nnp[i*volume+r]]==1)
+     if(occup[nnp[dirgeo(r, i, volume)]]==0 && lattice[r]*lattice[nnp[dirgeo(r, i, volume)]]==1)
        {
        if(myrand()<prob)
          {
-         occup[nnp[i*volume+r]]=1;
-         pointtoocc[*clustersize]=nnp[i*volume+r];
+         occup[nnp[dirgeo(r, i, volume)]]=1;
+         pointtoocc[*clustersize]=nnp[dirgeo(r, i, volume)];
          (*clustersize)++;
 
          build_cluster_rec(lattice, 
-                           nnp[i*volume+r],
+                           nnp[dirgeo(r, i, volume)],
                            occup, 
                            pointtoocc,
                            clustersize, 
@@ -88,16 +88,16 @@ void build_cluster_rec(int const * const restrict lattice,
        }
 
      // backward
-     if(occup[nnm[i*volume+r]]==0 && lattice[r]*lattice[nnm[i*volume+r]]==1) 
+     if(occup[nnm[dirgeo(r, i, volume)]]==0 && lattice[r]*lattice[nnm[dirgeo(r, i, volume)]]==1) 
        {
        if(myrand()<prob)
          {
-         occup[nnm[i*volume+r]]=1;
-         pointtoocc[*clustersize]=nnm[i*volume+r];
+         occup[nnm[dirgeo(r, i, volume)]]=1;
+         pointtoocc[*clustersize]=nnm[dirgeo(r, i, volume)];
          (*clustersize)++;
 
          build_cluster_rec(lattice, 
-                           nnm[i*volume+r],
+                           nnm[dirgeo(r, i, volume)],
                            occup, 
                            pointtoocc,
                            clustersize, 
@@ -143,23 +143,23 @@ void build_cluster_norec(int const * const restrict lattice,
           for(i=0; i<DIM; i++)
              {
              // forward
-             if(occup[nnp[i*volume+r1]]==0 && lattice[r1]*lattice[nnp[i*volume+r1]]==1)
+             if(occup[nnp[dirgeo(r1, i, volume)]]==0 && lattice[r1]*lattice[nnp[dirgeo(r1, i, volume)]]==1)
                {
                if(myrand()<prob)
                  {
-                 occup[nnp[i*volume+r1]]=1;
-                 pointtoocc[*clustersize]=nnp[i*volume+r1];
+                 occup[nnp[dirgeo(r1, i, volume)]]=1;
+                 pointtoocc[*clustersize]=nnp[dirgeo(r1, i, volume)];
                  (*clustersize)++;
                  }
                }
         
              // backward
-             if(occup[nnm[i*volume+r1]]==0 && lattice[r1]*lattice[nnm[i*volume+r1]]==1) 
+             if(occup[nnm[dirgeo(r1, i, volume)]]==0 && lattice[r1]*lattice[nnm[dirgeo(r1, i, volume)]]==1) 
                {
                if(myrand()<prob)
                  {
-                 occup[nnm[i*volume+r1]]=1;
-                 pointtoocc[*clustersize]=nnm[i*volume+r1];
+                 occup[nnm[dirgeo(r1, i, volume)]]=1;
+                 pointtoocc[*clustersize]=nnm[dirgeo(r1, i, volume)];
                  (*clustersize)++;
                  }
                }
@@ -241,7 +241,7 @@ int main(int argc, char **argv)
        }
 
     // allocate the lattice (lexicographic order)
-    // and next neighbors: nnp[i*volume+r]= next neighbor in positive "i" direction of site r 
+    // and next neighbors: nnp[dirgeo(r, i, volume)]= next neighbor in positive "i" direction of site r 
     lattice=(int *)malloc((unsigned long int)(volume)*sizeof(int));
     if(lattice == NULL)
       {

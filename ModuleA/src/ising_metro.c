@@ -38,7 +38,7 @@ double energy(int const * const restrict lattice,
      {
      for(i=0; i<DIM; i++)
         {
-        sum+=-lattice[r]*lattice[nnp[i*volume + r]];
+        sum+=-lattice[r]*lattice[nnp[dirgeo(r, i, volume)]];
         }
      }
 
@@ -62,8 +62,8 @@ int metropolis(int * restrict lattice,
   sumnn=0;
   for(i=0; i<DIM; i++)
      {
-     sumnn+=lattice[nnp[i*volume+r]];
-     sumnn+=lattice[nnm[i*volume+r]];
+     sumnn+=lattice[nnp[dirgeo(r, i, volume)]];
+     sumnn+=lattice[nnm[dirgeo(r, i, volume)]];
      }
   sumnn*=lattice[r];
 
@@ -157,7 +157,7 @@ int main(int argc, char **argv)
        }
 
     // allocate the lattice (lexicographic order)
-    // and next neighbors: nnp[i*volume+r]= next neighbor in positive "i" direction of site r 
+    // and next neighbors: nnp[dirgeo(r, i, volume)]= next neighbor in positive "i" direction of site r 
     lattice=(int *)malloc((unsigned long int)(volume)*sizeof(int));
     if(lattice == NULL)
       {

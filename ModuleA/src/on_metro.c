@@ -43,7 +43,7 @@ double energy(NVec const * const restrict lattice,
      {
      for(i=0; i<DIM; i++)
         {
-        sum+=-scalprod(&(lattice[r]), &(lattice[nnp[i*volume + r]]));
+        sum+=-scalprod(&(lattice[r]), &(lattice[nnp[dirgeo(r, i, volume)]]));
         }
      }
 
@@ -68,8 +68,8 @@ int metropolis(NVec * restrict lattice,
   zeros(&sumnn);
   for(i=0; i<DIM; i++)
      {
-     plusequal(&sumnn, &(lattice[nnp[i*volume+r]]) );
-     plusequal(&sumnn, &(lattice[nnm[i*volume+r]]) );
+     plusequal(&sumnn, &(lattice[nnp[dirgeo(r, i, volume)]]) );
+     plusequal(&sumnn, &(lattice[nnm[dirgeo(r, i, volume)]]) );
      }
 
   // generate the trial vector
@@ -117,8 +117,8 @@ void microcan(NVec * restrict lattice,
   zeros(&sumnn);
   for(i=0; i<DIM; i++)
      {
-     plusequal(&sumnn, &(lattice[nnp[i*volume+r]]) );
-     plusequal(&sumnn, &(lattice[nnm[i*volume+r]]) );
+     plusequal(&sumnn, &(lattice[nnp[dirgeo(r, i, volume)]]) );
+     plusequal(&sumnn, &(lattice[nnm[dirgeo(r, i, volume)]]) );
      }
   norma=norm(&sumnn);
 
@@ -210,7 +210,7 @@ int main(int argc, char **argv)
        }
 
     // allocate the lattice (lexicographic order)
-    // and next neighbors: nnp[i*volume+r]= next neighbor in positive "i" direction of site r 
+    // and next neighbors: nnp[dirgeo(r, i, volume)]= next neighbor in positive "i" direction of site r 
     lattice=(NVec *)malloc((unsigned long int)(volume)*sizeof(NVec));
     if(lattice == NULL)
       {

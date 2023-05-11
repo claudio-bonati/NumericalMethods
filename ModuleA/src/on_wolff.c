@@ -42,7 +42,7 @@ double energy(NVec const * const restrict lattice,
      {
      for(i=0; i<DIM; i++)
         {
-        sum+=-scalprod(&(lattice[r]), &(lattice[nnp[i*volume + r]]));
+        sum+=-scalprod(&(lattice[r]), &(lattice[nnp[dirgeo(r, i, volume)]]));
         }
      }
 
@@ -84,32 +84,32 @@ void build_cluster_norec(NVec const * const restrict lattice,
           for(i=0; i<DIM; i++)
              {
              // forward
-             if(occup[nnp[i*volume+r1]]==0)
+             if(occup[nnp[dirgeo(r1, i, volume)]]==0)
                {
-               prob=-2.0*beta*scalprod(randv, &(lattice[r1]))*scalprod(randv, &(lattice[nnp[i*volume+r1]]));
+               prob=-2.0*beta*scalprod(randv, &(lattice[r1]))*scalprod(randv, &(lattice[nnp[dirgeo(r1, i, volume)]]));
                if(prob<0.0)
                  {
                  prob=1.0-exp(prob);
                  if(myrand()<prob)
                    {
-                   occup[nnp[i*volume+r1]]=1;
-                   pointtoocc[*clustersize]=nnp[i*volume+r1];
+                   occup[nnp[dirgeo(r1, i, volume)]]=1;
+                   pointtoocc[*clustersize]=nnp[dirgeo(r1, i, volume)];
                    (*clustersize)++;
                    }
                  }
                }
         
              // backward
-             if(occup[nnm[i*volume+r1]]==0)
+             if(occup[nnm[dirgeo(r1, i, volume)]]==0)
                {
-               prob=-2.0*beta*scalprod(randv, &(lattice[r1]))*scalprod(randv, &(lattice[nnm[i*volume+r1]]));
+               prob=-2.0*beta*scalprod(randv, &(lattice[r1]))*scalprod(randv, &(lattice[nnm[dirgeo(r1, i, volume)]]));
                if(prob<0.0)
                  {
                  prob=1.0-exp(prob);
                  if(myrand()<prob)
                    {
-                   occup[nnm[i*volume+r1]]=1;
-                   pointtoocc[*clustersize]=nnm[i*volume+r1];
+                   occup[nnm[dirgeo(r1, i, volume)]]=1;
+                   pointtoocc[*clustersize]=nnm[dirgeo(r1, i, volume)];
                    (*clustersize)++;
                    }
                  }
@@ -194,7 +194,7 @@ int main(int argc, char **argv)
        }
 
     // allocate the lattice (lexicographic order)
-    // and next neighbors: nnp[i*volume+r]= next neighbor in positive "i" direction of site r 
+    // and next neighbors: nnp[dirgeo(r, i, volume)]= next neighbor in positive "i" direction of site r 
     lattice=(NVec *)malloc((unsigned long int)(volume)*sizeof(NVec));
     if(lattice == NULL)
       {
