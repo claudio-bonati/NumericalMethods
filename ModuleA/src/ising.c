@@ -128,19 +128,16 @@ int main(int argc, char **argv)
           if(raux %2 ==0)
             {
             lattice[r2]=1;
-
 //            printf("0");
             }
           else
             {
             lattice[r2]=-1;
-
 //            printf("1");
             }
 
           raux=raux>>1;
           }
-
 //       printf("\n"); 
 
        locE=energy(lattice, nnp, volume);

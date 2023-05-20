@@ -7,6 +7,10 @@
 
 #define STRING_LENGTH 50
 
+// REMEMBER: the data file is a two column file, each raw corresponding to measures taken on the same configuraton
+// first column = energy per site
+// second column = magnetization per site
+
 // compute the jacknife samples of <E>, <E^2>-<E>^2, <M>, <|M|>, <M^2>-<|M|^2>, <M2>, <M^4>/<M^2>^2
 void computejack(double * restrict datajack, 
                  double const * const restrict data, 
