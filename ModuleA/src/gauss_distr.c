@@ -6,6 +6,38 @@
 #include"../include/boxmuller.h"
 #include"../include/random.h"
 
+
+// test to check if the polar form of Box-Muller is more efficient than the basic one
+void test_speed(void)
+  {
+  long int i, sample=100000000;
+  double tmp1, tmp2, diff_sec;
+  clock_t time1, time2;
+
+  printf("---------------------\n");
+  printf("Test for Box-Muller speed:\n");
+
+  time1=clock();
+  for(i=0; i<sample; i++)
+     {
+     gauss2(&tmp1, &tmp2);
+     }
+  time2=clock();
+  diff_sec=((double) (time2-time1))/CLOCKS_PER_SEC;
+  printf("polar form: %.3lf\n", diff_sec);
+
+  time1=clock();
+  for(i=0; i<sample; i++)
+     {
+     gauss2_basic(&tmp1, &tmp2);
+     }
+  time2=clock();
+  diff_sec=((double) (time2-time1))/CLOCKS_PER_SEC;
+  printf("basic form: %.3lf\n", diff_sec);
+  printf("---------------------\n");
+  }
+
+
 // main
 int main(int argc, char **argv)
     {
@@ -41,6 +73,9 @@ int main(int argc, char **argv)
 
     // initialize random number generator
     myrand_init(seed1, seed2);
+
+    // to test which Box-Muller implementation is faster
+    //test_speed();
 
     // initialize average values
     x=0.0;
