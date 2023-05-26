@@ -62,7 +62,7 @@ int main(int argc, char **argv)
       fprintf(stdout, "  binsize = size of the bin to be used in binning/blocking\n");
       fprintf(stdout, "  datafile = name of the data file to be analyzed (single column!)\n\n");
       fprintf(stdout, "Output:\n");
-      fprintf(stdout, "  <x^4>/<x^2>^2 and it error, computed using binning and bootstrap\n");
+      fprintf(stdout, "  <x^4>/<x^2>^2 and it error, computed using binning and jackknife\n");
 
       return EXIT_SUCCESS;
       }
