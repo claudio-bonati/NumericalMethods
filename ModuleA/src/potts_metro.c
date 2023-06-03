@@ -30,8 +30,8 @@ double magn(int const * const restrict lattice, long int volume)
   sum2=0.0;
   for(r=0; r<volume; r++)
      {
-     tmp1=cos(lattice[r]*M_PI*instates);
-     tmp2=sin(lattice[r]*M_PI*instates);
+     tmp1=cos(lattice[r]*2.0*M_PI*instates);
+     tmp2=sin(lattice[r]*2.0*M_PI*instates);
 
      sum1+=tmp1;
      sum2+=tmp2;
