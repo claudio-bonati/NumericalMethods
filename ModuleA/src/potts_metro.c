@@ -13,6 +13,37 @@
 
 #define STRING_LENGTH 50
 
+// when using C99 M_PI is not defined in math.h header!
+#ifndef M_PI
+#  define M_PI  3.141592653589793238462643383279502884
+#endif
+
+
+// magnetization per site (clock order parameter)
+double magn(int const * const restrict lattice, long int volume)
+  {
+  long int r;
+  double tmp1, tmp2, sum1, sum2;
+  const double instates=1.0/(double) NSTATES;
+
+  sum1=0.0;
+  sum2=0.0;
+  for(r=0; r<volume; r++)
+     {
+     tmp1=cos(lattice[r]*M_PI*instates);
+     tmp2=sin(lattice[r]*M_PI*instates);
+
+     sum1+=tmp1;
+     sum2+=tmp2;
+     }
+
+  sum1/=(double) volume;
+  sum2/=(double) volume;
+
+  return sqrt(sum1*sum1+sum2*sum2);
+  }
+
+/* Possible alternative definition of magnetization
 // magnetization per site (check state 0, since b.c. do not favor any state) 
 double magn(int const * const restrict lattice, long int volume)
   {
@@ -29,7 +60,7 @@ double magn(int const * const restrict lattice, long int volume)
 
   return ((double) NSTATES * ((double) sum/(double) volume ) -1.0)/((double) NSTATES -1.0);
   }
-
+*/
 
 // energy per site
 double energy(int const * const restrict lattice, 
@@ -55,7 +86,7 @@ double energy(int const * const restrict lattice,
   }
 
 // heatbath update at site r
-// return 1 if accepted, else 0
+// return 1 (for consistency with metropolis update)
 //
 // remember that aux_prob[i]=exp(-beta*((double)i));
 int heatbath(int * restrict lattice, 
