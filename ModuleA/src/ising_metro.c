@@ -90,7 +90,7 @@ int metropolis(int * restrict lattice,
 int main(int argc, char **argv)
     {
     int i, L, *lattice;
-    long int r, volume, sample, iter, acc; 
+    long int r, raux, volume, sample, iter, acc; 
     long int *nnp, *nnm;
     double beta, locE, locM;
     double acc_prob[2*DIM+1];
@@ -203,7 +203,8 @@ int main(int argc, char **argv)
        {
        for(r=0; r<volume; r++)
           {
-          acc+=metropolis(lattice, r, nnp, nnm, volume, acc_prob);
+          raux=(long int)((double)volume * myrand());
+          acc+=metropolis(lattice, raux, nnp, nnm, volume, acc_prob);
           }
 
        locE=energy(lattice, nnp, volume);
