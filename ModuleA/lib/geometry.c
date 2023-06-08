@@ -53,8 +53,10 @@ void lex_to_cart(int * restrict cartcoord, long int lex, int L, int dim)
   }
 
 
-// to go from point "lex" in direction "i" in a lattice of volume "volume"
-// see init_neighbors for examples of use
+// inline function defined in include/geometry.h
+//
+// nnp[dirgeo(r, i, volume)] is the neighbor of "r" in positive direction "i" on a lattice of volume "volume"
+// nnm[dirgeo(r, i, volume)] is the neighbor of "r" in negative direction "i" on a lattice of volume "volume"
 long int dirgeo(long int lex, int i, long int volume);
 
 // initialize geometry
