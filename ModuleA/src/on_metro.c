@@ -142,7 +142,7 @@ int main(int argc, char **argv)
     {
     NVec *lattice;
     int i, L;
-    long int r, volume, sample, iter, acc; 
+    long int r, volume, sample, iter, acc, metro; 
     long int *nnp, *nnm;
     double beta, locE, locM;
     char datafile[STRING_LENGTH];
@@ -246,22 +246,29 @@ int main(int argc, char **argv)
       }
 
     acc=0;
+    metro=0;
     for(iter=0; iter<sample; iter++)
        {
-       // metropolis
-       for(r=0; r<volume; r++)
-          {
-          acc+=metropolis(lattice, r, nnp, nnm, volume, beta, phimax);
-          }
-
-       // microcanonical updates
-       for(i=0; i<microupdates; i++) 
-          {
-          for(r=0; r<volume; r++)
-             {
-             microcan(lattice, r, nnp, nnm, volume);
-             }
-          }
+       if(myrand()<0.4)
+         {
+         // metropolis
+         for(r=0; r<volume; r++)
+            {
+            acc+=metropolis(lattice, r, nnp, nnm, volume, beta, phimax);
+            }
+         metro+=1;
+         }
+       else
+         {
+         // microcanonical updates
+         for(i=0; i<microupdates; i++) 
+            {
+            for(r=0; r<volume; r++)
+               {
+               microcan(lattice, r, nnp, nnm, volume);
+               }
+            }
+         }
 
        // normalize the lattice
        for(r=0; r<volume; r++)
@@ -278,7 +285,7 @@ int main(int argc, char **argv)
     // close datafile
     fclose(fp);
 
-    printf("Acceptance rate %f\n", (double)acc / (double)sample / (double) volume);
+    printf("Acceptance rate %f\n", (double)acc / (double)metro / (double) volume);
 
     free(lattice);
     free(nnp);
