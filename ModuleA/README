@@ -1,21 +1,4 @@
 *************************************************************
-******     SOME C CODES TO BE USED AS EXAMPLES IN      ****** 
-******         "METODI NUMERICI PER LA FISICA"         ******
-*************************************************************
-
-To compile using gcc use 
-
-make
-
-while to use another compiler use
-
-make CC=your_compiler
-
-Executables are produced in the build directory and when 
-executed without input (or with wrong input) they print on 
-screen some informations on their use.
-
-*************************************************************
 
 Module A: introduction to Markov Chain Monte Carlo and 
           applications in statistical physics
@@ -58,6 +41,7 @@ saw_mcmc: MCMC for 2d self-avoiding random walk
           (pivot algorithm)
 
 ising: exact solution of the Ising mode by enumeration 
+       (small lattices only!)
 
 ising_metro: Ising model sampled by the Metropolis algorithm
 
@@ -76,6 +60,4 @@ on_metro: O(N) nonlinear sigma model sampled by Metropolis and
 
 on_wolff: O(N) nonlinear sigma model sampled by the Wolff single
           cluster algorithm (N set by a macro in nvector.h)
-
-
 
