@@ -29,7 +29,7 @@ int main(int argc, char **argv)
       fprintf(stdout, "Output:\n");
       fprintf(stdout, "  a single column of 'sample' number with normal gaussian distribution in 'datafile'\n");
       fprintf(stdout, "  the acceptance rate\n");
-      fprintf(stdout, "  the [naive!] values of <x> and <x^2> with their errors\n");
+      fprintf(stdout, "  the [naive!] values of <x> and <x^2> with their errors (sample/10 thermalization steps)\n");
 
       return EXIT_SUCCESS;
       }
@@ -85,9 +85,12 @@ int main(int argc, char **argv)
     // loop on iterations
     for(i=0; i<sample; i++)
        {
-       x+=state;
-       x2+=pow(state,2.0);
-       x4+=pow(state,4.0);
+       if(i>sample/10)
+	 {
+         x+=state;
+         x2+=pow(state,2.0);
+         x4+=pow(state,4.0);
+	 }
 
        fprintf(fp, "%f\n", state);
        trial=state+step*(1.0-2.0*myrand());
@@ -111,13 +114,13 @@ int main(int argc, char **argv)
     fclose(fp);
 
     // normalize averages
-    x/=(double)sample;
-    x2/=(double)sample;
-    x4/=(double)sample;
+    x/=((double)sample * 9.0/10.0);
+    x2/=((double)sample * 9.0/10.0);
+    x4/=((double)sample * 9.0/10.0);
 
-    printf("Acceptance rate=%f\n", (double) acc/(double) sample);
-    printf("<x>[naive!]=%f %f\n", x, sqrt((x2-x*x)/(double) sample));
-    printf("<x^2>[naive!]=%f %f\n", x2, sqrt((x4-x2*x2)/(double) sample));
+    printf("Acceptance rate=%f\n", (double) acc/((double) sample * 9.0/10.0));
+    printf("<x>[naive!]=%f %f\n", x, sqrt((x2-x*x)/((double) sample) * 9.0/10.0) );
+    printf("<x^2>[naive!]=%f %f\n", x2, sqrt((x4-x2*x2)/((double) sample) * 9.0/10.0) );
 
     return EXIT_SUCCESS;
     }
