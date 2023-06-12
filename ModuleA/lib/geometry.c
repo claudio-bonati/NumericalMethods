@@ -59,6 +59,7 @@ void lex_to_cart(int * restrict cartcoord, long int lex, int L, int dim)
 // nnm[dirgeo(r, i, volume)] is the neighbor of "r" in negative direction "i" on a lattice of volume "volume"
 long int dirgeo(long int lex, int i, long int volume);
 
+
 // initialize geometry
 // nnp[dirgeo(r,i,volume)]= next neighbor in positive "i" direction of site r 
 // nnm[dirgeo(r,i,volume)]= next neighbor in negative "i" direction of site r 
