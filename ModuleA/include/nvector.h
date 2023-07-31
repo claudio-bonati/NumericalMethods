@@ -10,6 +10,11 @@
 #define NCOMP 2
 
 
+#if !(NCOMP>1)
+#error "NCOMP must be large than 1"
+#endif
+
+
 typedef struct NVec {
      double comp[NCOMP];
 } NVec;
