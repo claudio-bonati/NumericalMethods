@@ -183,7 +183,7 @@ int main(int argc, char **argv)
 
     for(j=0; j<4; j++)
        {
-       printf("%f %f ", ris[j], err[j]);
+       printf("%.12f %.12f ", ris[j], err[j]);
        }
     printf("\n");
 

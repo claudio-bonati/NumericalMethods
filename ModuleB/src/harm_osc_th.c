@@ -100,20 +100,30 @@ int heatbath(double * restrict lattice, long int r, double nnsum, double eta)
   }
 
 
+// overrelaxation
+void overrelaxation(double * restrict lattice, long int r, double nnsum, double eta)
+  {
+  const double average=nnsum/eta/(eta+2.0/eta);
+  double ris=2.0*average-lattice[r];
+  lattice[r]=ris;
+  }
+
+
 // main
 int main(int argc, char **argv)
     {
     double *lattice;
-    long int Nt, r, sample, iter; 
+    long int Nt, r, sample, iter, acc; 
     long int *nnp, *nnm;
     double simbeta, eta, nnsum;
-    long int acc;
     double x, x2, Knaive; 
+    int j;
   
     char datafile[STRING_LENGTH];
     FILE *fp;
 
     const int measevery=10;
+    const int overrelaxsteps=5;
 
     const unsigned long int seed1=(unsigned long int) time(NULL);
     const unsigned long int seed2=seed1+127;
@@ -222,13 +232,24 @@ int main(int argc, char **argv)
           #endif
           }
 
+       // overrelaxation
+       for(j=0; j<overrelaxsteps; j++)
+          {
+          for(r=0; r<Nt; r++)
+             {
+             nnsum=lattice[nnp[r]]+lattice[nnm[r]];
+
+             overrelaxation(lattice, r, nnsum, eta);
+             }
+          }
+
        if(iter%measevery==0)
          {
          x=calc_x(lattice, Nt);   
          x2=calc_x2(lattice, Nt); 
          Knaive=calc_Knaive(lattice, nnp, Nt, eta);
   
-         fprintf(fp, "%f %f %f\n", x, x2, Knaive);
+         fprintf(fp, "%.12f %.12f %.12f\n", x, x2, Knaive);
          }
        }
 
