@@ -279,7 +279,7 @@ int main(int argc, char **argv)
        locE=energy(lattice, nnp, volume);
        locM=magn(lattice, volume);
 
-       fprintf(fp, "%f %f\n", locE, locM);
+       fprintf(fp, "%.12f %.12f\n", locE, locM);
        }
 
     // close datafile
