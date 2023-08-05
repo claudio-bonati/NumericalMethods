@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-O2 -Wall # -Wextra -Werror -pedantic -Wconversion -std=c99
+CFLAGS=-O2 -Wall -Wextra -Werror -pedantic -Wconversion -std=c99
 
 binaries=harm_osc_th harm_osc_th_analysis
 
