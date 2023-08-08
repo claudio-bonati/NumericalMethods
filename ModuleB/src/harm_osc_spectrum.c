@@ -239,8 +239,8 @@ int main(int argc, char **argv)
                {
                fprintf(fp, "%.12f ", corr[j]);
                }
-            fprintf(fp, "\n");
             }
+         fprintf(fp, "\n");
          }
        }
 
