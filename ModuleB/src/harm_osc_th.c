@@ -137,7 +137,7 @@ int main(int argc, char **argv)
       fprintf(stdout, "  sample = number of drawn to be extracted\n");
       fprintf(stdout, "  datafile = name of the file on which to write the data\n\n");
       fprintf(stdout, "Output:\n");
-      fprintf(stdout, "  TO BE MODIFIED\n");
+      fprintf(stdout, "  x, x^2 and 'naive' kinetic energy, one line for each configuration\n");
 
       return EXIT_SUCCESS;
       }

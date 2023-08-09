@@ -11,22 +11,35 @@
 
 //#define METRO // if this macro is defined Metropolis is uded, otherwise heatbath
 
+// average position square
+double calc_x2(double const * const restrict lattice, long int Nt)
+  {
+  long int r;
+  double ris;
+
+  ris=0.0;
+  for(r=0; r<Nt; r++)
+     {
+     ris+=lattice[r]*lattice[r];
+     }
+  
+  return ris/(double)Nt;
+  }
 
 // correlators at temporal distance deltat
-//  ris[0]=0.0; // x x correlator
-//  ris[1]=0.0; // x^2 x^2 correlator
-//  ris[2]=0.0; // x^3 x^3 correlator
-//  ris[3]=0.0; // x x^3 corrlator
-//  ris[4]=0.0; // x^3-(3/2)x x^3-(3/2)x correlator  
+//  ris[0]: x x correlator
+//  ris[1]: x^2 x^2 correlator
+//  ris[2]: x^3 x^3 correlator
+//  ris[3]: x^3-(3/2)x x^3-(3/2)x correlator  
 void correlators(double const * const restrict lattice, 
                  long Nt,
                  long deltat,
-                 double ris[5])
+                 double ris[4])
   {
   long int r, raux;
   int i;
 
-  for(i=0; i<5; i++)
+  for(i=0; i<4; i++)
      {
      ris[i]=0.0;
      }
@@ -38,11 +51,10 @@ void correlators(double const * const restrict lattice,
      ris[0]+=lattice[r]*lattice[raux];
      ris[1]+=pow(lattice[r],2)*pow(lattice[raux],2);
      ris[2]+=pow(lattice[r],3)*pow(lattice[raux],3);
-     ris[3]+=pow(lattice[r],1)*pow(lattice[raux],3);
-     ris[4]+=(pow(lattice[r],3)-1.5*lattice[r])*(pow(lattice[raux],3)-1.5*lattice[raux]);
+     ris[3]+=(pow(lattice[r],3)-1.5*lattice[r])*(pow(lattice[raux],3)-1.5*lattice[raux]);
      }
  
-  for(i=0; i<5; i++)
+  for(i=0; i<4; i++)
      {
      ris[i]/=(double)Nt;     
      }
@@ -102,7 +114,7 @@ int main(int argc, char **argv)
     long int Nt, r, sample, iter, acc, deltat; 
     long int *nnp, *nnm;
     double simbeta, eta, nnsum;
-    double corr[5];  // 5 different correlators are measured, see the function "correlators"
+    double x2, corr[4];  // 4 different correlators are measured, see the function "correlators"
     int j;
   
     char datafile[STRING_LENGTH];
@@ -123,7 +135,9 @@ int main(int argc, char **argv)
       fprintf(stdout, "  sample = number of drawn to be extracted\n");
       fprintf(stdout, "  datafile = name of the file on which to write the data\n\n");
       fprintf(stdout, "Output:\n");
-      fprintf(stdout, "  TO BE MODIFIED\n");
+      fprintf(stdout, "  Each line starts with <x^2(0)> and then there is a sequence of\n");
+      fprintf(stdout, "  <x(0)x(t)>, <x^2(0)x^2(t)>, <x^3(0)x^3(t)>, <A(0)A(t)> with A=x^3-(3/2)x\n");
+      fprintf(stdout, "  starting from t=0 up to Nt/4. Different lines correspond to different configurations\n");
 
       return EXIT_SUCCESS;
       }
@@ -231,11 +245,14 @@ int main(int argc, char **argv)
 
        if(iter%measevery==0)
          {
+         x2=calc_x2(lattice, Nt); 
+         fprintf(fp, "%.12f ", x2);
+
          for(deltat=0; deltat<Nt/4; deltat++)
             {
             correlators(lattice, Nt, deltat, corr);
             
-            for(j=0; j<5; j++)
+            for(j=0; j<4; j++)
                {
                fprintf(fp, "%.12f ", corr[j]);
                }
