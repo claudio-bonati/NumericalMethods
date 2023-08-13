@@ -3,9 +3,10 @@
 ******         "METODI NUMERICI PER LA FISICA"         ******
 *************************************************************
 
-Module A: introduction to Markov Chain Monte Carlo and 
-          applications in statistical physics
+Module A: Introduction to Markov Chain Monte-Carlo and 
+          applications in statistical mechanics
 
-Module B: applications in quantum mechanics
+Module B: Application of Monte-Carlo methods to the study of 
+          the path-integral in quantum mechanics
 
-Module C: applications in quantum field theory
+Module C: Path-integral simulations for quantum field theories
