@@ -72,7 +72,7 @@ int main(int argc, char **argv)
       fprintf(stdout, "  %s therm binsize datafile\n\n", argv[0]);
       fprintf(stdout, "  therm = number of lines to be discarded as thermalization\n");
       fprintf(stdout, "  binsize = size of the bin to be used in binning/blocking\n");
-      fprintf(stdout, "  datafile = name of the data file to be analyzed (2 columns: energy and magnetization per site)\n\n");
+      fprintf(stdout, "  datafile = name of the data file to be analyzed (1 column, Q)\n\n");
       fprintf(stdout, "Output:\n");
       fprintf(stdout, "  <Q>, err, <Q^2>, err, -(<Q^4>-3<Q^2>^2)/(12<Q^2>), err\n");
       fprintf(stdout, "  computed using binning and jackknife\n");
