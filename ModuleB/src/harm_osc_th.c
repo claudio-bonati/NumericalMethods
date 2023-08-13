@@ -63,7 +63,7 @@ double calc_Knaive(double const * const restrict lattice,
   }
 
 
-// Metropolis update, return 1
+// Metropolis update, return 1 if accepted
 int metropolis(double * restrict lattice, long int r, double nnsum, double eta)
   {
   const double delta=10.0*sqrt(eta);

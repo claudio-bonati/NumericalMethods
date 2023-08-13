@@ -1,7 +1,7 @@
 CC=gcc
 CFLAGS=-O2 -Wall -Wextra -Werror -pedantic -Wconversion -std=c99
 
-binaries=harm_osc_th harm_osc_th_analysis harm_osc_spectrum harm_osc_spectrum_analysis
+binaries=harm_osc_th harm_osc_th_analysis harm_osc_spectrum harm_osc_spectrum_analysis part_on_a_circ
 
 all: $(binaries)
 
@@ -32,6 +32,11 @@ harm_osc_spectrum: ../src/harm_osc_spectrum.c boxmuller.o pcg32min.o random.o
 harm_osc_spectrum_analysis: ../src/harm_osc_spectrum_analysis.c read_data.o
 	$(CC) $(CFLAGS) -c ../src/harm_osc_spectrum_analysis.c 
 	$(CC) $(CFLAGS) harm_osc_spectrum_analysis.o read_data.o -o $@ -lm
+
+part_on_a_circ: ../src/part_on_a_circ.c pcg32min.o random.o
+	$(CC) $(CFLAGS) -c ../src/part_on_a_circ.c 
+	$(CC) $(CFLAGS) part_on_a_circ.o pcg32min.o random.o -o $@ -lm
+
 
 .PHONY: clean
 clean:
