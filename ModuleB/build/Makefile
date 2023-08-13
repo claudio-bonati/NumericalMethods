@@ -1,7 +1,7 @@
 CC=gcc
 CFLAGS=-O2 -Wall -Wextra -Werror -pedantic -Wconversion -std=c99
 
-binaries=harm_osc_th harm_osc_th_analysis harm_osc_spectrum harm_osc_spectrum_analysis part_on_a_circ part_on_a_circ_analysis
+binaries=harm_osc_th harm_osc_th_analysis harm_osc_spectrum harm_osc_spectrum_analysis part_on_a_circ part_on_a_circ_analysis part_on_a_circ_par_temp
 
 all: $(binaries)
 
@@ -40,6 +40,10 @@ part_on_a_circ: ../src/part_on_a_circ.c pcg32min.o random.o
 part_on_a_circ_analysis: ../src/part_on_a_circ_analysis.c read_data.o
 	$(CC) $(CFLAGS) -c ../src/part_on_a_circ_analysis.c 
 	$(CC) $(CFLAGS) part_on_a_circ_analysis.o read_data.o -o $@ -lm
+
+part_on_a_circ_par_temp: ../src/part_on_a_circ_par_temp.c pcg32min.o random.o
+	$(CC) $(CFLAGS) -c ../src/part_on_a_circ_par_temp.c 
+	$(CC) $(CFLAGS) part_on_a_circ_par_temp.o pcg32min.o random.o -o $@ -lm
 
 .PHONY: clean
 clean:
