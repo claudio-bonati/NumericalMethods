@@ -1,4 +1,5 @@
 #ifndef BOXMULLER_H
+#define BOXMULLER_H
 
 // single normal random number 
 // polar form

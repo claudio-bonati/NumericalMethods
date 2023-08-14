@@ -1,4 +1,5 @@
 #ifndef PCG32MIN_H
+#define PCG32MIN_H
 
 #include<math.h>
 #include<stdint.h>

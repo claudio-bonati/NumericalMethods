@@ -1,4 +1,5 @@
 #ifndef NVECTOR_H
+#define NVECTOR_H
 
 #include<math.h>
 #include<stdio.h>

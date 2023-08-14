@@ -1,4 +1,5 @@
 #ifndef GEOMETRY_H
+#define GEOMETRY_H
 
 // cartesian coordinates -> lexicographic index
 // lattice L^{dim}

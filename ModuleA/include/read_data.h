@@ -1,4 +1,5 @@
 #ifndef READ_DATA_H 
+#define READ_DATA_H 
 
 // determine the length of the file (single column!)
 long int linecounter_sc(char const * const filename);
