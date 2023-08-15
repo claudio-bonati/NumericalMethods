@@ -75,7 +75,7 @@ int main(int argc, char **argv)
       fprintf(stdout, "  datafile = name of the data file to be analyzed (1 column, Q)\n\n");
       fprintf(stdout, "Output:\n");
       fprintf(stdout, "  <Q>, err, <Q^2>, err, -(<Q^4>-3<Q^2>^2)/(12<Q^2>), err\n");
-      fprintf(stdout, "  computed using binning and jackknife\n");
+      fprintf(stdout, "  computed using binning and jackknife\n\n");
 
       return EXIT_SUCCESS;
       }

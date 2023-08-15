@@ -182,7 +182,7 @@ int main(int argc, char **argv)
       fprintf(stdout, "  eta = value of eta used in the simulation\n\n");
       fprintf(stdout, "Output:\n");
       fprintf(stdout, "  effective mass computed from the correlators x-x, x^2-x^2, x^3-x^3, A-A (with A=x^3-(3/2)s)\n");
-      fprintf(stdout, "  each line correspond to a different time, from zero to Nt/4-1\n");
+      fprintf(stdout, "  each line correspond to a different time, from zero to Nt/4-1\n\n");
 
       return EXIT_SUCCESS;
       }

@@ -137,7 +137,7 @@ int main(int argc, char **argv)
       fprintf(stdout, "Output:\n");
       fprintf(stdout, "  Each line starts with <x^2(0)> and then there is a sequence of\n");
       fprintf(stdout, "  <x(0)x(t)>, <x^2(0)x^2(t)>, <x^3(0)x^3(t)>, <A(0)A(t)> with A=x^3-(3/2)x\n");
-      fprintf(stdout, "  starting from t=0 up to Nt/4. Different lines correspond to different configurations\n");
+      fprintf(stdout, "  starting from t=0 up to Nt/4. Different lines correspond to different configurations\n\n");
 
       return EXIT_SUCCESS;
       }

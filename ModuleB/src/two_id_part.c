@@ -247,7 +247,8 @@ int main(int argc, char **argv)
       fprintf(stdout, "  sample = number of drawn to be extracted\n");
       fprintf(stdout, "  datafile = name of the file on which to write the data\n\n");
       fprintf(stdout, "Output:\n");
-      fprintf(stdout, "  TO BE MODIFIED\n");
+      fprintf(stdout, "  x1, x1^2, x2, x2^2, twisted for every configuration, where\n");
+      fprintf(stdout, "  twisted=0 if the two trajectories are independent, =1 if a cycle is present.\n\n");
 
       return EXIT_SUCCESS;
       }
