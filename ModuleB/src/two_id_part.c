@@ -334,7 +334,7 @@ int main(int argc, char **argv)
          compute_x_and_x2(part1, Nt, &x1, &x1_2);
          compute_x_and_x2(part2, Nt, &x2, &x2_2);
 
-         fprintf(fp, "%f %f %f %f %d\n", x1, x1_2, x2, x2_2, twisted);
+         fprintf(fp, "%.12f %.12f %.12f %.12f %d\n", x1, x1_2, x2, x2_2, twisted);
          }
        }
     printf("Acceptance rate for swap %f\n", (double)accswap / (double)sample);

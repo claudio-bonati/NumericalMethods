@@ -1,7 +1,7 @@
 CC=gcc
 CFLAGS=-O2 -Wall -Wextra -Werror -pedantic -Wconversion -std=c99
 
-binaries=harm_osc_th harm_osc_th_analysis harm_osc_spectrum harm_osc_spectrum_analysis part_on_a_circ part_on_a_circ_analysis part_on_a_circ_par_temp two_id_part
+binaries=harm_osc_th harm_osc_th_analysis harm_osc_spectrum harm_osc_spectrum_analysis part_on_a_circ part_on_a_circ_analysis part_on_a_circ_par_temp two_id_part two_id_part_analysis_b two_id_part_analysis_f
 
 all: $(binaries)
 
@@ -48,6 +48,14 @@ part_on_a_circ_par_temp: ../src/part_on_a_circ_par_temp.c pcg32min.o random.o
 two_id_part: ../src/two_id_part.c boxmuller.o pcg32min.o random.o
 	$(CC) $(CFLAGS) -c ../src/two_id_part.c 
 	$(CC) $(CFLAGS) two_id_part.o boxmuller.o pcg32min.o random.o -o $@ -lm
+
+two_id_part_analysis_b: ../src/two_id_part_analysis_b.c read_data.o
+	$(CC) $(CFLAGS) -c ../src/two_id_part_analysis_b.c 
+	$(CC) $(CFLAGS) two_id_part_analysis_b.o read_data.o -o $@ -lm
+
+two_id_part_analysis_f: ../src/two_id_part_analysis_f.c read_data.o
+	$(CC) $(CFLAGS) -c ../src/two_id_part_analysis_f.c 
+	$(CC) $(CFLAGS) two_id_part_analysis_f.o read_data.o -o $@ -lm
 
 .PHONY: clean
 clean:
