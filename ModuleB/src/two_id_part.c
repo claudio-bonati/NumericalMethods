@@ -37,34 +37,93 @@ void init_conf(Node * restrict part, long int Nt, double x0)
      }
   part[Nt-1].nnp=&(part[0]);
  
+  part[0].nnm=&(part[Nt-1]);
   for(r=1; r<Nt; r++)
      {
      part[r].nnm=&(part[r-1]);
      }
-  part[0].nnm=&(part[Nt-1]);
   }
 
 
-// Metropolis update, return 1 if accepted
-int metropolis(Node * restrict node, double eta)
+// Heatbath update
+void heatbath(Node * restrict node, long int Nt, double eta)
   {
-  const double delta=10.0*sqrt(eta);
-  double trial, Eold, Enew, nsum;
+  double nnsum, std, average; 
+  long int r; 
 
-  double nnsum = (node->nnp)->value + (node->nnm)->value;
+  for(r=0; r<Nt; r++)
+     {
+     nnsum = (node[r].nnp)->value + (node[r].nnm)->value;
+     std=1.0/sqrt(eta+2.0/eta);
+     average=nnsum/eta/(eta+2.0/eta);
+ 
+     (node[r].value)=average+std*gauss1();
+     }
+  }
 
-  Eold=(node->value)*(node->value)*(eta/2.0+1./eta)-(node->value)*nnsum/eta;
-  trial=node->value + delta*(1.0-2.0*myrand());
-  Enew=trial*trial*(eta/2.0+1./eta)-trial*nnsum/eta;
 
+// overrelaxation update
+void overrelaxation(Node * restrict node, long int Nt, double eta)
+  {
+  double nnsum, average, ris;
+  long int r; 
+
+  for(r=0; r<Nt; r++)
+     {
+     nnsum = (node[r].nnp)->value + (node[r].nnm)->value;
+     average=nnsum/eta/(eta+2.0/eta);
+     ris=2.0*average-(node[r].value);
+
+     node[r].value=ris;
+     }
+  }
+
+
+// random swap: return 1 if accepted 
+int rand_swap(Node * restrict part1,
+              Node * restrict part2, 
+              long int Nt,
+              double eta,
+              int * restrict twisted)
+  {
+  Node *nodetmp;
+  double Enew, Eold, aux;
+  long int r;
+
+  r=(long int)((double) Nt*myrand());
+
+  aux=part1[r].value-(part1[r].nnp)->value;
+  Eold=aux*aux/2.0/eta;
+  aux=part2[r].value-(part2[r].nnp)->value;
+  Eold+=aux*aux/2.0/eta;
+
+  aux=part2[r].value-(part1[r].nnp)->value;
+  Enew=aux*aux/2.0/eta;
+  aux=part1[r].value-(part2[r].nnp)->value;
+  Enew+=aux*aux/2.0/eta;
+ 
   if(Enew<Eold)
     {
-    node->value=trial;
+    nodetmp=part1[r].nnp;
+    part1[r].nnp=part2[r].nnp;
+    (part1[r].nnp)->nnm=&(part1[r]);
+    part2[r].nnp=nodetmp;
+    (part2[r].nnp)->nnm=&(part2[r]);
+
+    *twisted=(*twisted+1)%2;
+
     return 1;
     }
   else if(myrand()<exp(-(Enew-Eold)) )
          {
-         node->value=trial;
+         nodetmp=part1[r].nnp;
+         part1[r].nnp=part2[r].nnp;
+         (part1[r].nnp)->nnm=&(part1[r]);
+         part2[r].nnp=nodetmp;
+         (part2[r].nnp)->nnm=&(part2[r]);
+     
+         *twisted=(*twisted+1)%2;
+
          return 1;
          }
 
@@ -72,17 +131,67 @@ int metropolis(Node * restrict node, double eta)
   }
 
 
-// Heatbath update, return 1
-int heatbath(Node * restrict node, double eta)
+// random swap: return 1 if accepted 
+int opt_rand_swap(Node * restrict part1,
+                  Node * restrict part2, 
+                  long int Nt,
+                  double eta,
+                  int * restrict twisted)
   {
-  double nnsum = (node->nnp)->value + (node->nnm)->value;
+  Node *nodetmp;
+  double Enew, Eold, aux, min;
+  long int r, r1;
 
-  const double std=1.0/sqrt(eta+2.0/eta);
-  const double average=nnsum/eta/(eta+2.0/eta);
+  // r1 is the value at which the two trajectories are closer to each other
+  aux=part1[0].value-part2[0].value;
+  min=aux*aux;
+  r=0; 
+  for(r1=1; r1<Nt; r1++)
+     {
+     aux=part1[r1].value-part2[r1].value;
+     if(aux*aux<min)
+       {
+       min=aux*aux;
+       r=r1;
+       }
+     }
+     
+  aux=part1[r].value-(part1[r].nnp)->value;
+  Eold=aux*aux/2.0/eta;
+  aux=part2[r].value-(part2[r].nnp)->value;
+  Eold+=aux*aux/2.0/eta;
+
+  aux=part2[r].value-(part1[r].nnp)->value;
+  Enew=aux*aux/2.0/eta;
+  aux=part1[r].value-(part2[r].nnp)->value;
+  Enew+=aux*aux/2.0/eta;
  
-  (node->value)=average+std*gauss1();
+  if(Enew<Eold)
+    {
+    nodetmp=part1[r].nnp;
+    part1[r].nnp=part2[r].nnp;
+    (part1[r].nnp)->nnm=&(part1[r]);
+    part2[r].nnp=nodetmp;
+    (part2[r].nnp)->nnm=&(part2[r]);
 
-  return 1; 
+    *twisted=(*twisted+1)%2;
+
+    return 1;
+    }
+  else if(myrand()<exp(-(Enew-Eold)) )
+         {
+         nodetmp=part1[r].nnp;
+         part1[r].nnp=part2[r].nnp;
+         (part1[r].nnp)->nnm=&(part1[r]);
+         part2[r].nnp=nodetmp;
+         (part2[r].nnp)->nnm=&(part2[r]);
+     
+         *twisted=(*twisted+1)%2;
+
+         return 1;
+         }
+
+  return 0; 
   }
 
 
@@ -111,46 +220,20 @@ void compute_x_and_x2(Node const * const restrict part,
   }
   
 
-// compute x12 and x12_2
-void compute_x12_and_x12_2(Node const * const restrict part1, 
-                           Node const * const restrict part2,
-                           long int Nt, 
-                           double * restrict x12,  
-                           double * restrict x12_2)
-  {
-  long int r;
-  double aux;
-
-  *x12=0.0;
-  *x12_2=0.0;
-
-  for(r=0; r<Nt; r++)
-     {
-     aux=part1[r].value-part2[r].value;
-   
-     *x12+=aux;
-     *x12_2+=aux*aux;
-     }
-  
-  *x12/=(double) Nt;
-  *x12_2/=(double) Nt;
-  }
-
-
 // main
 int main(int argc, char **argv)
     {
     Node *part1, *part2;
-    long int Nt, r, sample, iter, acc, accswap; 
+    long int Nt, sample, iter, accswap; 
     double simbeta, eta;
-    double x1, x2, x12, x1_2, x2_2, x12_2;
-    int twisted=0; // if =0 the two configuration are not twisted together
+    double x1, x2, x1_2, x2_2;
+    int j, twisted=0; // if =0 the two configuration are not twisted together
   
     char datafile[STRING_LENGTH];
     FILE *fp;
 
     const int measevery=10;
-    const int swapevery=10;
+    const int overrelaxsteps=5;
 
     const unsigned long int seed1=(unsigned long int) time(NULL);
     const unsigned long int seed2=seed1+127;
@@ -228,40 +311,32 @@ int main(int argc, char **argv)
       return EXIT_FAILURE;
       }
 
-    acc=0;
     accswap=0;
     for(iter=0; iter<sample; iter++)
        {
-       #ifndef METRO
-         for(r=0; r<Nt; r++)
-            { 
-            acc+=heatbath(&(part1[r]), eta);
-            }  
-         for(r=0; r<Nt; r++)
-            { 
-            acc+=heatbath(&(part2[r]), eta);
-            }  
-       #else
-         for(r=0; r<Nt; r++)
-            { 
-            acc+=metropolis(&(part1[r]), eta);
-            }  
-         for(r=0; r<Nt; r++)
-            { 
-            acc+=metropolis(&(part2[r]), eta);
-            }  
-       #endif
+       // heatbath
+       heatbath(part1, Nt, eta);
+       heatbath(part2, Nt, eta);
+
+       // overrelaxation
+       for(j=0; j<overrelaxsteps; j++)
+          {
+          overrelaxation(part1, Nt, eta);
+          overrelaxation(part2, Nt, eta);
+          }
+
+       // swap
+       accswap+=rand_swap(part1, part2, Nt, eta, &twisted);
 
        if(iter%measevery==0)
          {
          compute_x_and_x2(part1, Nt, &x1, &x1_2);
          compute_x_and_x2(part2, Nt, &x2, &x2_2);
-         compute_x12_and_x12_2(part1, part2, Nt, &x12, &x12_2);
 
-         fprintf(fp, "%f %f %f %f %f %f %d\n", x1, x1_2, x2, x2_2, x12, x12_2, twisted);
+         fprintf(fp, "%f %f %f %f %d\n", x1, x1_2, x2, x2_2, twisted);
          }
        }
-    printf("Acceptance rate %f\n", (double)acc / (double)sample / (double) Nt /2.0);
+    printf("Acceptance rate for swap %f\n", (double)accswap / (double)sample);
 
     // close datafile
     fclose(fp);
