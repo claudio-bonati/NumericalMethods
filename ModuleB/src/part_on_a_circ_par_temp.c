@@ -18,7 +18,7 @@ typedef struct Conf {
   long int Nt;
   double eta;
 
-  int initialindex;
+  int initialindex; // this is a reminder of the initial position of the configuration, used in debug
   } Conf;
 
 
@@ -284,6 +284,10 @@ int main(int argc, char **argv)
 
     // allocate and initialize configurations
     config=(Conf *)malloc((unsigned long int)(repnumber)*sizeof(Conf));
+    if(config == NULL){
+      fprintf(stderr, "allocation problem at (%s, %d)\n", __FILE__, __LINE__);
+      return EXIT_FAILURE;
+      }
     for(rep=0; rep<repnumber; rep++)
        {
        simbetaloc=simbeta*pow(simbetamax/simbeta, rep/((double)repnumber-1.0)); // simbeta values are in geometric progression
