@@ -11,3 +11,33 @@ Module B: Application of Monte-Carlo methods to the study of
 
 Module C: Path-integral simulations for quantum field theories
 
+-------------------------
+
+TO COMPILE: from inside one of the modules use 
+
+make
+
+and executables will be generated in the build directory. Default 
+compiler is gcc, if you want to use a different compiler 
+(e.g. clang), please use 
+
+make CC="you compiler"
+
+Default compilation options are 
+
+CFLAGS=-O3 -Wall -Wextra -Werror -pedantic -Wconversion -std=c99
+
+if you want to change them you can modify the Makefile in the build 
+directory or use
+
+make CFLAGS="what you want"
+
+Option "-std=c99" is required for the "restrict" keyword to be used 
+with pointers, which is neglected if the c99 standard is not used.
+
+Even if you remove all the warnings, please be sure to keep a 
+nontrivial optimization level (like -O2 or -O3) since otherwise 
+the codes will be much slower!
+
+-------------------------
+

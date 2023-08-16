@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-O2 -Wall -Wextra -Werror -pedantic -Wconversion -std=c99
+CFLAGS=-O3 -Wall -Wextra -Werror -pedantic -Wconversion -std=c99
 
 binaries=bad_rng pi_no_rng pi_ss gauss_distr rew_problem gauss_mcmc mcmc_analysis0 \
 	mcmc_analysis1 mcmc_analysis2 mcmc_analysis3 saw_ss saw_mcmc ising ising_metro \
