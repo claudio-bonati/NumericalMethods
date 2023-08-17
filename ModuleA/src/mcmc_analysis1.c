@@ -132,6 +132,9 @@ int main(int argc, char **argv)
     printf("%f %f ", x2, sqrt(x2b2-x2*x2)/sqrt((double)numberofbins));
     printf("%f %f\n", x4, sqrt(x4b2-x4*x4)/sqrt((double)numberofbins));
 
+    // close data file
+    fclose(fp);
+
     return EXIT_SUCCESS;
     }
 
