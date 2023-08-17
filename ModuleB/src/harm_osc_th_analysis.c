@@ -80,7 +80,7 @@ int main(int argc, char **argv)
       fprintf(stdout, "  binsize = size of the bin to be used in binning/blocking\n");
       fprintf(stdout, "  datafile = name of the data file to be analyzed\n");
       fprintf(stdout, "  simbeta = hbar*omega/(k_B T)\n");
-      fprintf(stdout, "  Nt = number of temporal steps\n");
+      fprintf(stdout, "  Nt = number of temporal steps\n\n");
       fprintf(stdout, "Output:\n");
       fprintf(stdout, "  <x>, err, <x^2>, err, <Knaive>, err, <H>, err\n");
       fprintf(stdout, "  computed using binning and jackknife\n\n");

@@ -177,9 +177,7 @@ int main(int argc, char **argv)
       fprintf(stdout, "  binsize = size of the bin to be used in binning/blocking\n");
       fprintf(stdout, "  datafile = name of the data file to be analyzed\n");
       fprintf(stdout, "  simbeta = hbar*omega/(k_B T)\n");
-      fprintf(stdout, "  Nt = number of temporal steps\n");
-
-      fprintf(stdout, "  eta = value of eta used in the simulation\n\n");
+      fprintf(stdout, "  Nt = number of temporal steps\n\n");
       fprintf(stdout, "Output:\n");
       fprintf(stdout, "  effective mass computed from the correlators x-x, x^2-x^2, x^3-x^3, A-A (with A=x^3-(3/2)s)\n");
       fprintf(stdout, "  each line correspond to a different time, from zero to Nt/4-1\n\n");

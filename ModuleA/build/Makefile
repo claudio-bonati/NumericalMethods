@@ -1,6 +1,5 @@
 CC=gcc
-#CFLAGS=-O3 -Wall -Wextra -Werror -pedantic -Wconversion -std=c99 
-CFLAGS=-O0 -g -std=c99 
+CFLAGS=-O3 -Wall -Wextra -Werror -pedantic -Wconversion -std=c99 
 
 
 binaries=bad_rng pi_no_rng pi_ss gauss_distr rew_problem gauss_mcmc mcmc_analysis0 \
