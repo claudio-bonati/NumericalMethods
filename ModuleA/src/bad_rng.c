@@ -41,7 +41,7 @@ int main(int argc, char **argv)
     unsigned long int seed;
     int j, dim;
     long i, maxiter;
-    double x, x2, sigma_x, tmp;
+    double x, sigma_x, tmp;
     char datafile[STRING_LENGTH];
     FILE *fp;
 
@@ -102,7 +102,6 @@ int main(int argc, char **argv)
 
     // initialize counters
     x=0.0;
-    x2=0.0;
 
     // loop on iterations
     for(i=0; i<maxiter; i++)
@@ -111,7 +110,6 @@ int main(int argc, char **argv)
           {
           tmp=randu();
           x+=tmp;
-          x2+=tmp;
           fprintf(fp, "%f ", tmp);
           }
        fprintf(fp,"\n");
@@ -122,7 +120,6 @@ int main(int argc, char **argv)
 
     // normalize
     x/=((double) (maxiter)*(double) dim);
-    x2/=((double) (maxiter)*(double) dim);
 
     //<x> = 1/2
     sigma_x=sqrt(1./3. - 1./4.)/sqrt((double) maxiter); // theoretical std
