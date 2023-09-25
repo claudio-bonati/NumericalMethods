@@ -56,9 +56,9 @@ int main(int argc, char **argv)
       }
 
     // print the result on the file in different ways
-    fprintf(fp, "%lf*%lf=%lf\n", a, b, ris);
-    fprintf(fp, "with more places: %.12lf*%.12lf=%.12lf\n", a, b, ris);
-    fprintf(fp, "with too many places: %.25lf*%.25lf=%.25lf\n", a, b, ris);
+    fprintf(fp, "sqrt(%lf*%lf)=%lf\n", a, b, ris);
+    fprintf(fp, "with more places: sqrt(%.12lf*%.12lf)=%.12lf\n", a, b, ris);
+    fprintf(fp, "with too many places: sqrt(%.25lf*%.25lf)=%.25lf\n", a, b, ris);
     fprintf(fp, "check the last results on https://www.wolframalpha.com\n");
 
     // close the file
