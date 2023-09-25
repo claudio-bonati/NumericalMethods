@@ -1,0 +1,17 @@
+*************************************************************
+
+Introduction to C: some basic code to get acquainted with C
+
+*************************************************************
+
+hello_world: just what the name says...
+
+command_line1: to introduce some command line functionalities
+
+command_line2: a more complex example, with also file writing
+
+functions: some basic facts about functions and pointers
+
+rng: random number generator
+
+dynamic_memory: dynamical allocation of memory
