@@ -10,7 +10,7 @@
 // test to check if the polar form of Box-Muller is more efficient than the basic one
 void test_speed(void)
   {
-  long int i, sample=100000000;
+  long int i, sample=500000000;
   double tmp1, tmp2, diff_sec;
   clock_t time1, time2;
 
@@ -24,7 +24,7 @@ void test_speed(void)
      }
   time2=clock();
   diff_sec=((double) (time2-time1))/CLOCKS_PER_SEC;
-  printf("polar form: %.3lf\n", diff_sec);
+  printf("polar form: %.3lf s\n", diff_sec);
 
   time1=clock();
   for(i=0; i<sample; i++)
@@ -33,7 +33,7 @@ void test_speed(void)
      }
   time2=clock();
   diff_sec=((double) (time2-time1))/CLOCKS_PER_SEC;
-  printf("basic form: %.3lf\n", diff_sec);
+  printf("basic form: %.3lf s\n", diff_sec);
   printf("---------------------\n");
   }
 
@@ -61,7 +61,6 @@ int main(int argc, char **argv)
     else
       {
       // read input
-
       sample=atol(argv[1]);
       }
 
