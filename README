@@ -1,15 +1,18 @@
 *************************************************************
 ******     SOME C CODES TO BE USED AS EXAMPLES IN      ****** 
 ******         "METODI NUMERICI PER LA FISICA"         ******
+******         "NUMERICAL METHODS FOR PHYSICS"         ******
 *************************************************************
 
-Module A: Introduction to Markov Chain Monte-Carlo and 
-          applications in statistical mechanics
+Into_To_C: some basic code to get acquainted with C
 
-Module B: Application of Monte-Carlo methods to the study of 
-          the path-integral in quantum mechanics
+ModuleA: Introduction to Markov Chain Monte-Carlo and 
+         applications in statistical mechanics
 
-Module C: Path-integral simulations for quantum field theories
+ModuleB: Application of Monte-Carlo methods to the study of 
+         the path-integral in quantum mechanics
+
+ModuleC: Path-integral simulations for quantum field theories
 
 -------------------------
 
