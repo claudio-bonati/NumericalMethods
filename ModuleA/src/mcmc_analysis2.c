@@ -19,11 +19,6 @@ void resample(double * restrict boot,
   double tmp;
   int j;
 
-  for(i=0; i<numberofbins*binsize; i++)
-     {
-     boot[i]=data[i];
-     }
-
   for(i=0; i<numberofbins; i++)
      {
      tmp=(double)numberofbins*myrand();
