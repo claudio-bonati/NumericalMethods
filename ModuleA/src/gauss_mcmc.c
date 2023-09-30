@@ -118,7 +118,7 @@ int main(int argc, char **argv)
     x2/=((double)sample * 9.0/10.0);
     x4/=((double)sample * 9.0/10.0);
 
-    printf("Acceptance rate=%f\n", (double) acc/((double) sample * 9.0/10.0));
+    printf("Acceptance rate=%f\n", (double) acc/(double) sample);
     printf("<x>[naive!]=%f %f\n", x, sqrt((x2-x*x)/((double) sample) * 9.0/10.0) );
     printf("<x^2>[naive!]=%f %f\n", x2, sqrt((x4-x2*x2)/((double) sample) * 9.0/10.0) );
 
