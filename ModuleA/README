@@ -43,6 +43,8 @@ saw_mcmc: MCMC for 2d self-avoiding random walk
 ising: exact solution of the Ising model by enumeration 
        (small lattices only!)
 
+ising2d_metro: 2d Ising model sampled by the Metropolis algorithm
+
 ising_metro: Ising model sampled by the Metropolis algorithm
 
 potts_metro: Potts model sampled by the Metropolis or

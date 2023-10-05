@@ -1,9 +1,8 @@
 CC=gcc
 CFLAGS=-O3 -Wall -Wextra -Werror -pedantic -Wconversion -std=c99 
 
-
 binaries=bad_rng pi_no_rng pi_ss gauss_distr rew_problem gauss_mcmc mcmc_analysis0 \
-	mcmc_analysis1 mcmc_analysis2 mcmc_analysis3 saw_ss saw_mcmc ising ising_metro \
+	mcmc_analysis1 mcmc_analysis2 mcmc_analysis3 saw_ss saw_mcmc ising ising2d_metro ising_metro \
 	ising_analysis potts_metro ising_wolff on_metro on_wolff
 
 all: $(binaries)
@@ -72,6 +71,10 @@ geometry.o: ../lib/geometry.c ../include/geometry.h
 ising: ../src/ising.c geometry.o
 	$(CC) $(CFLAGS) -c ../src/ising.c  
 	$(CC) $(CFLAGS) geometry.o ising.o -o $@ -lm
+
+ising2d_metro: ../src/ising2d_metro.c random.o pcg32min.o
+	$(CC) $(CFLAGS) -c ../src/ising2d_metro.c  
+	$(CC) $(CFLAGS) ising2d_metro.o random.o pcg32min.o -o $@ -lm
 
 ising_metro: ../src/ising_metro.c geometry.o random.o pcg32min.o
 	$(CC) $(CFLAGS) -c ../src/ising_metro.c  
