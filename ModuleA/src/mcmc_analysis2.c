@@ -2,6 +2,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
+#include<time.h>
 
 #include"../include/random.h"
 #include"../include/read_data.h"
@@ -61,6 +62,9 @@ int main(int argc, char **argv)
     double *data, *databoot, U[MAXBOOT], ris, err;
     char datafile[STRING_LENGTH];
 
+    const unsigned long int seed1=(unsigned long int) time(NULL);
+    const unsigned long int seed2=seed1+127;
+
     if(argc != 4)
       {
       fprintf(stdout, "How to use this program:\n");
@@ -95,6 +99,9 @@ int main(int argc, char **argv)
       fprintf(stderr, "'binsize' must be positive\n");
       return EXIT_FAILURE;
       }
+
+    // initialize random number generator
+    myrand_init(seed1, seed2);
 
     // determine the length of the file
     sample=linecounter_sc(datafile);
