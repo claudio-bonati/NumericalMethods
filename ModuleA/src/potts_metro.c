@@ -195,6 +195,11 @@ int main(int argc, char **argv)
     const unsigned long int seed1=(unsigned long int) time(NULL);
     const unsigned long int seed2=seed1+127;
 
+    #ifdef METROPOLIS
+      long int raux;
+    #endif
+
+
     if(argc != 5)
       {
       fprintf(stdout, "How to use this program:\n");
@@ -305,7 +310,8 @@ int main(int argc, char **argv)
           {
           #ifdef METROPOLIS
             // metropolis
-            acc+=metropolis(lattice, r, nnp, nnm, volume, aux_prob);
+            raux=(long int)((double)volume * myrand());
+            acc+=metropolis(lattice, raux, nnp, nnm, volume, aux_prob);
           #else
             //heatbath
             acc+=heatbath(lattice, r, nnp, nnm, volume, aux_prob);
