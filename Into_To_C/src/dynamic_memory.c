@@ -34,7 +34,7 @@ int main()
     free(vec);
 
     // if not commented this line typically produces "Segmentation fault (core dumped)" since we are accessing a region of memory that is no more legitimate (try it!)
-    // printf("%d\n", vec[126]);
+    // printf("%d\n", vec[length+10]);
 
     return EXIT_SUCCESS;
     }
