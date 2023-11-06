@@ -315,16 +315,21 @@ int main(int argc, char **argv)
     accswap=0;
     for(iter=0; iter<sample; iter++)
        {
-       // heatbath
-       heatbath(part1, Nt, eta);
-       heatbath(part2, Nt, eta);
-
-       // overrelaxation
-       for(j=0; j<overrelaxsteps; j++)
-          {
-          overrelaxation(part1, Nt, eta);
-          overrelaxation(part2, Nt, eta);
-          }
+       if(myrand()<0.5)
+         {
+         // heatbath
+         heatbath(part1, Nt, eta);
+         heatbath(part2, Nt, eta);
+         }
+       else
+         {
+         // overrelaxation
+         for(j=0; j<overrelaxsteps; j++)
+            {
+            overrelaxation(part1, Nt, eta);
+            overrelaxation(part2, Nt, eta);
+            }
+         }
 
        // swap
        accswap+=rand_swap(part1, part2, Nt, eta, &twisted);

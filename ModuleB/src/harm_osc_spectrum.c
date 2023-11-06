@@ -221,27 +221,32 @@ int main(int argc, char **argv)
     acc=0;
     for(iter=0; iter<sample; iter++)
        {
-       for(r=0; r<Nt; r++)
-          {
-          nnsum=lattice[nnp[r]]+lattice[nnm[r]];
+       if(myrand()<0.5)
+         {
+         for(r=0; r<Nt; r++)
+            {
+            nnsum=lattice[nnp[r]]+lattice[nnm[r]];
 
-          #ifdef METRO
-            acc += metropolis(lattice, r, nnsum, eta);
-          #else
-            acc += heatbath(lattice, r, nnsum, eta);
-          #endif
-          }
+            #ifdef METRO
+              acc += metropolis(lattice, r, nnsum, eta);
+            #else
+              acc += heatbath(lattice, r, nnsum, eta);
+            #endif
+            }
+         }
+       else
+         {
+         // overrelaxation
+         for(j=0; j<overrelaxsteps; j++)
+            {
+            for(r=0; r<Nt; r++)
+               {
+               nnsum=lattice[nnp[r]]+lattice[nnm[r]];
 
-       // overrelaxation
-       for(j=0; j<overrelaxsteps; j++)
-          {
-          for(r=0; r<Nt; r++)
-             {
-             nnsum=lattice[nnp[r]]+lattice[nnm[r]];
-
-             overrelaxation(lattice, r, nnsum, eta);
-             }
-          }
+               overrelaxation(lattice, r, nnsum, eta);
+               }
+            }
+         }
 
        if(iter%measevery==0)
          {
