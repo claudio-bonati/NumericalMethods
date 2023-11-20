@@ -131,7 +131,7 @@ int rand_swap(Node * restrict part1,
   }
 
 
-// random swap: return 1 if accepted 
+// optimized swap: return 1 if accepted 
 int opt_rand_swap(Node * restrict part1,
                   Node * restrict part2, 
                   long int Nt,
