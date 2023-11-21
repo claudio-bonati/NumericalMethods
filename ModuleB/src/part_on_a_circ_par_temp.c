@@ -170,8 +170,8 @@ int swap(Conf * restrict config1, Conf * restrict config2, long int const * cons
   energy1=calc_energy(config1, nnp);
   energy2=calc_energy(config2, nnp);
 
-  energy1new=energy1*(config1->eta)/(config2->eta);
-  energy2new=energy2*(config2->eta)/(config1->eta);
+  energy2new=energy1*(config1->eta)/(config2->eta);
+  energy1new=energy2*(config2->eta)/(config1->eta);
 
   prob=exp(-(energy1new-energy1)-(energy2new-energy2));
   if(myrand() < prob)
