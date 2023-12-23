@@ -179,7 +179,7 @@ void test_geometry(long int const * const restrict nnp,
         }
      }
 
-  // test of nnp <-> nnm
+  // test of nnp nnp <-> nnm nnm along different directions
   for(r=0; r < volume; r++)
      {
      for(dir=0; dir<dim; dir++)
