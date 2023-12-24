@@ -68,7 +68,7 @@ int main(int argc, char **argv)
     if(argc != 6)
       {
       fprintf(stdout, "How to use this program:\n");
-      fprintf(stdout, "  %s therm binsize Nt datafile\n\n", argv[0]);
+      fprintf(stdout, "  %s therm binsize Nt hatm datafile\n\n", argv[0]);
       fprintf(stdout, "  therm = number of lines to be discarded as thermalization\n");
       fprintf(stdout, "  binsize = size of the bin to be used in binning/blocking\n");
       fprintf(stdout, "  Nt = temporal extent of the lattice\n");
