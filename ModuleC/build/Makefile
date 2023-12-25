@@ -1,7 +1,7 @@
 CC=gcc
 CFLAGS=-O3 -Wall -Wextra -Werror -pedantic -Wconversion -std=c99 
 
-binaries = free_boson_th free_boson_th_analysis free_boson_th_doublers
+binaries = free_boson_th free_boson_th_analysis free_boson_th_doublers free_boson_spectrum free_boson_spectrum_analysis
 
 all: $(binaries)
 
@@ -31,6 +31,14 @@ free_boson_th_analysis: ../src/free_boson_th_analysis.c read_data.o
 free_boson_th_doublers: ../src/free_boson_th_doublers.c boxmuller.o geometry_st.o random.o pcg32min.o
 	$(CC) $(CFLAGS) -c ../src/free_boson_th_doublers.c  
 	$(CC) $(CFLAGS) free_boson_th_doublers.o boxmuller.o geometry_st.o random.o pcg32min.o -o $@ -lm
+
+free_boson_spectrum: ../src/free_boson_spectrum.c boxmuller.o geometry_st.o random.o pcg32min.o
+	$(CC) $(CFLAGS) -c ../src/free_boson_spectrum.c  
+	$(CC) $(CFLAGS) free_boson_spectrum.o boxmuller.o geometry_st.o random.o pcg32min.o -o $@ -lm
+
+free_boson_spectrum_analysis: ../src/free_boson_spectrum_analysis.c read_data.o
+	$(CC) $(CFLAGS) -c ../src/free_boson_spectrum_analysis.c 
+	$(CC) $(CFLAGS) free_boson_spectrum_analysis.o read_data.o -o $@ -lm
 
 .PHONY: clean
 clean:

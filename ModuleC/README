@@ -12,3 +12,8 @@ free_boson_th_analysis: analysis of the output of the file
 free_boson_th_doublers: thermodynamics of a free boson field 
    using a discretization with doublers
 
+free_boson_spectrum: spectrum of a free boson field 
+
+free_boson_spectrum_analysis: analysis of the output of the 
+   previous file 
+
