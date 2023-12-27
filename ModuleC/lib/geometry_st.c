@@ -99,6 +99,7 @@ void init_neighbors_st(long int * restrict nnp,
     fprintf(stderr, "Allocation problem at (%s, %d)\n", __FILE__, __LINE__);
     exit(EXIT_FAILURE);
     }
+
   size[0]=Nt;
   for(i=1; i<stdim; i++)
      {

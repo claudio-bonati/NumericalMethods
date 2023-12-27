@@ -120,7 +120,7 @@ void overrelaxation(double * restrict lattice,
    mean=nnsum/(hatm*hatm+2.0*(double)STDIM);
    old=lattice[r];
    
-   lattice[r]=2*mean-old;
+   lattice[r]=2.0*mean-old;
    }
 
 

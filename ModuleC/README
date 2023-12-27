@@ -17,3 +17,7 @@ free_boson_spectrum: spectrum of a free boson field
 free_boson_spectrum_analysis: analysis of the output of the 
    previous file 
 
+u1_topo: code to simulate the compact U(1) lattice gauge theory
+
+u1_topo_analysis: analysis of the output of the previous file 
+
