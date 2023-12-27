@@ -18,7 +18,7 @@ free_boson_spectrum_analysis: analysis of the output of the
    previous file 
 
 u1_topo: code to simulate the compact U(1) lattice gauge theory
-   (observables: plaquette and topologica charge [in 2d])
+   (observables: plaquette and topological charge [in 2d])
 
 u1_topo_analysis: analysis of the output of the previous file 
 

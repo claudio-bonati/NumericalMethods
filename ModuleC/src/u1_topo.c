@@ -169,9 +169,9 @@ double plaquette(double complex ** restrict lattice,
 
 
 // topological charge 
-double topch_over_stvol(double complex ** restrict lattice, 
-                        long int const * const restrict nnp,
-                        long int stvol)
+double topch(double complex ** restrict lattice, 
+             long int const * const restrict nnp,
+             long int stvol)
   {
   #if STDIM==2
     long int r;
@@ -196,7 +196,6 @@ double topch_over_stvol(double complex ** restrict lattice,
    
        ris+=atan2(cimag(aux),creal(aux))/(2.0*M_PI);
        }
-    ris/=(double)stvol;
   
     return ris;
   #else
@@ -209,7 +208,7 @@ double topch_over_stvol(double complex ** restrict lattice,
 int main(int argc, char **argv)
    {
    int i, Nt, Ns;
-   double beta, rand, plaq, Q_over_stvol;
+   double beta, rand, plaq, Q;
    double complex **lattice;
    long int *nnp, *nnm;
    long int iter, sample, r, stvolume, acc, count;
@@ -237,7 +236,7 @@ int main(int argc, char **argv)
      fprintf(stdout, "Compiled for:\n");
      fprintf(stdout, "  dimensionality = %d\n\n", STDIM);
      fprintf(stdout, "Output:\n");
-     fprintf(stdout, "  plaquette  (topological charge)/(space-time volume)\n");
+     fprintf(stdout, "  plaquette  (topological charge)\n");
      fprintf(stdout, "  one line for each configuration\n");
 
      return EXIT_SUCCESS;
@@ -366,9 +365,9 @@ int main(int argc, char **argv)
         {
         // perform measures
         plaq=plaquette(lattice, nnp, stvolume);
-        Q_over_stvol=topch_over_stvol(lattice, nnp, stvolume);
+        Q=topch(lattice, nnp, stvolume);
 
-        fprintf(fp, "%.12f %.12f\n", plaq, Q_over_stvol);
+        fprintf(fp, "%.12f %.12f\n", plaq, Q);
         }
       }
 

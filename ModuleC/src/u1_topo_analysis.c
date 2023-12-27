@@ -77,7 +77,7 @@ int main(int argc, char **argv)
       fprintf(stdout, "  binsize = size of the bin to be used in binning/blocking\n");
       fprintf(stdout, "  datafile = name of the data file to be analyzed\n\n");
       fprintf(stdout, "Output:\n");
-      fprintf(stdout, "  <plaq> <(top. charge)/(space-time vol.)>  top.susc.\n");
+      fprintf(stdout, "  <plaq>  <(top. charge)>  <(top. charge)^2>\n");
       fprintf(stdout, "  computed using binning and jackknife\n");
 
       return EXIT_SUCCESS;
