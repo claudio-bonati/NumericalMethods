@@ -22,3 +22,8 @@ u1_topo: code to simulate the compact U(1) lattice gauge theory
 
 u1_topo_analysis: analysis of the output of the previous file 
 
+u1_conf: code to simulate the compact U(1) lattice gauge theory
+   measuring Wilson loops (with multihit)
+
+u1_conf_analysis: analysis of the output of the previous file 
+

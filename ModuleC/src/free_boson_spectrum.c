@@ -48,7 +48,7 @@ void phi_at_fixed_momentum(double const * const restrict lattice,
         sum+=p[i-1]*coord[i];
         }
      
-     O[coord[0]]+=lattice[r]*exp(I*sum);
+     O[coord[0]]+=lattice[r]*cexp(I*sum);
      } 
 
   for(i=0; i<Nt; i++)

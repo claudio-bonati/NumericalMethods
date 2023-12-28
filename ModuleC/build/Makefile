@@ -1,7 +1,7 @@
 CC=gcc
 CFLAGS=-O3 -Wall -Wextra -Werror -pedantic -Wconversion -std=c99 
 
-binaries = free_boson_th free_boson_th_analysis free_boson_th_doublers free_boson_spectrum free_boson_spectrum_analysis u1_topo u1_topo_analysis
+binaries = free_boson_th free_boson_th_analysis free_boson_th_doublers free_boson_spectrum free_boson_spectrum_analysis u1_topo u1_topo_analysis u1_conf u1_conf_analysis
 
 all: $(binaries)
 
@@ -47,6 +47,15 @@ u1_topo: ../src/u1_topo.c geometry_st.o random.o pcg32min.o
 u1_topo_analysis: ../src/u1_topo_analysis.c read_data.o
 	$(CC) $(CFLAGS) -c ../src/u1_topo_analysis.c 
 	$(CC) $(CFLAGS) u1_topo_analysis.o read_data.o -o $@ -lm
+
+u1_conf: ../src/u1_conf.c geometry_st.o random.o pcg32min.o
+	$(CC) $(CFLAGS) -c ../src/u1_conf.c  
+	$(CC) $(CFLAGS) u1_conf.o geometry_st.o random.o pcg32min.o -o $@ -lm
+
+u1_conf_analysis: ../src/u1_conf_analysis.c read_data.o
+	$(CC) $(CFLAGS) -c ../src/u1_conf_analysis.c 
+	$(CC) $(CFLAGS) u1_conf_analysis.o read_data.o -o $@ -lm
+
 
 .PHONY: clean
 clean:

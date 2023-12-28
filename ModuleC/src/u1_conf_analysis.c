@@ -13,49 +13,50 @@ void computejack(double * restrict datajack,
                  double const * const restrict data, 
                  long int numberofbins, 
                  int binsize,
-                 int Nt)
+                 int Nt, 
+                 int Ns)
   {
-  long int i, r, t, numcol;
+  long int i, s, t, r, aux, numcol;
   int j;
   const long int sampleeff=numberofbins*(long int) binsize;
-  double c_tot, cp1_tot;
-  double c, cp1;
+  double c_tot;
+  double c;
 
   // number of columns of datafile
-  numcol=(Nt/4);
+  numcol=(Ns/4)*(Nt/4);
 
-  for(r=0; r<numberofbins*(numcol-1); r++)
+  for(r=0; r<numberofbins*numcol; r++)
      {
      datajack[r]=0.0;
      }
 
-  for(t=0; t<(Nt/4)-1; t++)
+  for(s=0; s<(Ns/4); s++)
      {
-     c_tot=0.0;
-     cp1_tot=0.0;
-
-     for(i=0; i<sampleeff; i++)
+     for(t=0; t<(Nt/4); t++)
         {
-        c_tot+=data[numcol*i+t];
-        cp1_tot+=data[numcol*i+t+1];
-        }
+        aux=s*(Ns/4)+t;
 
-     for(i=0; i<numberofbins; i++)
-        {
-        c=c_tot;
-        cp1=cp1_tot;
+        c_tot=0.0;
 
-        for(j=0; j<binsize; j++)
+        for(i=0; i<sampleeff; i++)
            {
-           r=i*binsize+j;
-           c-=data[numcol*r+t];
-           cp1-=data[numcol*r+t+1];
+           c_tot+=data[numcol*i+aux];
            }
 
-        c/=(double)((numberofbins-1)*binsize);
-        cp1/=(double)((numberofbins-1)*binsize);
+        for(i=0; i<numberofbins; i++)
+           {
+           c=c_tot;
+
+           for(j=0; j<binsize; j++)
+              {
+              r=i*binsize+j;
+              c-=data[numcol*r+aux];
+              }
+
+           c/=(double)((numberofbins-1)*binsize);
   
-        datajack[(numcol-1)*i + t]=log(c/cp1);
+           datajack[numcol*i + aux] = -log(c)/(double)(t+1);
+           }
         }
      }
   }
@@ -64,23 +65,23 @@ void computejack(double * restrict datajack,
 // main
 int main(int argc, char **argv)
     {
-    int therm, binsize, j, Nt, numcol;
+    int therm, binsize, j, k, Nt, Ns, numcol;
     long int sample, numberofbins, sampleeff, i;
     double *data, *datajack, *ris, *err;
-    double hatm;
     char datafile[STRING_LENGTH];
 
     if(argc != 6)
       {
       fprintf(stdout, "How to use this program:\n");
-      fprintf(stdout, "  %s therm binsize Nt hatm datafile\n\n", argv[0]);
+      fprintf(stdout, "  %s therm binsize Nt Ns datafile\n\n", argv[0]);
       fprintf(stdout, "  therm = number of lines to be discarded as thermalization\n");
       fprintf(stdout, "  binsize = size of the bin to be used in binning/blocking\n");
       fprintf(stdout, "  Nt = number of temporal sites\n");
-      fprintf(stdout, "  hatm = a*m\n");
+      fprintf(stdout, "  Ns = number of spatial sites\n");
       fprintf(stdout, "  datafile = name of the data file to be analyzed\n\n");
       fprintf(stdout, "Output:\n");
-      fprintf(stdout, "  effective mass at various time distances\n");
+      fprintf(stdout, "  effective potential computed from Wilson loops of\n");
+      fprintf(stdout, "  different time extent\n");
 
       return EXIT_SUCCESS;
       }
@@ -90,7 +91,7 @@ int main(int argc, char **argv)
       therm=atoi(argv[1]);
       binsize=atoi(argv[2]);
       Nt=atoi(argv[3]);
-      hatm=atof(argv[4]);
+      Ns=atoi(argv[4]);
 
       if(strlen(argv[5]) >= STRING_LENGTH)
         {
@@ -116,7 +117,7 @@ int main(int argc, char **argv)
       }
 
     // number of columns of the file
-    numcol=(Nt/4); 
+    numcol=(Nt/4)*(Ns/4); 
 
     // determine the length of the file
     sample=linecounter_mc(datafile, numcol);
@@ -134,7 +135,7 @@ int main(int argc, char **argv)
       }
 
     // allocate jackknife samples
-    datajack=(double *)malloc((unsigned long int)(numberofbins*(numcol-1))*sizeof(double)); // in the jacknife we do not need the last column
+    datajack=(double *)malloc((unsigned long int)(numberofbins*numcol)*sizeof(double)); 
     if(datajack==NULL)
       {
       fprintf(stderr, "Allocation problem at (%s, %d)\n", __FILE__, __LINE__);
@@ -142,13 +143,13 @@ int main(int argc, char **argv)
       }
 
     // allocate ris, err
-    ris=(double *)malloc((unsigned long int)(numcol-1)*sizeof(double));
+    ris=(double *)malloc((unsigned long int)(numcol)*sizeof(double));
     if(ris==NULL)
       {
       fprintf(stderr, "Allocation problem at (%s, %d)\n", __FILE__, __LINE__);
       return EXIT_FAILURE;
       }
-    err=(double *)malloc((unsigned long int)(numcol-1)*sizeof(double));
+    err=(double *)malloc((unsigned long int)(numcol)*sizeof(double));
     if(err==NULL)
       {
       fprintf(stderr, "Allocation problem at (%s, %d)\n", __FILE__, __LINE__);
@@ -159,26 +160,26 @@ int main(int argc, char **argv)
     readdata_mc(datafile, therm, sampleeff, data, numcol);
 
     // compute jackknife resamplings
-    computejack(datajack, data, numberofbins, binsize, Nt);
+    computejack(datajack, data, numberofbins, binsize, Nt, Ns);
 
     // compute average
-    for(j=0; j<numcol-1; j++)
+    for(j=0; j<numcol; j++)
        {
        ris[j]=0.0;
        for(i=0; i<numberofbins; i++)
           {
-          ris[j]+=datajack[(numcol-1)*i+j];
+          ris[j]+=datajack[numcol*i+j];
           }
        ris[j]/=(double)numberofbins;
        }
 
     // compute error
-    for(j=0; j<numcol-1; j++)
+    for(j=0; j<numcol; j++)
        {
        err[j]=0.0;
        for(i=0; i<numberofbins; i++)
           {
-          err[j]+=pow(ris[j]-datajack[(numcol-1)*i+j], 2.0);
+          err[j]+=pow(ris[j]-datajack[numcol*i+j], 2.0);
           }
        // this corrects for a factor that is irrelevant but we leave it just for clarity
        err[j]*=(double)(numberofbins-1);
@@ -186,9 +187,14 @@ int main(int argc, char **argv)
        err[j]=sqrt(err[j]);
        }
 
-    for(j=0; j<numcol-1; j++)
+    for(j=0; j<Ns/4; j++)
        {
-       printf("%.12f %.12f\n", ris[j]/hatm, err[j]/hatm);
+       printf("%d ",j+1);
+       for(k=0; k<Nt/4; k++)
+          {
+          printf("%.12f %.12f ", ris[j*(Ns/4)+k], err[j*(Ns/4)+k]);
+          }
+       printf("\n");
        }
 
     // free data arrays
