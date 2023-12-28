@@ -10,11 +10,12 @@
 // REMEMBER: the data file is a 2 column file, each raw corresponding to measures taken on the same configuraton
 // first column = plaq
 // second column = top. charge
-// compute the jacknife samples of <plaq>  <top. charge>  <(top. charge)^2>
+// compute the jacknife samples of <plaq>  <top. charge>  top.susc.
 void computejack(double * restrict datajack, 
                  double const * const restrict data, 
                  long int numberofbins, 
-                 int binsize) 
+                 int binsize,
+                 long int stvolume) 
   {
   long int i, r;
   int j;
@@ -56,7 +57,7 @@ void computejack(double * restrict datajack,
 
      datajack[3*i+0]=ris1;
      datajack[3*i+1]=ris2;
-     datajack[3*i+2]=ris3;
+     datajack[3*i+2]=ris3/(double) stvolume;
      }
   }
 
@@ -65,19 +66,21 @@ void computejack(double * restrict datajack,
 int main(int argc, char **argv)
     {
     int therm, binsize, j;
-    long int sample, numberofbins, sampleeff, i;
+    long int sample, numberofbins, sampleeff, i, stvolume;
     double *data, *datajack, ris[3], err[3];  // 3 observables
     char datafile[STRING_LENGTH];
 
-    if(argc != 4)
+    if(argc != 5)
       {
       fprintf(stdout, "How to use this program:\n");
-      fprintf(stdout, "  %s therm binsize datafile\n\n", argv[0]);
+      fprintf(stdout, "  %s therm binsize stvolume datafile\n\n", argv[0]);
       fprintf(stdout, "  therm = number of lines to be discarded as thermalization\n");
       fprintf(stdout, "  binsize = size of the bin to be used in binning/blocking\n");
+      fprintf(stdout, "  binsize = size of the bin to be used in binning/blocking\n");
+      fprintf(stdout, "  stvolume = space-time volume\n");
       fprintf(stdout, "  datafile = name of the data file to be analyzed\n\n");
       fprintf(stdout, "Output:\n");
-      fprintf(stdout, "  <plaq>  <(top. charge)>  <(top. charge)^2>\n");
+      fprintf(stdout, "  <plaq>  <(top. charge)>  susc.top.\n");
       fprintf(stdout, "  computed using binning and jackknife\n");
 
       return EXIT_SUCCESS;
@@ -87,15 +90,16 @@ int main(int argc, char **argv)
       // read input
       therm=atoi(argv[1]);
       binsize=atoi(argv[2]);
+      stvolume=atol(argv[3]);
 
-      if(strlen(argv[3]) >= STRING_LENGTH)
+      if(strlen(argv[4]) >= STRING_LENGTH)
         {
         fprintf(stderr, "File name too long. Increse STRING_LENGTH or shorten the name (%s, %d)\n", __FILE__, __LINE__);
         return EXIT_FAILURE;
         }
       else
         {
-        strcpy(datafile, argv[3]);
+        strcpy(datafile, argv[4]);
         }
       }
 
@@ -132,7 +136,7 @@ int main(int argc, char **argv)
     readdata_mc(datafile, therm, sampleeff, data, 2);
 
     // compute jackknife resamplings
-    computejack(datajack, data, numberofbins, binsize);
+    computejack(datajack, data, numberofbins, binsize, stvolume);
 
     // compute average
     for(j=0; j<3; j++)
