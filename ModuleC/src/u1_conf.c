@@ -13,6 +13,8 @@
 #  define M_PI  3.141592653589793238462643383279502884
 #endif
 
+#define MIN(a,b) (((a)<(b))?(a):(b))  // min of two numbers
+
 #define STDIM 2  // space-time dimensionality
 #define STRING_LENGTH 50
 
@@ -331,7 +333,7 @@ int main(int argc, char **argv)
    FILE *fp;
 
    const int overrelax=5;
-   const int measevery=10;
+   const int measevery=50;
    const int unitarizeevery=10;
    const double epsilon=1;
    
@@ -352,7 +354,7 @@ int main(int argc, char **argv)
      fprintf(stdout, "Output:\n");
      fprintf(stdout, "  Wilson loops (Wt, Ws) using the following order\n");
      fprintf(stdout, "  for(Ws=1; Ws<=Ns/4; Ws++){\n");
-     fprintf(stdout, "      for(Wt=1; Wt<=Nt/4; Wt++){\n");
+     fprintf(stdout, "      for(Wt=1; Wt<=MIN(Nt/4,8); Wt++){\n");
      fprintf(stdout, "         Ws, Wt Wilson loop }}\n");
 
      return EXIT_SUCCESS;
@@ -482,7 +484,7 @@ int main(int argc, char **argv)
         // perform measures
         for(Ws=1; Ws<=Ns/4; Ws++)
            {
-           for(Wt=1; Wt<=Nt/4; Wt++)
+           for(Wt=1; Wt<=MIN(Nt/4, 8); Wt++)
               {
               W=Wilsonloop(lattice, nnp, nnm, Wt, Ws, epsilon, beta, stvolume);
               fprintf(fp, "%.12f ", W);

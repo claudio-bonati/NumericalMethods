@@ -7,6 +7,8 @@
 
 #include"../include/read_data.h"
 
+#define MIN(a,b) (((a)<(b))?(a):(b))  // min of two numbers
+
 #define STRING_LENGTH 50
 
 void computejack(double * restrict datajack, 
@@ -23,7 +25,7 @@ void computejack(double * restrict datajack,
   double c;
 
   // number of columns of datafile
-  numcol=(Ns/4)*(Nt/4);
+  numcol=(Ns/4)*MIN((Nt/4),8);
 
   for(r=0; r<numberofbins*numcol; r++)
      {
@@ -32,7 +34,7 @@ void computejack(double * restrict datajack,
 
   for(s=0; s<(Ns/4); s++)
      {
-     for(t=0; t<(Nt/4); t++)
+     for(t=0; t<MIN((Nt/4),8); t++)
         {
         aux=s*(Ns/4)+t;
 
@@ -104,12 +106,6 @@ int main(int argc, char **argv)
         }
       }
 
-    if(Nt<=1)
-      {
-      fprintf(stderr, "'Nt' must be larger than 1\n");
-      return EXIT_FAILURE;
-      }
-
     if(binsize<=0)
       {
       fprintf(stderr, "'binsize' must be positive\n");
@@ -117,7 +113,7 @@ int main(int argc, char **argv)
       }
 
     // number of columns of the file
-    numcol=(Nt/4)*(Ns/4); 
+    numcol=MIN((Nt/4),8)*(Ns/4); 
 
     // determine the length of the file
     sample=linecounter_mc(datafile, numcol);
@@ -190,7 +186,7 @@ int main(int argc, char **argv)
     for(j=0; j<Ns/4; j++)
        {
        printf("%d ",j+1);
-       for(k=0; k<Nt/4; k++)
+       for(k=0; k<MIN(Nt/4,8); k++)
           {
           printf("%.12f %.12f ", ris[j*(Ns/4)+k], err[j*(Ns/4)+k]);
           }
