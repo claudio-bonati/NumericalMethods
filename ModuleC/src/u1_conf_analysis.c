@@ -36,7 +36,7 @@ void computejack(double * restrict datajack,
      {
      for(t=0; t<MIN((Nt/4),8); t++)
         {
-        aux=s*(Ns/4)+t;
+        aux=s*MIN((Nt/4),8)+t;
 
         c_tot=0.0;
 
@@ -188,7 +188,7 @@ int main(int argc, char **argv)
        printf("%d ",j+1);
        for(k=0; k<MIN(Nt/4,8); k++)
           {
-          printf("%.12f %.12f ", ris[j*(Ns/4)+k], err[j*(Ns/4)+k]);
+          printf("%.12f %.12f ", ris[j*MIN((Nt/4),8)+k], err[j*MIN((Nt/4),8)+k]);
           }
        printf("\n");
        }
