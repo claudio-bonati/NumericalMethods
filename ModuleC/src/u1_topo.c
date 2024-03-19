@@ -103,7 +103,6 @@ int metropolis(double complex ** restrict lattice,
   }
 
 
-// return 1 if the update is accepted, 0 otherwise
 void overrelaxation(double complex ** restrict lattice, 
                     long int const * const restrict nnp,
                     long int const * const restrict nnm,
