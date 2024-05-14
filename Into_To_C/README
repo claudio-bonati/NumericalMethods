@@ -4,14 +4,38 @@ Introduction to C: some basic code to get acquainted with C
 
 *************************************************************
 
+arrays: basic arrays
+
 hello_world: just what the name says...
 
 command_line1: to introduce some command line functionalities
 
 command_line2: a more complex example, with also file writing
 
+dynamic_memory: dynamical allocation of memory
+
+flow_control: for if switch and all that
+
 functions: some basic facts about functions and pointers
 
 rng: random number generator
 
-dynamic_memory: dynamical allocation of memory
+types: basic types
+
+write_read: to read and write formatted files
+
+*******
+
+To be used in the following order
+
+hello_world
+types
+functions
+flow_control
+arrays
+write_read
+command_line1
+command_line2
+dynamic_memory
+
+
