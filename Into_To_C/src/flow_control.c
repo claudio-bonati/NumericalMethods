@@ -10,7 +10,7 @@ int main(void)
     x=0;
     for(i=0; i<4; i++)
        {
-       x=x+2;
+       x=x+2;  // we can also write x+=2
        }
     printf("1)  %d\n", x);
 
@@ -19,7 +19,10 @@ int main(void)
     while(i<4)
       {
       x=x+2;
-      i++;
+      i++; // equivalent to i=i+1  
+           // if used in a control (e.g. if(i++>0) )
+           // pay attention to the difference between
+           // i++ and ++i 
       }
     printf("2)  %d\n", x);
 
@@ -34,29 +37,36 @@ int main(void)
 
     printf("3)  %d\n", x);
 
-/////
     printf("\n");
 
+//--------------------------
+
     x=3;
-    if(x<=2)
+    if(x<2)
       {
-      printf("x<=2\n");
+      printf("x<2\n");
       }
-    else if(x>2 && x<5)
-           {
-           printf("2<x<5\n");
+    else if(x==2) // pay attention to the "double" equal, 
+           {      // with a single = the result would be complely different
+                  // sometimes Yoda writing is suggested to avoid errors: 2==x
+                  // will complain if used with a single =
+           printf("x=2\n");
            }
-         else
-           {
-           printf("x>5\n");
-           } 
+         else if(x>2 && x<5)
+                {
+                printf("2<x<5\n");
+                }
+              else
+                {
+                printf("x>5\n");
+                } 
 
-/////
     printf("\n");
 
+//--------------------------
 
-    x=3;
-    switch(x)
+    x=0;
+    switch(x)  // in general switch(expression)
       {
       case 0: printf("x=0\n");
               break;

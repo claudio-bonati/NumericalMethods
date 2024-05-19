@@ -10,6 +10,7 @@ int main()
 
     // allocate the vector. If length is too large this will fail in execution
     vec=(int *)malloc((unsigned long int)(length)*sizeof(int));
+    // this check could be avoided but it is safer to used it
     if(vec == NULL)
       {
       fprintf(stderr, "Allocation problem at (%s, %d)\n", __FILE__, __LINE__);
@@ -36,6 +37,7 @@ int main()
     // since we are accessing a region of memory that 
     // is not legitimate, but execution can also go on 
     // with unpredictable consequences.
+    //
     // printf("%d\n", vec[length+10]);
 
     // free the memory of the vector
@@ -46,6 +48,7 @@ int main()
     // since we are accessing a region of memory that 
     // is NO MORE legitimate but execution can also go on 
     // with unpredictable consequences.
+    //
     // printf("%d\n", vec[length-1]);
 
     //---------------------------

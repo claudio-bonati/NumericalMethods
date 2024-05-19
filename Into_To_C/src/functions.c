@@ -54,7 +54,7 @@ int factorial(int n)
 
 
 // main
-int main()
+int main(void)
     {
     int a, b, c;
 
@@ -86,6 +86,8 @@ int main()
 
     printf("\n");
 
+    // pay attention that too meny recustions could result in a stack overflow 
+    // e.g. for a cluster update in the low temperature on large lattices
     printf("function 4: recursive factorial\n");
     c=factorial(5);
     printf("5!=%d\n",c);

@@ -3,9 +3,7 @@
 #include<stdlib.h>
 #include<string.h>
 
-
 #define STRING_LENGTH 50
-
 
 // main
 int main(int argc, char **argv)
@@ -14,7 +12,7 @@ int main(int argc, char **argv)
     char datafile[STRING_LENGTH];
     FILE *fp;
 
-    if(argc != 4)
+    if(argc != 4) // 4 -> 3 arguments are expected
       {
       fprintf(stdout, "How to use this program:\n");
       fprintf(stdout, "  %s a b filename\n\n", argv[0]);
@@ -57,7 +55,7 @@ int main(int argc, char **argv)
 
     // print the result on the file in different ways
     fprintf(fp, "sqrt(%lf*%lf)=%lf\n", a, b, ris);
-    fprintf(fp, "with more places: sqrt(%.12lf*%.12lf)=%.12lf\n", a, b, ris);
+    fprintf(fp, "with more places: sqrt(%.8lf*%.8lf)=%.12lf\n", a, b, ris);
     fprintf(fp, "with too many places: sqrt(%.25lf*%.25lf)=%.25lf\n", a, b, ris);
     fprintf(fp, "check the last results on https://www.wolframalpha.com\n");
 

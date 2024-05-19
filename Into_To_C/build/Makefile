@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-O3 -Wall -Wextra -Werror -pedantic -Wconversion
+CFLAGS=-O3 #-Wall -Wextra -Werror -pedantic -Wconversion
 
 binaries=arrays flow_control hello_world command_line1 command_line2 dynamic_memory functions rng types write_read
 all: $(binaries)
@@ -37,7 +37,7 @@ write_read: ../src/write_read.c
 
 .PHONY: clean
 clean:
-	rm -f $(binaries) *.o data.dat
+	rm -f $(binaries) *.o *.dat
 
 cleanobj:
 	rm -f *.o

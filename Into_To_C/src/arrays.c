@@ -3,12 +3,13 @@
 #include<string.h>
 
 #define LENGTH 10  // macro 
-// if this number is too large one gest in execution
+// if this number is too large one gets in execution
 // Segmentation fault (core dumped)
 // and dynamic memory allocation is required
+// this happens before the RAM is full
 
 
-void times2(int *x) // also "void times2(int x[LENGTH])" is ok
+void times2(int x[LENGTH]) // also "void times2(int *x)" would work
    {
    int i;
  
@@ -24,8 +25,8 @@ void times2(int *x) // also "void times2(int x[LENGTH])" is ok
 //
 // void times2wrong(int *x)
 //
-// and in fact it would be better: some compilers would detect the problem in
-// the following function and complain
+// and in fact it would be better: the compiler could detect the problem in
+// the function and complain
 void times2wrong(int *x)
    {
    int i;
@@ -37,7 +38,7 @@ void times2wrong(int *x)
    }
 
 
-void times2matrix(int x[LENGTH][LENGTH])
+void times2matrix(int x[LENGTH][LENGTH]) // times2matrix(int **x) typically produces warnings
    {
    int i, j;
  
@@ -56,8 +57,10 @@ int main(void)
     {
     int i, j;
     int v[LENGTH];
-    int vv[LENGTH][LENGTH];
+    int matrix[LENGTH][LENGTH];
     char name[20];
+
+    // -------------------- vector 
 
     for(i=0; i<LENGTH; i++)
        {
@@ -65,7 +68,7 @@ int main(void)
        }
 
     // this is out of bound the compiler will complain or segmentation fault
-    // will likely follows at execution time
+    // or undermined behavior will likely follow at execution time
     //v[LENGTH]=1; 
     
     for(i=0; i<LENGTH; i++)
@@ -82,19 +85,19 @@ int main(void)
        }
     printf("\n");
 
-    ///////
+    //---------------- matrix
 
     for(i=0; i<LENGTH; i++)
        {
        for(j=0; j<LENGTH; j++)
           {
-          vv[i][j]=i+j;
+          matrix[i][j]=i+j;
           }
        }
 
-    times2matrix(vv);
+    times2matrix(matrix);
 
-    ////////
+    //-------------  strings
 
     // string initialized by using char
     name[0]='c';
