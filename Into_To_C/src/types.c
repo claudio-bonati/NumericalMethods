@@ -14,6 +14,14 @@ int main(void)
     const int one=1; // const integer
     int *pxi;    // pointer to integer
 
+    // Since the C99 standad complex variables are also available, e.g.
+    // 
+    // double complex x=0.9+0.3*I;
+    //
+    // To use complex numbers we need to include the <complex.h> header and
+    // pass to the compiler the flag -std=c99, to activate the functionalities
+    // of the C99 standard
+
     xc='a';
     xi=0;
     xl=0;
@@ -23,7 +31,7 @@ int main(void)
     // this is an error
     //xi=0.0;
     //
-    // the correct way is using a cast
+    // the correct way is to use a cast
     //xi=(int) 0.0; 
 
     xi=xi+one;
