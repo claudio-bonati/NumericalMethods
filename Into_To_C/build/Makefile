@@ -1,7 +1,7 @@
 CC=gcc
 CFLAGS=-O3 #-Wall -Wextra -Werror -pedantic -Wconversion
 
-binaries=arrays flow_control hello_world command_line1 command_line2 dynamic_memory functions rng types write_read
+binaries=arrays flow_control hello_world command_line1 command_line2 dynamic_memory functions integrator rng types write_read
 all: $(binaries)
 
 arrays: ../src/arrays.c
@@ -24,6 +24,9 @@ flow_control: ../src/flow_control.c
 
 functions: ../src/functions.c
 	$(CC) $(CFLAGS) ../src/functions.c -o $@ 
+
+integrator: ../src/integrator.c
+	$(CC) $(CFLAGS) ../src/integrator.c -o $@ -lm
 
 rng: ../src/rng.c
 	$(CC) $(CFLAGS) ../src/rng.c -o $@ -lm 

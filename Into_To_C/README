@@ -18,6 +18,8 @@ flow_control: for if switch and all that
 
 functions: some basic facts about functions and pointers
 
+integrator: basic integration algorithms
+
 rng: random number generator
 
 types: basic types
@@ -38,4 +40,5 @@ command_line1
 command_line2
 dynamic_memory
 
-
+integrator
+rng
