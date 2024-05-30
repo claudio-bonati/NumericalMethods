@@ -24,7 +24,7 @@ and executables will be generated in the build directory. Default
 compiler is gcc, if you want to use a different compiler 
 (e.g. clang), please use 
 
-make CC="you compiler"
+make CC="your compiler"
 
 Default compilation options are 
 

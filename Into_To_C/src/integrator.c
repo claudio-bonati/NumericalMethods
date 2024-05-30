@@ -2,7 +2,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 
-// compute the integral /int_{xmin}^{xmax) f(x) dx 
+// compute the integral \int_{xmin}^{xmax) f(x) dx 
 // with relative accuracy relacc_target
 // using the rectangle method
 double int_rel_rec(double xmin, 
@@ -60,7 +60,7 @@ double int_rel_rec(double xmin,
     } 
    
  
-// compute the integral /int_{xmin}^{xmax) f(x) dx 
+// compute the integral \int_{xmin}^{xmax) f(x) dx 
 // with  accuracy absacc_target
 // using the rectangle method
 double int_abs_rec(double xmin, 
@@ -118,7 +118,7 @@ double int_abs_rec(double xmin,
     } 
  
 
-// compute the integral /int_{xmin}^{xmax) f(x) dx 
+// compute the integral \int_{xmin}^{xmax) f(x) dx 
 // with relative accuracy relacc_target
 // using the trapezoidal method
 double int_rel_tra(double xmin, 
@@ -176,7 +176,7 @@ double int_rel_tra(double xmin,
     } 
    
  
-// compute the integral /int_{xmin}^{xmax) f(x) dx 
+// compute the integral \int_{xmin}^{xmax) f(x) dx 
 // with  accuracy absacc_target
 // using the trapezoidal method
 double int_abs_tra(double xmin, 
