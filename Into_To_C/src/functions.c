@@ -1,6 +1,16 @@
 #include<stdio.h>
 #include<stdlib.h>
 
+// global variable: its scope is the whole program
+// from a softwer engeneering point of view it is better to avoid global 
+// variable, since they introduce hidden dependeces between functions
+// but sometimes are useful
+int globint;
+
+int func_on_glob(void)
+  {
+  globint+=1;
+  }
 
 int product(int a, int b)
   {
@@ -86,13 +96,20 @@ int main(void)
 
     printf("\n");
 
-    // pay attention that too meny recustions could result in a stack overflow 
+    // pay attention that too meny recursions could result in a stack overflow 
     // e.g. for a cluster update in the low temperature on large lattices
     printf("function 4: recursive factorial\n");
     c=factorial(5);
     printf("5!=%d\n",c);
 
+
+    // use of global variables
+    globint=1;
     printf("\n");
+    globint=1;
+    printf("globint=%d\n", globint);
+    func_on_glob();
+    printf("globint=%d\n", globint);
 
     return EXIT_SUCCESS;
     }
