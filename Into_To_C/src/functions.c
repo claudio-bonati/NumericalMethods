@@ -7,7 +7,7 @@
 // but sometimes are useful
 int globint;
 
-int func_on_glob(void)
+void func_on_glob(void)
   {
   globint+=1;
   }

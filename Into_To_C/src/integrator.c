@@ -18,12 +18,12 @@ double int_rel_rec(double xmin,
 
     iteration=1;
     steps=10;
-    delta=(xmax-xmin)/steps;
+    delta=(xmax-xmin)/(double) steps;
     
     ris=0.0;
     for(i=0; i<steps; i++)
        {
-       ris+=f(xmin+i*delta);
+       ris+=f(xmin+(double)i*delta);
        }
     ris*=delta;
 
@@ -34,12 +34,12 @@ double int_rel_rec(double xmin,
          risold=ris;
   
          steps*=2;
-         delta=(xmax-xmin)/steps;
+         delta=(xmax-xmin)/(double)steps;
 
          ris=0.0;
          for(i=0; i<steps; i++)
             {
-            ris+=f(xmin+i*delta);
+            ris+=f(xmin+(double)i*delta);
             }
          ris*=delta;
 
@@ -76,12 +76,12 @@ double int_abs_rec(double xmin,
 
     iteration=1;
     steps=10;
-    delta=(xmax-xmin)/steps;
+    delta=(xmax-xmin)/(double)steps;
     
     ris=0.0;
     for(i=0; i<steps; i++)
        {
-       ris+=f(xmin+i*delta);
+       ris+=f(xmin+(double)i*delta);
        }
     ris*=delta;
 
@@ -92,12 +92,12 @@ double int_abs_rec(double xmin,
          risold=ris;
   
          steps*=2;
-         delta=(xmax-xmin)/steps;
+         delta=(xmax-xmin)/(double)steps;
 
          ris=0.0;
          for(i=0; i<steps; i++)
             {
-            ris+=f(xmin+i*delta);
+            ris+=f(xmin+(double)i*delta);
             }
          ris*=delta;
 
@@ -134,12 +134,12 @@ double int_rel_tra(double xmin,
 
     iteration=1;
     steps=10;
-    delta=(xmax-xmin)/steps;
+    delta=(xmax-xmin)/(double)steps;
     
     ris=0.0;
     for(i=0; i<steps; i++)
        {
-       ris+=(f(xmin+i*delta)+f(xmin+(i+1)*delta))/2.0;
+       ris+=(f(xmin+(double)i*delta)+f(xmin+(double)(i+1)*delta))/2.0;
        }
     ris*=delta;
 
@@ -150,12 +150,12 @@ double int_rel_tra(double xmin,
          risold=ris;
   
          steps*=2;
-         delta=(xmax-xmin)/steps;
+         delta=(xmax-xmin)/(double)steps;
 
          ris=0.0;
          for(i=0; i<steps; i++)
             {
-            ris+=(f(xmin+i*delta)+f(xmin+(i+1)*delta))/2.0;
+            ris+=(f(xmin+(double)i*delta)+f(xmin+(double)(i+1)*delta))/2.0;
             }
          ris*=delta;
 
@@ -192,12 +192,12 @@ double int_abs_tra(double xmin,
 
     iteration=1;
     steps=10;
-    delta=(xmax-xmin)/steps;
+    delta=(xmax-xmin)/(double)steps;
     
     ris=0.0;
     for(i=0; i<steps; i++)
        {
-       ris+=(f(xmin+i*delta)+f(xmin+(i+1)*delta))/2.0;
+       ris+=(f(xmin+(double)i*delta)+f(xmin+(double)(i+1)*delta))/2.0;
        }
     ris*=delta;
 
@@ -208,12 +208,12 @@ double int_abs_tra(double xmin,
          risold=ris;
   
          steps*=2;
-         delta=(xmax-xmin)/steps;
+         delta=(xmax-xmin)/(double)steps;
 
          ris=0.0;
          for(i=0; i<steps; i++)
             {
-            ris+=(f(xmin+i*delta)+f(xmin+(i+1)*delta))/2.0;
+            ris+=(f(xmin+(double)i*delta)+f(xmin+(double)(i+1)*delta))/2.0;
             }
          ris*=delta;
 
@@ -240,11 +240,11 @@ double test(double x)
     }
 
 
-int main(int argc, char **argv)
+int main(void)
     {
     int err;
     double ris;
-    const double prec=1.0e-9;
+    const double prec=1.0e-7;
     const double pi=3.141592653589793238462643383279;
 
     printf("Rectangle method\n");
