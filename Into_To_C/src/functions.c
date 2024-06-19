@@ -1,3 +1,4 @@
+#include<math.h>
 #include<stdio.h>
 #include<stdlib.h>
 
@@ -19,7 +20,6 @@ int product(int a, int b)
   ris=a*b;
   return ris;
   }
-
 
 // a and b passed by value (not by reference) so this swap does not work!
 void swap1(int a, int b)
@@ -48,7 +48,6 @@ void swap2(int *a, int *b)
   printf("inside swap2: b=%d\n",*b);
   }
 
-
 // recursive function
 int factorial(int n)
   {
@@ -67,6 +66,7 @@ int factorial(int n)
 int main(void)
     {
     int a, b, c;
+    double x;
 
     a=2;
     b=3;
@@ -75,6 +75,12 @@ int main(void)
 
     printf("function 1: product\n");
     printf("%d*%d=%d\n", a,b,c);
+
+    printf("library function: sin\n"); 
+    x=2.0;
+    printf("%lf\n", sin(x)); // function declared in math.h
+                             // in compilation requires -lm to
+                             // link to the mathematical library
 
     printf("\n");
 

@@ -23,7 +23,7 @@ flow_control: ../src/flow_control.c
 	$(CC) $(CFLAGS) ../src/flow_control.c -o $@ 
 
 functions: ../src/functions.c
-	$(CC) $(CFLAGS) ../src/functions.c -o $@ 
+	$(CC) $(CFLAGS) ../src/functions.c -o $@ -lm 
 
 integrator: ../src/integrator.c
 	$(CC) $(CFLAGS) ../src/integrator.c -o $@ -lm
