@@ -29,7 +29,7 @@ int main(void)
        {
        fprintf(fp, "%lf\n", ((double) i)/10.0);
        // we are neglecting the possibility of errors in frprintf. It would be
-       // more correct to form below
+       // more correct to use the form below
        //
        //err=fprintf(fp, "%lf\n", ((double) i)/10.0);
        //if(err!=1)
