@@ -11,6 +11,7 @@ int globint;
 void func_on_glob(void)
   {
   globint+=1;
+  // globint=globint+1;
   }
 
 int product(int a, int b)
@@ -47,6 +48,7 @@ void swap2(int *a, int *b)
   printf("inside swap2: a=%d\n",*a);
   printf("inside swap2: b=%d\n",*b);
   }
+
 
 // recursive function
 int factorial(int n)
@@ -107,11 +109,9 @@ int main(void)
     printf("function 4: recursive factorial\n");
     c=factorial(5);
     printf("5!=%d\n",c);
-
+    printf("\n");
 
     // use of global variables
-    globint=1;
-    printf("\n");
     globint=1;
     printf("globint=%d\n", globint);
     func_on_glob();

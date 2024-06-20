@@ -27,7 +27,7 @@ int main(void)
     xf=0.0;
     xd=0.0;
 
-    // this is an error
+    // this would be an error
     //xi=0.0;
     //
     // the correct way is to use a cast
@@ -36,7 +36,7 @@ int main(void)
     xi=xi+one;
     xl=xl+(long)one; // this cast is not really necessary
     xf=(float)one;   // this cast is not really necessary
-    xd=1.0;
+    xd=100.0;
 
     // this is an error, since "one" was defined constant
     //one=2;  
