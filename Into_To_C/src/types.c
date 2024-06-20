@@ -28,10 +28,10 @@ int main(void)
     xd=0.0;
 
     // this would be an error
-    //xi=0.0;
+    //xi=xd;
     //
     // the correct way is to use a cast
-    //xi=(int) 0.0; 
+    //xi=(int) xd; 
 
     xi=xi+one;
     xl=xl+(long)one; // this cast is not really necessary
