@@ -1,4 +1,3 @@
-#include<math.h>
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
@@ -53,10 +52,13 @@ int main(void)
     for(i=0; i<10; i++)
        {
        err=fscanf(fp, "%lf\n", &(x[i])); // neglecting "err" would result in a warning
+                                         // if everything is ok "err" should be equal to 1
+                                         // (in general fscanf returns the number of objects read)
        if(err!=1)
          {
-         fprintf(stderr, "Error in scanf (%s, %d)\n", __FILE__, __LINE__);
-         exit(EXIT_FAILURE);
+         fprintf(stderr, "Error in scanf (%s, %d)\n", __FILE__, __LINE__); // print on the standard error the file 
+                                                                           // and line at which the error occurred
+         exit(EXIT_FAILURE); // this abort the main, returning an error code
          }
        }
 
