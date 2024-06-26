@@ -30,15 +30,18 @@ write_read: to read and write formatted files
 
 *******
 
-To be used in the following order
+To be studied in the following order
 
 hello_world
+
 types
 types_complex
-functions
 flow_control
+
+functions
 arrays
 write_read
+
 dynamic_memory
 command_line1
 command_line2

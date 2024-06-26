@@ -8,6 +8,7 @@ int main(void)
     {
     int i, err;
     double x[10];
+    int xi[10];
     char datafile[20]; // file name
     FILE *fp; // pointer to file
 
@@ -26,12 +27,12 @@ int main(void)
 
     for(i=0; i<10; i++)
        {
-       fprintf(fp, "%lf\n", ((double) i)/10.0);
+       fprintf(fp, "%lf  %d\n", ((double) i)/10.0, i);
        // we are neglecting the possibility of errors in frprintf. It would be
        // more correct to use the form below
        //
-       //err=fprintf(fp, "%lf\n", ((double) i)/10.0);
-       //if(err!=1)
+       //err = fprintf(fp, "%lf  %d\n", ((double) i)/10.0, i);
+       //if(err!=2)
        //  {
        //  fprintf(stderr, "Error in printf (%s, %d)\n", __FILE__, __LINE__);
        //  exit(EXIT_FAILURE);
@@ -51,10 +52,10 @@ int main(void)
  
     for(i=0; i<10; i++)
        {
-       err=fscanf(fp, "%lf\n", &(x[i])); // neglecting "err" would result in a warning
-                                         // if everything is ok "err" should be equal to 1
-                                         // (in general fscanf returns the number of objects read)
-       if(err!=1)
+       err=fscanf(fp, "%lf %d", &(x[i]), &(xi[i])); // neglecting "err" would result in a warning
+                                                    // if everything is ok "err" should be equal to 2
+                                                    // (in general fscanf returns the number of objects read)
+       if(err!=2)
          {
          fprintf(stderr, "Error in scanf (%s, %d)\n", __FILE__, __LINE__); // print on the standard error the file 
                                                                            // and line at which the error occurred
@@ -67,6 +68,12 @@ int main(void)
     for(i=0; i<10; i++)
        {
        printf("%lf ", x[i]);
+       }
+    printf("\n");
+
+    for(i=0; i<10; i++)
+       {
+       printf("%d ", xi[i]);
        }
     printf("\n");
 
