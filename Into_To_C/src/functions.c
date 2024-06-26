@@ -1,4 +1,4 @@
-#include<math.h>
+#include<math.h>  // <---- needed for mathematical operations less trivial than basic arithmetical ones
 #include<stdio.h>
 #include<stdlib.h>
 

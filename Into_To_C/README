@@ -24,6 +24,8 @@ rng: random number generator
 
 types: basic types
 
+types_complex: an explicit example with complex numbers
+
 write_read: to read and write formatted files
 
 *******
@@ -32,13 +34,14 @@ To be used in the following order
 
 hello_world
 types
+types_complex
 functions
 flow_control
 arrays
 write_read
+dynamic_memory
 command_line1
 command_line2
-dynamic_memory
 
 integrator
 rng

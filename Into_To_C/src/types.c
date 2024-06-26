@@ -20,6 +20,8 @@ int main(void)
     // To use complex numbers we need to include the <complex.h> header and
     // pass to the compiler the flag -std=c99, to activate the functionalities
     // of the C99 standard
+    //
+    // see types_complex.c for an explicit example
 
     xc='a';
     xi=0;

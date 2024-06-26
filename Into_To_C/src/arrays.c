@@ -1,9 +1,10 @@
 #include<stdio.h>
 #include<stdlib.h>
-#include<string.h>
+#include<string.h> // <---- needed to use string operations
 
-#define LENGTH 10  // macro 
-// if this number is too large one gets in execution
+#define LENGTH 10  // macro: at compile time LENGTH is 
+                   // replaced in the code by its numerical value
+// if LENGTH is too large one gets in execution
 // Segmentation fault (core dumped)
 // and dynamic memory allocation is required
 // this happens before the RAM is full
