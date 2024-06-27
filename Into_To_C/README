@@ -14,7 +14,7 @@ command_line2: a more complex example, with also file writing
 
 dynamic_memory: dynamical allocation of memory
 
-flow_control: for if switch and all that
+flow_control: for if while and all that
 
 functions: some basic facts about functions and pointers
 
