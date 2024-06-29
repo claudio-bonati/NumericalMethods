@@ -22,6 +22,8 @@ integrator: basic integration algorithms
 
 rng: random number generator
 
+struct: basic structures
+
 types: basic types
 
 types_complex: an explicit example with complex numbers
@@ -43,6 +45,7 @@ arrays
 write_read
 
 dynamic_memory
+struct
 command_line1
 command_line2
 
