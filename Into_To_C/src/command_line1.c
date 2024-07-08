@@ -20,7 +20,7 @@ int main(int argc, char **argv) //<---- in previous examples it was int main(voi
     else
       {  
       // read input values 
-      a=atoi(argv[1]);
+      a=atoi(argv[1]); // atoi=library function to convert string to integer
       b=atoi(argv[2]);
       }
 

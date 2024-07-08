@@ -52,7 +52,7 @@ double av_w_on_leg_large_struct(Animal *bobby)
 // this function change some element of "bobby", so we can not use const * const
 void ten_k_fatter(Animal * bobby)
   {
-  bobby->weight+=10;
+  bobby->weight+=10.0;
   }
 
 
@@ -62,13 +62,13 @@ int main(void)
     Animal dog, chicken, lame_cat;
 
     dog.legs=4;
-    dog.weight=50;
+    dog.weight=50.0;
 
     chicken.legs=2;
-    chicken.weight=5;
+    chicken.weight=5.0;
 
     lame_cat.legs=3;
-    lame_cat.weight=10;
+    lame_cat.weight=10.0;
 
     printf("dog=%lf  chicken=%lf  lame_cat=%lf\n", av_w_on_leg(dog), 
                                                    av_w_on_leg(chicken), 

@@ -27,7 +27,7 @@ int main(int argc, char **argv)
     else
       {  
       // read input values 
-      a=atof(argv[1]);
+      a=atof(argv[1]); // atof = string to double 
       b=atof(argv[2]);
 
       // filename could be too long, we have to check to prevent errors
@@ -38,7 +38,7 @@ int main(int argc, char **argv)
         }
       else
         {
-        strcpy(datafile, argv[3]);
+        strcpy(datafile, argv[3]); // copy argv[3] in the string datafile
         }
       }
 
