@@ -8,6 +8,11 @@
 typedef struct Animal {
   int legs;
   double weight;  
+  struct Animal *mother; // this will not be used. I added it only to show that it is possible
+                         // to define recursive structures, which are useful to implement
+                         // trees and graphs
+                         // In the specific case the pointer *mother could be used to point to the 
+                         // structure which describes the "mother" or the animal described.
   } Animal;
 
 // the disentangled struct+typedef definition is as follows
