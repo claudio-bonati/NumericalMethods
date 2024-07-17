@@ -20,6 +20,8 @@ functions: some basic facts about functions and pointers
 
 integrator: basic integration algorithms
 
+integrator2: basic integration algorithms using int_lib.c and int_lib.h
+
 rng: random number generator
 
 struct: basic structures
@@ -50,4 +52,5 @@ command_line1
 command_line2
 
 integrator
+integrator2
 rng
