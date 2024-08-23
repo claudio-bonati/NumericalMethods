@@ -2,7 +2,7 @@
 #include<stdlib.h>
 
 // main
-int main()
+int main(void)
     {
     int *vec;
     int **matrix;
