@@ -244,13 +244,13 @@ int main(int argc, char **argv)
       }
 
     // allocate ris, err
-    ris=(double *)malloc((unsigned long int)((numcol-5)*sizeof(double)));
+    ris=(double *)malloc((unsigned long int)(numcol-5)*sizeof(double));
     if(ris==NULL)
       {
       fprintf(stderr, "Allocation problem at (%s, %d)\n", __FILE__, __LINE__);
       return EXIT_FAILURE;
       }
-    err=(double *)malloc((unsigned long int)((numcol-5)*sizeof(double)));
+    err=(double *)malloc((unsigned long int)(numcol-5)*sizeof(double));
     if(err==NULL)
       {
       fprintf(stderr, "Allocation problem at (%s, %d)\n", __FILE__, __LINE__);
