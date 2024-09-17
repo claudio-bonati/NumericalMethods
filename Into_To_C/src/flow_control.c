@@ -8,7 +8,10 @@ int main(void)
     int x, i;
 
     x=0;
-    for(i=0; i<4; i++)
+    for(i=0; i<4; i++)  // i++ stands for i=i+1, 
+                        // i.e. increment i by one at each iteration
+                        // pay attention to the difference between
+                        // i++ and ++i 
        {
        x=x+2;  // we can also write x+=2
        }
@@ -19,10 +22,7 @@ int main(void)
     while(i<4)
       {
       x=x+2;
-      i++; // equivalent to i=i+1  
-           // if used in a control (e.g. if(i++>0) )
-           // pay attention to the difference between
-           // i++ and ++i 
+      i++; 
       }
     printf("2)  %d\n", x);
 

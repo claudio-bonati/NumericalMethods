@@ -29,16 +29,19 @@ int main(void)
     xf=0.0;
     xd=0.0;
 
-    // this would be an error
-    //xi=xd;
+    // this would be an error (or a warning)
+    // xi=xd;
     //
     // the correct way is to use a cast
-    //xi=(int) xd; 
+    // xi=(int) xd; 
 
     xi=xi+one;
     xl=xl+(long)one; // this cast is not really necessary
     xf=(float)one;   // this cast is not really necessary
     xd=100.0;
+
+    xi=2*xi; // this is to be read as: "store in xi the number 2*xi" 
+             // NOT as an equation
 
     // this is an error, since "one" was defined constant
     //one=2;  
@@ -51,6 +54,7 @@ int main(void)
 
     pxi=&xi;       // pxi point to the location where xi is stored (the "reference" of xi)
                    // *pxi is the content of the memory location pointed by pxi
+                   
     *pxi=(*pxi)*2;  
     printf("%d\n",xi);
 
