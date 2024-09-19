@@ -11,7 +11,7 @@ int globint;
 void func_on_glob(void)
   {
   globint+=1;
-  // globint=globint+1;
+  // equivalent to globint=globint+1;
   }
 
 int product(int a, int b)
@@ -104,7 +104,7 @@ int main(void)
 
     printf("\n");
 
-    // pay attention that too meny recursions could result in a stack overflow 
+    // pay attention that too many recursions could result in a stack overflow 
     // e.g. for a cluster update in the low temperature on large lattices
     printf("function 4: recursive factorial\n");
     c=factorial(5);
