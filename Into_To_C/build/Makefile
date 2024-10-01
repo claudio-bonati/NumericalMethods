@@ -31,7 +31,7 @@ integrator: ../src/integrator.c
 int_lib.o: ../src/int_lib.c ../src/int_lib.h
 	$(CC) $(CFLAGS) -c ../src/int_lib.c 
 
-integrator2: ../src/integrator.c int_lib.o
+integrator2: ../src/integrator2.c int_lib.o
 	$(CC) $(CFLAGS) ../src/integrator2.c int_lib.o -o $@ -lm
 
 rng: ../src/rng.c

@@ -54,3 +54,17 @@ command_line2
 integrator
 integrator2
 rng
+
+*********
+
+To compile the integrator2.c file, which depends on the library file int_lib.c
+and on the header file int_lib.h, you have to use something like
+
+gcc -c int_lib.c 
+gcc -c integrator2.c 
+gcc integrator2.o int_lib.o -o exe -lm
+
+The first two commands produce the object files int_lib.c and integrator2.o,
+respectively. The third lines link the object files and produces the executable
+file exe.
+
