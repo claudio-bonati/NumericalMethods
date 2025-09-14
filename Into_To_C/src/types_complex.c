@@ -2,7 +2,6 @@
 #include<stdio.h>
 #include<stdlib.h>
 
-
 // this code needs -std=c99 to be added to the compilation string
 // to properly compile, although it is likely that some compiler
 // can understand this also without explicitly specifying it 

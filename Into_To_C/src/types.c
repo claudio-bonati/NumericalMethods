@@ -1,7 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
 
-
 // main
 int main(void)
     {
@@ -29,7 +28,7 @@ int main(void)
     xf=0.0;
     xd=0.0;
 
-    // this would be an error (or a warning)
+    // this would be an error (or a warning, triggered by -Wconversion)
     // xi=xd;
     //
     // the correct way is to use a cast
@@ -46,17 +45,17 @@ int main(void)
     // this is an error, since "one" was defined constant
     //one=2;  
     
-    printf("%c\n", xc);
-    printf("%d\n", xi);
-    printf("%ld\n", xl);
-    printf("%f\n", xf);
-    printf("%lf  %.15lf  %.10e  %.10g\n", xd, xd, xd, xd);
+    printf("1) %c\n", xc);
+    printf("2) %d\n", xi);
+    printf("3) %ld\n", xl);
+    printf("4) %f\n", xf);
+    printf("5) %lf  %.15lf  %.10e  %.10g\n", xd, xd, xd, xd);
 
     pxi=&xi;       // pxi point to the location where xi is stored (the "reference" of xi)
                    // *pxi is the content of the memory location pointed by pxi
                    
     *pxi=(*pxi)*2;  
-    printf("%d\n",xi);
+    printf("6) %d\n",xi);
 
     return EXIT_SUCCESS;
     }
