@@ -4,7 +4,7 @@
 
 // global variable: its scope is the whole program
 // from a softwer engeneering point of view it is better to avoid global 
-// variable, since they introduce hidden dependeces between functions
+// variable, since they introduce hidden dependences between functions
 // but sometimes are useful
 int globint;
 

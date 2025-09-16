@@ -32,22 +32,22 @@ int main(void)
 
     printf("%d\n", vec[length-1]);
 
-    // if not commented this line typically produces 
-    // "Segmentation fault (core dumped)" 
-    // since we are accessing a region of memory that 
-    // is not legitimate, but execution can also go on 
-    // with unpredictable consequences.
+    //// if not commented this line typically produces 
+    //// "Segmentation fault (core dumped)" 
+    //// since we are accessing a region of memory that 
+    //// is not legitimate, but execution can also go on 
+    //// with unpredictable consequences.
     //
     // printf("%d\n", vec[length+10]);
 
     // free the memory of the vector
     free(vec);
 
-    // if not commented this line typically produces 
-    // "Segmentation fault (core dumped)" 
-    // since we are accessing a region of memory that 
-    // is NO MORE legitimate but execution can also go on 
-    // with unpredictable consequences.
+    //// if not commented this line typically produces 
+    //// "Segmentation fault (core dumped)" 
+    //// since we are accessing a region of memory that 
+    //// is NO MORE legitimate but execution can also go on 
+    //// with unpredictable consequences.
     //
     // printf("%d\n", vec[length-1]);
 

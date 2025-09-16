@@ -18,7 +18,8 @@ int main(void)
     // if "a" is used instead of "w" data are appended, without deleting
     // the previous content  
     fp=fopen(datafile, "w");
-    // it is safer to check that everything worked, as done below
+    //// it is safer (although not mandatory) to check that 
+    //// everything worked properly, as done below
     //if(fp==NULL)
     //  {
     //  fprintf(stderr, "Error in opening the file %s (%s, %d)\n", datafile, __FILE__, __LINE__);
@@ -28,9 +29,8 @@ int main(void)
     for(i=0; i<10; i++)
        {
        fprintf(fp, "%lf  %d\n", ((double) i)/10.0, i);
-       // we are neglecting the possibility of errors in frprintf. It would be
-       // more correct to use the form below
-       //
+       //// we are neglecting the possibility of errors in frprintf. It would be
+       //// more correct to use the form below
        //err = fprintf(fp, "%lf  %d\n", ((double) i)/10.0, i);
        //if(err!=2)
        //  {
@@ -43,7 +43,7 @@ int main(void)
 
     // open data file for reading
     fp=fopen(datafile, "r");
-    // it is safer to check that everything worked, as done below
+    //// it is safer to check that everything worked properly, as done below
     //if(fp==NULL)
     //  {
     //  fprintf(stderr, "Error in opening the file %s (%s, %d)\n", datafile, __FILE__, __LINE__);

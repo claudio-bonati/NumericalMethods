@@ -32,14 +32,14 @@ void times2wrong(int *x)
    {
    int i;
  
-   for(i=0; i<LENGTH+10; i++)
+   for(i=0; i<LENGTH+10; i++) // i reaches values > LENGTH. Problem!
       {
       x[i]*=2;
       }
    }
 
 
-void times2matrix(int x[LENGTH][LENGTH]) // times2matrix(int **x) typically produces warnings
+void times2matrix(int x[LENGTH][LENGTH]) // times2matrix(int **x) can produce warnings
    {
    int i, j;
  
@@ -68,7 +68,7 @@ int main(void)
        v[i]=i;
        }
 
-    // this is out of bound the compiler will complain or segmentation fault
+    // this is out of bound, the compiler could complain or segmentation fault
     // or undermined behavior will likely follow at execution time
     //v[LENGTH]=1; 
     
