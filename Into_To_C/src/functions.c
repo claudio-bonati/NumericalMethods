@@ -1,17 +1,16 @@
-#include<math.h>  // <---- needed for mathematical operations less trivial than basic arithmetical ones
+#include<math.h>  // <---- needed for mathematical operations less trivial than the basic arithmetical ones
 #include<stdio.h>
 #include<stdlib.h>
 
 // global variable: its scope is the whole program
 // from a softwer engeneering point of view it is better to avoid global 
 // variable, since they introduce hidden dependences between functions
-// but sometimes are useful
+// but sometimes can be useful
 int globint;
 
 void func_on_glob(void)
   {
-  globint+=1;
-  // equivalent to globint=globint+1;
+  globint+=1;  // equivalent to globint=globint+1;
   }
 
 int product(int a, int b)

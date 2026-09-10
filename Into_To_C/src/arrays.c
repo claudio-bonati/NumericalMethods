@@ -7,7 +7,7 @@
 // if LENGTH is too large one gets in execution
 // Segmentation fault (core dumped)
 // and dynamic memory allocation is required
-// this happens before the RAM is full
+// this happens way before the RAM is full
 
 
 void times2(int x[LENGTH]) // also "void times2(int *x)" would work
@@ -26,13 +26,13 @@ void times2(int x[LENGTH]) // also "void times2(int *x)" would work
 //
 // void times2wrong(int *x)
 //
-// and in fact it would be better: the compiler could detect the problem in
+// and in fact it would be better: a smart compiler could detect the problem in
 // the function and complain
 void times2wrong(int *x)
    {
    int i;
  
-   for(i=0; i<LENGTH+10; i++) // i reaches values > LENGTH. Problem!
+   for(i=0; i<LENGTH+10; i++) // i reaches values larger than LENGTH. Problem!!
       {
       x[i]*=2;
       }
@@ -107,19 +107,19 @@ int main(void)
     name[3]='o';
     for(i=0; i<20; i++)
        {
-       printf("%c ", name[i]);
+       printf("%c.", name[i]);
        }
     printf("\n");
-    printf("%s\n", name);
+    printf("%s.\n", name);
 
     // string initialized as a string
     strcpy(name, "riciao");
     for(i=0; i<20; i++)
        {
-       printf("%c ", name[i]);
+       printf("%c.", name[i]);
        }
     printf("\n");
-    printf("%s\n", name);
+    printf("%s.\n", name);
 
     return EXIT_SUCCESS;
     }

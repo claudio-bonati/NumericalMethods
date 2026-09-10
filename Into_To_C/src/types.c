@@ -11,6 +11,8 @@ int main(void)
     double xd;   // double precision floating point
     const int one=1; // const integer
     int *pxi;    // pointer to integer
+                 // pointers, denoted by *, can point to any type: 
+                 // e.g, double *pxd; declare a pointer to double   
 
     // Since the C99 standad complex variables are also available, e.g.
     // 
@@ -34,13 +36,14 @@ int main(void)
     // the correct way is to use a cast
     // xi=(int) xd; 
 
-    xi=xi+one;
+    xi=xi+one;  // this is to be read as: "store in xi the number xi+1" 
+                // NOT as an equation
+
     xl=xl+(long)one; // this cast is not really necessary
     xf=(float)one;   // this cast is not really necessary
     xd=100.0;
 
-    xi=2*xi; // this is to be read as: "store in xi the number 2*xi" 
-             // NOT as an equation
+    xi=2*xi; 
 
     // this is an error, since "one" was defined constant
     //one=2;  
@@ -54,7 +57,7 @@ int main(void)
     pxi=&xi;       // pxi point to the location where xi is stored (the "reference" of xi)
                    // *pxi is the content of the memory location pointed by pxi
                    
-    *pxi=(*pxi)*2;  
+    *pxi=(*pxi)*2; // multiply by 2 the content of the memory location pointed by pxi 
     printf("6) %d\n",xi);
 
     return EXIT_SUCCESS;

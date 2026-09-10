@@ -12,9 +12,9 @@ int main(void)
                         // i.e. increment i by one at each iteration
                         // pay attention to the difference between
                         // i++ and ++i [irrelevant in the present context]
-                        // if i=1 then 
+                        // if y=0 and i=1 then 
                         // y=i++ gives y=1, i=2
-                        // y=++i dives y=2, i=2
+                        // y=++i gives y=2, i=2
        {
        x=x+2;  // we can also write x+=2
        }

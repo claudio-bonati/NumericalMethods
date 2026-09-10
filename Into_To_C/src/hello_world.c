@@ -2,7 +2,7 @@
 #include<stdlib.h>
 
 // main
-int main(void) // also int main() would work as well
+int main(void)
     {
     printf("Hello world!\n");
 
