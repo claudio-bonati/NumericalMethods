@@ -16,6 +16,11 @@ ModuleC: Path-integral simulations for quantum field theories
 
 -------------------------
 
+Intro_To_C/src/start.c: standalone file that can be used as step
+                         zero to start writing any MC algorithm.
+
+-------------------------
+
 TO COMPILE: from inside one of the modules use 
 
 make
