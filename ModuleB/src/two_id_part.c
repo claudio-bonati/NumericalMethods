@@ -9,8 +9,6 @@
 
 #define STRING_LENGTH 50
 
-//#define METRO // if defined Metropolis update is used
-
 // stucture for the configuration 
 typedef struct Node {
   double value;  
